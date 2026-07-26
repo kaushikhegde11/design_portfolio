@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study.001 Namma Transit — Kaushik Hegde</title>
+<meta name="description" content="Case study: redesigning metro ticketing for offline-first commutes — problem, research method, findings, wireframes, and measured outcomes.">
+<link rel="canonical" href="https://kaushikhegde.example/case-studies/namma-transit">
+<meta property="og:title" content="Study.001 Namma Transit — Kaushik Hegde">
+<meta property="og:description" content="Rebuilding metro ticketing for offline-first commutes.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kaushikhegde.example/case-studies/namma-transit">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23FAFAF8'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%232B4CFF'/%3E%3C/svg%3E">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&family=Silkscreen&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/manual.css">
+<script src="js/main.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Namma Transit — offline-first metro ticketing",
+  "author": { "@type": "Person", "name": "Kaushik Hegde" },
+  "dateCreated": "2026",
+  "about": "Product design case study on rebuilding a metro ticketing flow for unreliable network conditions."
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap masthead">
+    <a class="wordmark" href="index.html">Kaushik Hegde</a>
+    <p class="masthead-right">
+      <span class="subtitle">Design and photography with a curious mind.</span>
+    </p>
+  </div>
+  <div class="rule-hatch" aria-hidden="true"></div>
+  <div class="wrap">
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav-overlay">[ Menu ]</button>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="design.html">Design</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="case-studies.html" aria-current="page">Case Studies</a></li>
+        <li><a href="about.html">About Me</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Menu">
+  <button class="close-btn">[ Close ]</button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="design.html">Design</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="case-studies.html">Case Studies</a></li>
+    <li><a href="about.html">About Me</a></li>
+  </ul>
+</div>
+
+<main id="main">
+  <article class="wrap spread">
+    <div class="col-text prose">
+      <div class="page-title-block">
+        <span class="page-no">Study.001 · 2026 · <a href="case-studies.html">← All studies</a></span>
+        <h1>Namma Transit</h1>
+      </div>
+
+      <aside class="spec-sheet" aria-label="Specification">
+        <dl>
+          <dt>Role</dt><dd>Product designer</dd>
+          <dt>Duration</dt><dd>14 weeks</dd>
+          <dt>Tools</dt><dd>Figma, Maze, Sheets</dd>
+          <dt>Platform</dt><dd>Android, PWA</dd>
+        </dl>
+      </aside>
+
+      <section aria-labelledby="h-problem">
+        <h2 id="h-problem">Problem</h2>
+        <p class="dropcap">Buying a metro ticket in the app required four screens, a payment redirect, and a stable connection at exactly the moment most riders are underground or on a congested network. Support logs showed the same failure over and over: payment debited, QR code never issued, rider stuck at the gate.</p>
+      </section>
+
+      <section aria-labelledby="h-method">
+        <h2 id="h-method">Research method</h2>
+        <p>Two weeks of intercept interviews at three stations — Majestic, Indiranagar, and Yeshwantpur — at peak and off-peak hours, 41 riders total. Each interview paired a five-minute conversation with a timed observation of the rider's next purchase. Alongside this, thirty days of support tickets were coded by failure point.</p>
+      </section>
+
+      <section aria-labelledby="h-findings">
+        <h2 id="h-findings">Findings</h2>
+        <p>Three findings carried the redesign. First, 70% of failed purchases died at the payment redirect, not in the app itself. Second, riders repeat trips: the median rider bought the same two journeys for weeks at a stretch. Third, riders trusted the physical token more than the QR code because the token cannot expire in a tunnel.</p>
+        <p>The design answer was to make the ticket behave like a token: purchased in advance, stored on the device, valid offline, and shown at the gate without any network call.</p>
+      </section>
+
+      <section aria-labelledby="h-outcome">
+        <h2 id="h-outcome">Outcome</h2>
+        <p>The offline wallet shipped in March 2026 behind a staged rollout. The numbers at right are the eight-week readings against the previous quarter's baseline.</p>
+      </section>
+    </div>
+
+    <div class="col-fig">
+      <figure class="fig" data-tag="Study.001 / Flow" data-reveal>
+        <svg class="ph-art" viewBox="0 0 800 360" role="img" width="800" height="360">
+          <title>Purchase flow diagram: four steps collapsed to two, payment moved off the critical path</title>
+          <rect class="stroke" x="40" y="60" width="150" height="70"/><rect class="stroke" x="250" y="60" width="150" height="70"/><rect class="stroke" x="460" y="60" width="150" height="70"/><rect class="stroke-thin" x="640" y="60" width="120" height="70"/>
+          <line class="stroke-thin" x1="190" y1="95" x2="250" y2="95"/><line class="stroke-thin" x1="400" y1="95" x2="460" y2="95"/><line class="stroke-thin" x1="610" y1="95" x2="640" y2="95"/>
+          <rect class="fill" x="150" y="230" width="200" height="70"/><rect class="stroke" x="450" y="230" width="200" height="70"/>
+          <line class="stroke-thin" x1="350" y1="265" x2="450" y2="265"/>
+          <text x="40" y="40">Before: 4 steps, online</text>
+          <text x="150" y="340">After: 2 steps, offline at the gate</text>
+        </svg>
+        <figcaption>Purchase flow, before and after. Highlighted part: the pre-purchased offline wallet.</figcaption>
+      </figure>
+
+      <figure class="fig" data-tag="Study.001 / Wireframes" data-reveal>
+        <div class="explode explode--screens" style="--explode-h: 560px;">
+          <span class="guide" aria-hidden="true" style="inset-inline-start: calc(50% - 40px);"></span>
+          <span class="guide" aria-hidden="true" style="inset-inline-start: calc(50% + 40px);"></span>
+          <span class="axis" aria-hidden="true"></span>
+          <div class="layer" style="--lift: -150px; z-index: 3;"><span class="layer-label">Gate screen · QR</span></div>
+          <div class="layer is-focus" style="--lift: 0px; z-index: 2;"><span class="layer-label">Wallet · stored trips</span></div>
+          <div class="layer" style="--lift: 150px; z-index: 1;"><span class="layer-label">Purchase · one sheet</span></div>
+        </div>
+        <ul class="callout-list">
+          <li>Top layer — gate screen, renders with zero network</li>
+          <li>Middle layer — wallet, the new home surface</li>
+          <li>Bottom layer — purchase, collapsed to one sheet</li>
+        </ul>
+        <figcaption>Wireframe stack, gate to purchase. Highlighted part: the wallet, where riders now start.</figcaption>
+      </figure>
+
+      <figure class="fig" data-tag="Study.001 / Metrics" data-reveal>
+        <div class="metrics">
+          <div class="metric"><span class="num">−62%</span><span class="what">Failed purchases</span></div>
+          <div class="metric"><span class="num">11s</span><span class="what">Median time to ticket, from 48s</span></div>
+          <div class="metric"><span class="num">4.1×</span><span class="what">Repeat-trip reuse of stored tickets</span></div>
+        </div>
+        <figcaption>Eight-week readings after rollout, against previous-quarter baseline.</figcaption>
+      </figure>
+    </div>
+  </article>
+</main>
+
+<a class="back-top" href="#">[ ↑ Back to top ]</a>
+
+<footer class="site-footer">
+  <div class="wrap footer-cols">
+    <ul aria-label="Footer navigation">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="design.html">Design</a></li>
+      <li><a href="photography.html">Photography</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="about.html">About Me</a></li>
+    </ul>
+    <ul aria-label="Contact links">
+      <li><a href="mailto:kaushik.hgd@gmail.com">kaushik.hgd@gmail.com</a></li>
+      <li><a href="https://instagram.com" rel="noopener">Instagram</a></li>
+      <li><a href="https://github.com" rel="noopener">GitHub</a></li>
+      <li><a href="https://linkedin.com" rel="noopener">LinkedIn</a></li>
+    </ul>
+    <p class="colophon">Set in Silkscreen, EB Garamond &amp; JetBrains Mono · Grid ruled at 16px · Built 2026-07-25</p>
+  </div>
+  <div class="rule-hatch" aria-hidden="true"></div>
+</footer>
+</body>
+</html>

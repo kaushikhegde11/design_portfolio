@@ -1,0 +1,1001 @@
+/* ==========================================================================
+   MANUAL.CSS — technical-manual portfolio
+   Sections: 1 tokens · 2 base · 3 header/nav · 4 layout · 5 figure panels
+   6 callouts · 7 exploded stack · 8 contents table · 9 photography
+   10 case studies · 11 design plates · 12 about · 13 footer
+   14 focus/a11y · 15 responsive · 16 motion · 17 print
+   ========================================================================== */
+
+/* 1 ── TOKENS ------------------------------------------------------------- */
+:root {
+  --paper: #FAFAF8;
+  --blueprint: #2B4CFF;
+  --blueprint-fill: #8E9EF0;
+  --blueprint-tint: #EAEEFF;
+  --grid-line: #DFE4F7;
+  --ink: #15171C;
+  --ink-muted: #5C6070;
+
+  --font-display: "Silkscreen", "Courier New", monospace;
+  --font-serif: "EB Garamond", "Iowan Old Style", Georgia, serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 40px; --s5: 64px; --s6: 96px;
+
+  --max-w: 1600px;
+  --gutter: 24px;
+
+  --hatch: repeating-linear-gradient(
+    -45deg,
+    var(--blueprint) 0,
+    var(--blueprint) 1.5px,
+    transparent 1.5px,
+    transparent 5px
+  );
+  --graph: repeating-linear-gradient(
+      0deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 16px),
+    repeating-linear-gradient(
+      90deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 16px);
+}
+
+/* 2 ── BASE --------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--paper);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  counter-reset: fig;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-inline-size: 100%; block-size: auto; display: block; }
+
+a { color: var(--blueprint); }
+
+h1, h2, h3 { margin: 0 0 var(--s2); }
+
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.5vw, 44px);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blueprint);
+  line-height: 1.1;
+}
+
+h2, h3 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--blueprint);
+}
+h2 { font-size: 13px; }
+h3 { font-size: 12px; }
+
+p { margin: 0 0 var(--s2); }
+
+.prose p {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* real drop cap on the opening paragraph of each page */
+.dropcap::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-size: 3.6em;
+  line-height: 0.82;
+  padding-inline-end: 0.08em;
+  padding-block-start: 0.04em;
+  color: var(--ink);
+}
+
+.mono,
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--blueprint);
+}
+
+.muted { color: var(--ink-muted); }
+
+hr, .rule-hatch {
+  border: 0;
+  block-size: 12px;
+  margin: 0;
+  background: var(--hatch);
+}
+
+.wrap {
+  max-inline-size: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  inset-block-start: -100px;
+  inset-inline-start: var(--s2);
+  z-index: 100;
+  padding: var(--s1) var(--s2);
+  background: var(--blueprint);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+}
+.skip-link:focus { inset-block-start: var(--s2); }
+
+/* reading-progress hairline (case-study detail) */
+.progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  block-size: 2px;
+  inline-size: 0;
+  background: var(--blueprint);
+  z-index: 60;
+}
+
+/* 3 ── HEADER / NAV ------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 50;
+  background: var(--paper);
+}
+
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s3);
+  padding-block: var(--s3) var(--s2);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.6vw, 34px);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blueprint);
+  text-decoration: none;
+  line-height: 1;
+  image-rendering: pixelated;
+}
+
+.masthead-right {
+  text-align: end;
+  font-size: 15px;
+  line-height: 1.35;
+}
+.masthead-right .subtitle {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  margin-block-end: 4px;
+}
+
+.site-header .rule-hatch { transition: height 120ms linear; }
+.site-header.is-stuck .rule-hatch { block-size: 6px; }
+.site-header.is-stuck .masthead { padding-block: var(--s1); }
+
+.site-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: var(--s1) 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.site-nav li { display: flex; align-items: center; }
+
+.site-nav li + li::before {
+  content: "";
+  inline-size: 1px;
+  block-size: 14px;
+  background: var(--blueprint);
+  margin-inline: var(--s2);
+}
+
+.site-nav a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--blueprint);
+  text-decoration: none;
+  padding: 12px 4px; /* ≥44px target with line-height */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-nav a:hover {
+  background: var(--blueprint-tint);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+/* active page: filled square + solid underline (hover stays dashed) */
+.site-nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.site-nav a[aria-current="page"]::before {
+  content: "";
+  inline-size: 8px;
+  block-size: 8px;
+  background: var(--blueprint);
+}
+
+.menu-btn { display: none; }
+
+/* 4 ── LAYOUT: two-column manual spread ---------------------------------- */
+.spread {
+  display: grid;
+  grid-template-columns: minmax(0, 30fr) minmax(0, 70fr);
+  column-gap: var(--s4);
+  padding-block: var(--s4) var(--s5);
+  position: relative;
+}
+.spread > .col-text { padding-inline-end: var(--s3); }
+.spread > .col-fig { border-inline-start: 1px solid var(--grid-line); padding-inline-start: var(--s4); }
+
+.page-title-block { margin-block-end: var(--s3); }
+.page-no {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  display: block;
+  margin-block-end: var(--s1);
+}
+
+/* 5 ── FIGURE PANELS ------------------------------------------------------ */
+.fig {
+  counter-increment: fig;
+  position: relative;
+  border: 1.5px solid var(--blueprint);
+  background-color: var(--paper);
+  background-image: var(--graph);
+  margin: 0 0 var(--s4);
+  padding: var(--s4);
+}
+
+/* rotated figure ID down the left edge */
+.fig::before {
+  content: "FIG.0" counter(fig, decimal-leading-zero);
+  position: absolute;
+  inset-block-start: var(--s1);
+  inset-inline-start: 4px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--blueprint-fill);
+}
+
+/* bracketed section tag up the right edge */
+.fig::after {
+  content: "[ " attr(data-tag) " ]";
+  position: absolute;
+  inset-block-end: var(--s1);
+  inset-inline-end: 4px;
+  writing-mode: vertical-rl;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--blueprint-fill);
+}
+
+.fig > figcaption,
+.fig-caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--blueprint);
+  margin-block-start: var(--s2);
+}
+
+/* the one highlighted part per figure */
+.fig .part-focus { fill: var(--blueprint-fill); }
+
+.plate-art { border: 1px solid var(--grid-line); background: var(--paper); }
+
+/* 6 ── CALLOUTS with leader lines ---------------------------------------- */
+.callout-host { position: relative; }
+
+.callout {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--blueprint);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.callout .lead {
+  display: inline-block;
+  inline-size: var(--lead, 56px);
+  block-size: 7px;
+  /* 8px dash / 8px gap = one 16px grid cell per cycle; the 1px line is
+     vertically centered in the 7px box, sharing the arrowhead's midline */
+  background-image: linear-gradient(
+    90deg,
+    var(--blueprint) 0,
+    var(--blueprint) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  background-size: 16px 1px;
+  background-repeat: repeat-x;
+  background-position: 0 50%;
+  margin-inline: 6px;
+  position: relative;
+}
+
+/* solid arrowhead at the pointing end, centered on the same midline */
+.callout .lead::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  border-block: 3.5px solid transparent;
+}
+.callout.points-right .lead::after {
+  inset-inline-end: -1px;
+  border-inline-start: 6px solid var(--blueprint);
+}
+.callout.points-left .lead::after {
+  inset-inline-start: -1px;
+  border-inline-end: 6px solid var(--blueprint);
+}
+
+a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: underline; }
+
+/* fallback list shown under 900px instead of positioned callouts */
+.callout-list {
+  list-style: none;
+  margin: var(--s2) 0 0;
+  padding: 0;
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--blueprint);
+}
+.callout-list li { padding-block: 4px; border-block-end: 1px solid var(--grid-line); }
+
+/* 7 ── EXPLODED STACK ----------------------------------------------------- */
+.explode {
+  position: relative;
+  block-size: var(--explode-h, 520px);
+  perspective: 1400px;
+  /* keep the projected bottom layer clear of whatever follows */
+  margin-block-end: var(--s4);
+}
+
+.explode .guide {
+  position: absolute;
+  inset-block: 6%;
+  inline-size: 0;
+  border-inline-start: 1px dashed var(--blueprint);
+}
+
+.explode .layer {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  inline-size: var(--layer-w, 240px);
+  block-size: var(--layer-w, 240px);
+  margin-inline-start: calc(var(--layer-w, 240px) / -2);
+  margin-block-start: calc(var(--layer-w, 240px) / -2);
+  border: 1.5px solid var(--blueprint);
+  background: var(--paper);
+  transform: translateY(var(--lift)) rotateX(55deg) rotateZ(-45deg);
+  transform-style: preserve-3d; /* lets the ghost trails un-project to screen space */
+  transition: transform 120ms linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* hover: the plate itself rises 4px on screen (translateY is applied in
+   screen space, before the isometric rotations) */
+.explode .layer:hover {
+  transform: translateY(calc(var(--lift) - 4px)) rotateX(55deg) rotateZ(-45deg);
+}
+
+.explode .layer.is-focus { background: var(--blueprint-fill); }
+
+/* labels sit on the face as bordered chips: legible over any overlap,
+   and they read as pressable */
+.explode .layer .layer-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  background: var(--paper);
+  border: 1px solid var(--blueprint);
+  padding: 6px 10px;
+  transform: rotateZ(45deg);
+  text-align: center;
+  max-inline-size: 82%;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+.explode .layer:hover .layer-label {
+  background: var(--blueprint-tint);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.explode .layer:hover { background: var(--blueprint-tint); }
+.explode .layer.is-focus:hover { background: var(--blueprint-fill); }
+
+/* inner detail lines on a layer face; rises 18px on screen when hovered.
+   In face coordinates (k, -k) projects to pure screen-vertical after the
+   isometric rotations; 22px face units ≈ 18px on screen. */
+.explode .layer .face-detail {
+  position: absolute;
+  inset: 16px;
+  border: 1px solid var(--blueprint);
+  pointer-events: none;
+  transition: transform 120ms linear;
+}
+.explode .layer:hover .face-detail { transform: translate(22px, -22px); }
+
+/* displacement trails: dotted lines from the resting corners up to the
+   popped rectangle's edge, shown only while that layer is hovered */
+.explode .layer .face-ghost {
+  position: absolute;
+  inset: 16px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms linear;
+}
+.explode .layer .face-ghost.ring { inset: 34%; }
+.explode .layer .face-ghost::before,
+.explode .layer .face-ghost::after {
+  content: "";
+  position: absolute;
+  inline-size: 0;
+  block-size: 18px; /* matches the 18px screen-space pop */
+  border-inline-start: 1px dotted var(--blueprint);
+  /* inverse of the layer's isometric rotation: the line renders as a true
+     screen-vertical, pinned by its bottom end to the face corner */
+  transform: rotateZ(45deg) rotateX(-55deg);
+  transform-origin: 0 100%;
+}
+.explode .layer .face-ghost::before { inset-block-end: 100%; inset-inline-start: 0; }
+.explode .layer .face-ghost::after { inset-block-end: 0; inset-inline-start: 100%; }
+.explode .layer:hover .face-ghost { opacity: 1; }
+
+/* assembly axis: drafting-style center line through every layer */
+.explode .axis {
+  position: absolute;
+  inset-block: 2%;
+  inset-inline-start: 50%;
+  inline-size: 1px;
+  background-image: repeating-linear-gradient(
+    180deg,
+    var(--blueprint) 0,
+    var(--blueprint) 8px,
+    transparent 8px,
+    transparent 11px,
+    var(--blueprint) 11px,
+    var(--blueprint) 13px,
+    transparent 13px,
+    transparent 16px
+  );
+  z-index: 5;
+  pointer-events: none;
+}
+.explode .layer .face-detail.ring {
+  inset: 34%;
+}
+
+/* placeholder plate art (inline SVG standing in for photos/screens) */
+.ph-art { inline-size: 100%; background: var(--paper); }
+.ph-art .stroke { stroke: var(--blueprint-fill); stroke-width: 1.5; fill: none; }
+.ph-art .stroke-thin { stroke: var(--blueprint-fill); stroke-width: 1; fill: none; }
+.ph-art .fill { fill: var(--blueprint-fill); }
+.ph-art .tint { fill: var(--blueprint-tint); }
+.ph-art text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  fill: var(--blueprint-fill);
+  text-transform: uppercase;
+}
+
+/* rectangular "screen" layers for wireframe stacks */
+.explode--screens { --layer-w: 260px; }
+.explode--screens .layer {
+  block-size: 170px;
+  margin-block-start: -85px;
+}
+
+/* 404 missing figure */
+.fig-404 {
+  min-block-size: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fig-404 .missing {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  border: 1px dashed var(--blueprint);
+  padding: var(--s2) var(--s3);
+  background: var(--paper);
+}
+
+/* 8 ── CONTENTS TABLE ----------------------------------------------------- */
+.toc { margin-block-start: var(--s4); }
+.toc-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s1);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  text-decoration: none;
+  padding-block: 10px;
+}
+.toc-row .leader {
+  flex: 1;
+  border-block-end: 1px dotted var(--blueprint);
+  transform: translateY(-3px);
+}
+.toc-row .count { color: var(--ink-muted); }
+.toc-row:hover .name { background: var(--blueprint-tint); }
+
+/* 9 ── PHOTOGRAPHY: contact sheet + lightbox ------------------------------ */
+.contact-sheet {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--blueprint);
+  border: 1.5px solid var(--blueprint);
+}
+
+.contact-sheet > figure {
+  margin: 0;
+  background: var(--paper);
+  padding: var(--s2);
+}
+
+.contact-sheet .frame-btn {
+  display: block;
+  inline-size: 100%;
+  padding: 0;
+  border: 1px solid var(--grid-line);
+  background: none;
+  cursor: pointer;
+}
+
+.contact-sheet figcaption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  margin-block-start: var(--s1);
+  display: grid;
+  gap: 2px;
+}
+.contact-sheet figcaption .meta { color: var(--ink-muted); }
+
+.lightbox {
+  border: 1.5px solid var(--blueprint);
+  padding: var(--s4);
+  background-color: var(--paper);
+  background-image: var(--graph);
+  max-inline-size: min(920px, 90vw);
+}
+.lightbox::backdrop { background: rgba(21, 23, 28, 0.55); }
+.lightbox .lb-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s2);
+  margin-block-start: var(--s2);
+}
+.lightbox button {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  background: var(--paper);
+  border: 1px solid var(--blueprint);
+  padding: 12px 16px;
+  cursor: pointer;
+}
+.lightbox button:hover { background: var(--blueprint-tint); }
+.lightbox .lb-caption { margin-block-start: var(--s2); }
+
+/* 10 ── CASE STUDIES ------------------------------------------------------ */
+.study-index { list-style: none; margin: 0; padding: 0; }
+
+.study-row {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 2fr) minmax(0, 3fr) 140px 70px 24px;
+  gap: var(--s2);
+  align-items: baseline;
+  padding-block: var(--s3);
+  border-block-end: 1px solid var(--grid-line);
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 120ms linear;
+}
+.study-row:hover { transform: translateX(4px); background: var(--blueprint-tint); }
+.study-row .arrow { visibility: hidden; color: var(--blueprint); font-family: var(--font-mono); }
+.study-row:hover .arrow { visibility: visible; }
+.study-row .study-no, .study-row .study-role, .study-row .study-year {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+}
+.study-row .study-year { color: var(--ink-muted); }
+.study-row .study-title { font-weight: 700; font-size: 19px; }
+.study-row .study-problem { color: var(--ink-muted); font-style: italic; }
+
+.spec-sheet {
+  border: 1.5px solid var(--blueprint);
+  background: var(--paper);
+  padding: var(--s3);
+  margin-block-end: var(--s4);
+}
+.spec-sheet dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--s1) var(--s3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.spec-sheet dt { color: var(--ink-muted); }
+.spec-sheet dd { margin: 0; color: var(--blueprint); }
+
+.metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s2); }
+.metric {
+  border: 1px solid var(--blueprint);
+  background: var(--paper);
+  padding: var(--s2);
+}
+.metric .num {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--blueprint);
+  display: block;
+}
+.metric .what {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* 11 ── DESIGN PLATES + FILTER -------------------------------------------- */
+.filter-bar,
+.view-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1);
+  margin-block-end: var(--s4);
+}
+.filter-bar button,
+.view-bar button {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  background: var(--paper);
+  border: 1px solid var(--blueprint);
+  padding: 12px 16px;
+  cursor: pointer;
+}
+.filter-bar button:hover,
+.view-bar button:hover { background: var(--blueprint-tint); }
+.filter-bar button[aria-pressed="true"],
+.view-bar button[aria-pressed="true"] {
+  background: var(--blueprint);
+  color: var(--paper);
+}
+.plate.is-hidden { display: none; }
+
+/* plate gallery: grid by default, single column in list view */
+.plate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(440px, 100%), 1fr));
+  gap: var(--s3);
+}
+.plate-grid.view-list { grid-template-columns: 1fr; }
+
+/* contact sheet in list view: one frame per row, caption beside it */
+.contact-sheet.view-list { grid-template-columns: 1fr; }
+.contact-sheet.view-list > figure {
+  display: grid;
+  grid-template-columns: minmax(160px, 260px) 1fr;
+  gap: var(--s3);
+  align-items: center;
+}
+.contact-sheet.view-list figcaption { margin-block-start: 0; }
+
+/* study index in grid view: spec rows become spec cards */
+.study-index.view-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: var(--s3);
+}
+.study-index.view-grid .study-row {
+  grid-template-columns: 1fr;
+  gap: var(--s1);
+  align-content: start;
+  border: 1px solid var(--blueprint);
+  border-block-end: 1px solid var(--blueprint);
+  padding: var(--s3);
+}
+.study-index.view-grid .study-row:hover { transform: none; }
+.study-index.view-grid .arrow { display: none; }
+
+/* 12 ── ABOUT: person diagram, timeline, contact -------------------------- */
+.timeline {
+  list-style: none;
+  margin: var(--s4) 0 0;
+  padding: 0 0 0 var(--s3);
+  border-inline-start: 1px dashed var(--blueprint);
+}
+.timeline li { position: relative; padding-block-end: var(--s3); }
+.timeline li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(-1 * var(--s3) - 4px);
+  inset-block-start: 6px;
+  inline-size: 7px;
+  block-size: 7px;
+  background: var(--blueprint);
+}
+.timeline .year {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--blueprint);
+  display: block;
+}
+
+.status-chip {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--blueprint);
+  background: var(--blueprint-tint);
+  color: var(--blueprint);
+  padding: 12px 16px;
+}
+
+.contact-block a { color: var(--blueprint); }
+
+/* back-to-top: fixed, centered, appears after scrolling */
+.back-top {
+  position: fixed;
+  inset-block-end: 24px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  background: var(--paper);
+  border: 1px solid var(--blueprint);
+  padding: 12px 16px;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 120ms linear, visibility 120ms linear;
+}
+.back-top.is-visible { opacity: 1; visibility: visible; }
+.back-top:hover { background: var(--blueprint-tint); }
+
+/* 13 ── FOOTER ------------------------------------------------------------ */
+.site-footer { margin-block-start: var(--s5); }
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s3);
+  padding-block: var(--s4);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.footer-cols ul { list-style: none; margin: 0; padding: 0; }
+.footer-cols li { padding-block: 4px; }
+.footer-cols a { color: var(--blueprint); text-decoration: none; }
+.footer-cols a:hover { text-decoration: underline; text-decoration-style: dashed; }
+.footer-cols .colophon { color: var(--ink-muted); }
+
+/* 14 ── FOCUS / A11Y ------------------------------------------------------ */
+:focus-visible {
+  outline: 2px solid var(--blueprint);
+  outline-offset: 2px;
+}
+
+/* mobile nav overlay */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background-color: var(--paper);
+  background-image: var(--graph);
+  padding: var(--s3);
+  display: none;
+  flex-direction: column;
+}
+.nav-overlay.is-open { display: flex; }
+.nav-overlay ul { list-style: none; margin: var(--s5) 0 0; padding: 0; }
+.nav-overlay a {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  text-decoration: none;
+  padding: var(--s2) 0;
+  border-block-end: 1px solid var(--grid-line);
+}
+.nav-overlay .close-btn { align-self: flex-end; }
+
+.menu-btn, .nav-overlay .close-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  background: none;
+  border: 1px solid var(--blueprint);
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+/* scroll reveal (JS adds .reveal; IO adds .is-in) */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity 150ms linear, transform 150ms linear; }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* 15 ── RESPONSIVE (mobile-first collapses live here) --------------------- */
+@media (max-width: 899px) {
+  .spread { grid-template-columns: 1fr; }
+  .spread > .col-fig { border-inline-start: 0; padding-inline-start: 0; margin-block-start: var(--s4); }
+  .spread > .col-text { padding-inline-end: 0; }
+
+  .callout-host .callout { display: none; }
+  .callout-list { display: block; }
+
+  .site-nav { display: none; }
+  .menu-btn { display: inline-block; margin-block: var(--s1); }
+
+  .explode { --layer-w: 180px; --explode-h: 420px; }
+
+  .contact-sheet { grid-template-columns: repeat(2, 1fr); }
+
+  .study-row { grid-template-columns: 70px 1fr 24px; }
+  .study-row .study-problem, .study-row .study-role, .study-row .study-year { display: none; }
+
+  .metrics { grid-template-columns: 1fr; }
+  .footer-cols { grid-template-columns: 1fr; }
+
+  .masthead { flex-direction: column; align-items: flex-start; gap: var(--s2); }
+  .masthead-right { text-align: start; }
+}
+
+@media (max-width: 639px) {
+  .contact-sheet { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 1280px) {
+  .wrap { padding-inline: 48px; }
+}
+
+/* 16 ── MOTION ------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  /* the one orchestrated moment: the stack expands from collapsed on load.
+     Fill is `backwards`, not `both` — a forwards fill would keep overriding
+     the hover transform after the animation ends. */
+  .explode.animate .layer {
+    animation: assemble 1200ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  @keyframes assemble {
+    from { transform: translateY(0) rotateX(55deg) rotateZ(-45deg); }
+    to   { transform: translateY(var(--lift)) rotateX(55deg) rotateZ(-45deg); }
+  }
+  .explode.animate .guide {
+    animation: guides-in 1200ms linear backwards;
+  }
+  /* the center axis draws top-to-bottom as the stack expands */
+  .explode.animate .axis {
+    transform-origin: top center;
+    animation: axis-draw 1200ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  @keyframes axis-draw {
+    from { transform: scaleY(0); }
+  }
+  @keyframes guides-in {
+    from { opacity: 0; }
+    60%  { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  /* callouts fade in once the stack has mostly expanded */
+  .explode-callouts.animate .callout { animation: guides-in 1600ms linear backwards; }
+
+  /* dashes march toward the part they name, ticking one half grid cell
+     (8px) per beat so they stay registered with the 16px graph paper */
+  .callout.points-right .lead { animation: march-right 1s steps(2) infinite; }
+  .callout.points-left .lead { animation: march-left 1s steps(2) infinite; }
+  @keyframes march-right { to { background-position-x: 16px; } }
+  @keyframes march-left { to { background-position-x: -16px; } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .study-row { transition: none; }
+}
+
+/* 17 ── PRINT ------------------------------------------------------------- */
+@media print {
+  .site-header, .site-footer, .menu-btn, .skip-link, .progress, .back-top { display: none; }
+  .fig { background-image: none; }
+  body { font-size: 11pt; }
+  a { text-decoration: none; color: var(--ink); }
+}
