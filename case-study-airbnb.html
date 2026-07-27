@@ -73,6 +73,7 @@
     color: var(--blueprint-fill);
     font-size: 10px;
   }
+  .cs-note { margin-block-start: var(--s3); padding-inline-start: 14px; border-inline-start: 2px solid var(--blueprint-fill); color: var(--blueprint); font-size: 0.95em; }
 
   .cs-content { flex: 1 1 auto; min-inline-size: 0; display: flex; flex-direction: column; gap: var(--s5); }
   .cs-section {
@@ -300,10 +301,11 @@
         <div class="cs-text">
           <h2 id="h-solution"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">04</span> &nbsp;Solution</h2>
           <ul class="cs-bullets">
-            <li>Keep the last Search tab across back-navigation and sessions. Then Experiences and Services stop resetting to invisible.</li>
-            <li>Reorder Trips to match the task: the place and its photos first, then check-in, then Message your host above the guide, then the guide once.</li>
-            <li>Bring the categorized photos from the browse view — bedrooms, kitchen, and spaces — into the booked state behind an info control. Then the same place behaves the same way before and after payment.</li>
+            <li><strong>Keep the last Search tab across back-navigation and sessions.</strong> Then Experiences and Services stop resetting to invisible. The tab is the user's intent. The intent must last until the user changes it, not until the app forgets it. This bug fires on every return trip, so a small fix removes frequent friction.</li>
+            <li><strong>Reorder Trips to match the task:</strong> the place and its photos first, then check-in, then Message your host above the guide, then the guide once. Screen order follows task order. An anxious guest wants a person first, so Message your host sits above the guide. One guide replaces two, so nothing competes for the same job.</li>
+            <li><strong>Bring the categorized photos into the booked state behind an info control</strong> — bedrooms, kitchen, and spaces, the same groups as the browse view. Then the same place behaves the same way before and after payment. Payment must not delete information. The guest built a mental model before booking, so the booked screen keeps it. The info control hides the detail until the guest asks, which keeps the screen calm.</li>
           </ul>
+          <p class="cs-note">Each decision traces to one guest in one moment: paid, anxious, and before check-in. Two fixes correct state bugs. The rest correct hierarchy. The screen order and the visual weight now match what the guest does next.</p>
         </div>
         <div class="cs-fig">
           <figure class="fig" data-tag="Study.002 / Consistency" data-reveal>
