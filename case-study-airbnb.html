@@ -21,13 +21,12 @@
   /* Study.002 — reading layout: left contents rail + right sectioned spread */
   .cs-head { padding-block: var(--s4) 0; }
   .cs-layout {
-    display: grid;
-    grid-template-columns: 232px minmax(0, 1fr);
-    column-gap: var(--s5);
-    align-items: stretch;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s5);
     padding-block: var(--s3) var(--s6);
   }
-  .cs-toc { align-self: stretch; }
+  .cs-toc { flex: 0 0 232px; position: sticky; inset-block-start: 96px; }
   .cs-toc-title {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -36,7 +35,7 @@
     color: var(--ink-muted);
     margin: 0 0 var(--s2);
   }
-  .cs-toc-list { list-style: none; margin: 0; padding: 0; position: sticky; inset-block-start: 96px; }
+  .cs-toc-list { list-style: none; margin: 0; padding: 0; }
   .cs-toc-list li { border-block-end: 1px solid var(--grid-line); }
   .cs-toc-list a {
     display: block;
@@ -75,7 +74,7 @@
     font-size: 10px;
   }
 
-  .cs-content { display: flex; flex-direction: column; gap: var(--s5); }
+  .cs-content { flex: 1 1 auto; min-inline-size: 0; display: flex; flex-direction: column; gap: var(--s5); }
   .cs-section {
     display: grid;
     grid-template-columns: minmax(0, 40fr) minmax(0, 60fr);
@@ -92,8 +91,8 @@
   h2[id] { scroll-margin-block-start: 110px; }
 
   @media (max-width: 899px) {
-    .cs-layout { grid-template-columns: 1fr; row-gap: var(--s3); padding-block: var(--s3) var(--s5); }
-    .cs-toc { position: static; }
+    .cs-layout { flex-direction: column; gap: var(--s3); padding-block: var(--s3) var(--s5); }
+    .cs-toc { position: static; flex-basis: auto; }
     .cs-toc-list { display: flex; flex-wrap: wrap; gap: var(--s1); margin-block-end: var(--s3); position: static; }
     .cs-toc-list li { border: 1px solid var(--grid-line); }
     .cs-toc-list a { padding: 8px 12px; }
