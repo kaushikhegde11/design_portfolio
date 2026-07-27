@@ -86,7 +86,7 @@
   .cs-section > .cs-text { padding-inline-end: var(--s3); }
   .cs-section > .cs-fig { min-inline-size: 0; }
   .cs-section > .cs-fig .fig:last-child { margin-block-end: 0; }
-  .cs-section--solo { grid-template-columns: 1fr; }
+  .cs-section--solo { grid-template-columns: 1fr; min-block-size: 60vh; }
 
   h2[id] { scroll-margin-block-start: 140px; }
 
@@ -375,6 +375,8 @@
     for (var i = 0; i < map.length; i++) {
       if (map[i].el.getBoundingClientRect().top + window.scrollY <= mark) current = map[i];
     }
+    var doc = document.documentElement;
+    if (window.innerHeight + window.scrollY >= doc.scrollHeight - 2) current = map[map.length - 1];
     map.forEach(function (m) {
       if (m === current) m.a.setAttribute('aria-current', 'true');
       else m.a.removeAttribute('aria-current');
