@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airbnb Case study — Kaushik Hegde</title>
+<meta name="description" content="Case study: fixing the after-you-book, before-you-check-in window in Airbnb's iOS app — search state amnesia, a mis-ordered Trips screen, and a duplicate listing.">
+<link rel="canonical" href="https://kaushikhegde.example/case-studies/the-booked-window">
+<meta property="og:title" content="Study.002 The Booked Window — Kaushik Hegde">
+<meta property="og:description" content="A self-initiated UX audit of Airbnb's post-booking, pre-check-in window.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kaushikhegde.example/case-studies/the-booked-window">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23FAFAF8'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%232B4CFF'/%3E%3C/svg%3E">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&family=Silkscreen&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/manual.css">
+<style>
+  /* Study.002 — reading layout: left contents rail + right sectioned spread */
+  .cs-head { padding-block: var(--s4) 0; }
+  .cs-layout {
+    display: grid;
+    grid-template-columns: 232px minmax(0, 1fr);
+    column-gap: var(--s5);
+    align-items: start;
+    padding-block: var(--s3) var(--s6);
+  }
+  .cs-toc { position: sticky; inset-block-start: 96px; }
+  .cs-toc-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 var(--s2);
+  }
+  .cs-toc-list { list-style: none; margin: 0; padding: 0; }
+  .cs-toc-list li { border-block-end: 1px solid var(--grid-line); }
+  .cs-toc-list a {
+    display: block;
+    padding: 12px 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blueprint);
+    text-decoration: none;
+  }
+  .cs-toc-list a:hover { background: var(--blueprint-tint); }
+  .cs-toc-list a[aria-current="true"] {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+  .cs-toc-list a[aria-current="true"]::before { content: "► "; }
+
+  .cs-bullets { list-style: none; margin: 0; padding: 0; }
+  .cs-bullets > li { position: relative; padding-inline-start: 22px; margin-block-end: var(--s2); text-align: start; }
+  .cs-bullets > li::before {
+    content: "—";
+    position: absolute;
+    inset-inline-start: 0;
+    color: var(--blueprint);
+    font-family: var(--font-mono);
+  }
+  .cs-bullets ul { list-style: none; margin: var(--s1) 0 0; padding: 0; }
+  .cs-bullets ul li { position: relative; padding-inline-start: 22px; margin-block-start: 6px; text-align: start; }
+  .cs-bullets ul li::before {
+    content: "▪";
+    position: absolute;
+    inset-inline-start: 2px;
+    color: var(--blueprint-fill);
+    font-size: 10px;
+  }
+
+  .cs-content { display: flex; flex-direction: column; gap: var(--s5); }
+  .cs-section {
+    display: grid;
+    grid-template-columns: minmax(0, 40fr) minmax(0, 60fr);
+    column-gap: var(--s4);
+    align-items: start;
+    border-block-start: 1px solid var(--grid-line);
+    padding-block-start: var(--s4);
+  }
+  .cs-section > .cs-text { padding-inline-end: var(--s3); }
+  .cs-section > .cs-fig { min-inline-size: 0; }
+  .cs-section > .cs-fig .fig:last-child { margin-block-end: 0; }
+  .cs-section--solo { grid-template-columns: 1fr; }
+
+  h2[id] { scroll-margin-block-start: 110px; }
+
+  @media (max-width: 899px) {
+    .cs-layout { grid-template-columns: 1fr; row-gap: var(--s3); padding-block: var(--s3) var(--s5); }
+    .cs-toc { position: static; }
+    .cs-toc-list { display: flex; flex-wrap: wrap; gap: var(--s1); margin-block-end: var(--s3); }
+    .cs-toc-list li { border: 1px solid var(--grid-line); }
+    .cs-toc-list a { padding: 8px 12px; }
+    .cs-section { grid-template-columns: 1fr; row-gap: var(--s3); }
+    .cs-section > .cs-text { padding-inline-end: 0; }
+  }
+</style>
+<script src="js/main.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "The Booked Window — Airbnb post-booking UX audit",
+  "author": { "@type": "Person", "name": "Kaushik Hegde" },
+  "dateCreated": "2026",
+  "about": "Self-initiated product design case study on the after-booking, pre-check-in window in Airbnb's iOS app."
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap masthead">
+    <a class="wordmark" href="index.html">Kaushik Hegde</a>
+    <p class="masthead-right">
+      <span class="subtitle">Design and photography with a curious mind.</span>
+    </p>
+  </div>
+  <div class="rule-hatch" aria-hidden="true"></div>
+  <div class="wrap">
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav-overlay">[ Menu ]</button>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="design.html">Design</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="case-studies.html" aria-current="page">Case Studies</a></li>
+        <li><a href="about.html">About Me</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Menu">
+  <button class="close-btn">[ Close ]</button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="design.html">Design</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="case-studies.html">Case Studies</a></li>
+    <li><a href="about.html">About Me</a></li>
+  </ul>
+</div>
+
+<main id="main">
+  <div class="wrap cs-head">
+    <span class="page-no">Study.002 · 2026 · <a href="case-studies.html">← All studies</a></span>
+    <h1>Airbnb Case study</h1>
+  </div>
+
+  <div class="wrap cs-layout">
+    <aside class="cs-toc" aria-label="Contents">
+      <ol class="cs-toc-list">
+        <li><a href="#h-problem">01 · Problem</a></li>
+        <li><a href="#h-method">02 · Research method</a></li>
+        <li><a href="#h-findings">03 · Findings</a></li>
+        <li><a href="#h-solution">04 · Solution</a></li>
+        <li><a href="#h-personas">05 · Who feels it</a></li>
+      </ol>
+    </aside>
+
+    <div class="cs-content prose">
+
+      <section class="cs-section" aria-labelledby="h-problem">
+        <div class="cs-text">
+          <h2 id="h-problem"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">01</span> &nbsp;Problem</h2>
+          <p class="dropcap">Airbnb puts its polish on the moment you book. But every trip has a quieter stretch that the app barely tends: after you pay, and before you check in. In that stretch you open the app again to check the address, look at the photos, and message the host. Five problems live in that window, across two screens. Two are clear bugs. Three are hierarchy problems that make an anxious user work harder than needed.</p>
+        </div>
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Study.002 / Bug.01" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 380" role="img" width="800" height="380">
+              <title>Search tab state: before, the selected Experiences tab resets to Home on returning from search; after, the selection persists.</title>
+              <text x="20" y="34">Before — return from search</text>
+              <!-- strip 1: Home highlighted (wrong) -->
+              <rect class="fill"        x="20"  y="52" width="150" height="56"/>
+              <rect class="stroke"      x="185" y="52" width="215" height="56"/>
+              <rect class="stroke"      x="415" y="52" width="150" height="56"/>
+              <text x="95"  y="86" text-anchor="middle">Home</text>
+              <text x="292" y="86" text-anchor="middle">Experiences</text>
+              <text x="490" y="86" text-anchor="middle">Services</text>
+              <text x="590" y="74">user picked</text>
+              <text x="590" y="94">Experiences —</text>
+              <text x="590" y="114">reset to Home</text>
+              <!-- reset arc from Experiences back to Home -->
+              <path class="stroke-thin" d="M292 120 C 250 168, 150 168, 100 120" fill="none"/>
+              <path class="fill" d="M100 120 l 8 -4 l -1 12 z"/>
+              <text x="20" y="250" text-anchor="start">After — selection persists</text>
+              <!-- strip 2: Experiences highlighted (right) -->
+              <rect class="stroke"      x="20"  y="268" width="150" height="56"/>
+              <rect class="fill"        x="185" y="268" width="215" height="56"/>
+              <rect class="stroke"      x="415" y="268" width="150" height="56"/>
+              <text x="95"  y="302" text-anchor="middle">Home</text>
+              <text x="292" y="302" text-anchor="middle">Experiences</text>
+              <text x="490" y="302" text-anchor="middle">Services</text>
+              <text x="590" y="300">remembered</text>
+            </svg>
+            <figcaption>Search-tab amnesia. Highlighted part: the selected tab — lost on the left, remembered on the right.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-method">
+        <div class="cs-text">
+          <h2 id="h-method"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">02</span> &nbsp;Research method</h2>
+          <p>A heuristic pass came first. It scored each screen against Nielsen's ten heuristics. Guerrilla usability sessions came next, on a small sample, run solo. Each session paired a short interview with a timed observation. The person opened a real booking on their own phone. The goal was not statistical weight. The goal was to see where hands hesitated.</p>
+        </div>
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Study.002 / User flow" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 330" role="img" width="800" height="330">
+              <title>User flow of the Search task: open Search, pick Experiences, browse, leave, then reopen Search — the app resets to Home every time.</title>
+              <text x="20" y="34">Observed flow — Search task</text>
+              <rect class="stroke" x="20"  y="72" width="150" height="60"/><text x="95"  y="107" text-anchor="middle">Open Search</text>
+              <rect class="stroke" x="210" y="72" width="150" height="60"/><text x="285" y="107" text-anchor="middle">Pick Experiences</text>
+              <rect class="stroke" x="400" y="72" width="150" height="60"/><text x="475" y="107" text-anchor="middle">Browse / filter</text>
+              <rect class="stroke" x="590" y="72" width="150" height="60"/><text x="665" y="107" text-anchor="middle">Leave / back</text>
+              <line class="stroke-thin" x1="170" y1="102" x2="204" y2="102"/><path class="fill" d="M210 102 l -9 -4 l 0 8 z"/>
+              <line class="stroke-thin" x1="360" y1="102" x2="394" y2="102"/><path class="fill" d="M400 102 l -9 -4 l 0 8 z"/>
+              <line class="stroke-thin" x1="550" y1="102" x2="584" y2="102"/><path class="fill" d="M590 102 l -9 -4 l 0 8 z"/>
+              <line class="stroke-thin" x1="665" y1="132" x2="665" y2="240"/><line class="stroke-thin" x1="665" y1="240" x2="546" y2="240"/><path class="fill" d="M540 240 l 9 -4 l 0 8 z"/>
+              <rect class="fill" x="300" y="210" width="240" height="60"/>
+              <text x="420" y="236" text-anchor="middle" style="fill:var(--paper)">Reopen Search</text>
+              <text x="420" y="256" text-anchor="middle" style="fill:var(--paper)">= Home (reset)</text>
+              <path class="stroke-thin" style="stroke-dasharray:6 5" d="M300 240 C 130 240, 95 200, 95 140" fill="none"/><path class="fill" d="M95 132 l -4 9 l 8 0 z"/>
+              <text x="150" y="300">selection lost — repeats every time</text>
+            </svg>
+            <figcaption>User flow of the Search task. Highlighted step: the reset to Home the user never chose.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-findings">
+        <div class="cs-text">
+          <h2 id="h-findings"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">03</span> &nbsp;Findings</h2>
+          <ul class="cs-bullets">
+            <li>The clearest finding looked like a visual problem, but it was not.</li>
+            <li>Four in five participants never noticed the Home, Experiences, and Services tabs on Search.</li>
+            <li>The app reset the choice to Home on every back-navigation, so the tabs never read as real. The cause was state, not styling.</li>
+            <li>The booked-trip screen had four faults:
+              <ul>
+                <li>It dropped the room-by-room photo grouping that browsing shows.</li>
+                <li>It placed the booking below secondary items.</li>
+                <li>It hid Message your host under the house guide.</li>
+                <li>It listed the house guide twice.</li>
+              </ul>
+            </li>
+            <li>When asked to arrange the screen, most people chose the same order: the place, then check-in, then the host, then the guide.</li>
+          </ul>
+        </div>
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Study.002 / Signals" data-reveal>
+            <div class="metrics">
+              <div class="metric"><span class="num">80%</span><span class="what">Never noticed the Home / Experiences / Services tabs</span></div>
+              <div class="metric"><span class="num">30%</span><span class="what">Independently chose the photos-first Trips order</span></div>
+              <div class="metric"><span class="num">2→1</span><span class="what">Duplicate house-guide entries, merged to one</span></div>
+            </div>
+            <figcaption>Guerrilla test, small sample — directional signal, not statistical weight.</figcaption>
+          </figure>
+
+          <figure class="fig" data-tag="Study.002 / IA" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 470" role="img" width="800" height="470">
+              <title>Trips screen order, before and after: your place moves to the top, message host lifts above the house guide, and the duplicate house guide is removed.</title>
+              <text x="20"  y="36">Before</text>
+              <text x="430" y="36">After</text>
+              <!-- BEFORE column -->
+              <rect class="stroke" x="20" y="52"  width="350" height="46"/><text x="36" y="81">Photos</text>
+              <rect class="stroke" x="20" y="106" width="350" height="46"/><text x="36" y="135">House manual / guide</text>
+              <rect class="stroke" x="20" y="160" width="350" height="46"/><text x="36" y="189">Message your host</text>
+              <rect class="stroke" x="20" y="214" width="350" height="46"/><text x="36" y="243">Check-in details</text>
+              <rect class="stroke" x="20" y="268" width="350" height="46"/><text x="36" y="297">Your place</text>
+              <rect class="stroke-thin" x="20" y="322" width="350" height="46"/><text x="36" y="351">House manual / guide</text>
+              <line class="stroke" x1="30" y1="345" x2="360" y2="345"/>
+              <text x="20" y="392">↑ duplicate — remove</text>
+              <!-- AFTER column -->
+              <rect class="stroke" x="430" y="52"  width="350" height="46"/><text x="446" y="81">Your place · photos + details</text>
+              <rect class="stroke" x="430" y="106" width="350" height="46"/><text x="446" y="135">Check-in details</text>
+              <rect class="fill"   x="430" y="160" width="350" height="46"/><text x="446" y="189">Message your host</text>
+              <rect class="stroke" x="430" y="214" width="350" height="46"/><text x="446" y="243">House manual / guide</text>
+              <text x="430" y="290">place → check-in → host → guide</text>
+              <text x="430" y="312">one guide, not two</text>
+            </svg>
+            <figcaption>Trips re-ordered to the task. Highlighted part: Message your host, lifted above the guide.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-solution">
+        <div class="cs-text">
+          <h2 id="h-solution"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">04</span> &nbsp;Solution</h2>
+          <ul class="cs-bullets">
+            <li>Keep the last Search tab across back-navigation and sessions. Then Experiences and Services stop resetting to invisible.</li>
+            <li>Reorder Trips to match the task: the place and its photos first, then check-in, then Message your host above the guide, then the guide once.</li>
+            <li>Bring the categorized photos from the browse view — bedrooms, kitchen, and spaces — into the booked state behind an info control. Then the same place behaves the same way before and after payment.</li>
+          </ul>
+        </div>
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Study.002 / Consistency" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 400" role="img" width="800" height="400">
+              <title>Photo consistency: browsing groups photos by room; the booked view drops the grouping. The fix restores it behind an info affordance.</title>
+              <text x="60" y="34">Browse — grouped by room</text>
+              <rect class="stroke" x="60" y="48" width="300" height="320"/>
+              <text x="76" y="92">Bedroom</text>
+              <rect class="tint" x="76" y="102" width="130" height="60"/><rect class="tint" x="216" y="102" width="128" height="60"/>
+              <text x="76" y="196">Kitchen</text>
+              <rect class="tint" x="76" y="206" width="130" height="60"/><rect class="tint" x="216" y="206" width="128" height="60"/>
+              <text x="76" y="300">Living</text>
+              <rect class="tint" x="76" y="310" width="130" height="46"/><rect class="tint" x="216" y="310" width="128" height="46"/>
+              <text x="440" y="34">Booked — flat grid</text>
+              <rect class="stroke" x="440" y="48" width="300" height="320"/>
+              <rect class="tint" x="456" y="64" width="130" height="60"/><rect class="tint" x="596" y="64" width="128" height="60"/>
+              <rect class="tint" x="456" y="134" width="130" height="60"/><rect class="tint" x="596" y="134" width="128" height="60"/>
+              <rect class="tint" x="456" y="204" width="130" height="60"/><rect class="tint" x="596" y="204" width="128" height="60"/>
+              <!-- info affordance = the fix -->
+              <circle class="fill" cx="712" cy="80" r="18"/>
+              <text x="712" y="86" text-anchor="middle" style="fill:var(--paper)">i</text>
+              <text x="456" y="316">fix — info view</text>
+              <text x="456" y="338">restores grouping</text>
+            </svg>
+            <figcaption>Browse vs. booked photos. Highlighted part: the info affordance that brings back the room grouping.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section cs-section--solo" aria-labelledby="h-personas">
+        <div class="cs-text" style="max-inline-size: 64ch;">
+          <h2 id="h-personas"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">05</span> &nbsp;Who feels it</h2>
+          <p><strong>Maya, the planner.</strong> Reopens a booking six times before a trip to plan rooms and screenshot the address. Wants the place and its photos first.</p>
+          <p><strong>Deepak, the explorer.</strong> Would live in the Experiences tab — but never formed the habit, because the app never let the choice persist.</p>
+          <p><strong>Rina, the first-timer.</strong> Anxious before check-in. Sees two house guides and cannot tell which one is real.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<a class="back-top" href="#">[ ↑ Back to top ]</a>
+
+<footer class="site-footer">
+  <div class="wrap footer-cols">
+    <ul aria-label="Footer navigation">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="design.html">Design</a></li>
+      <li><a href="photography.html">Photography</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="about.html">About Me</a></li>
+    </ul>
+    <ul aria-label="Contact links">
+      <li><a href="mailto:kaushik.hgd@gmail.com">kaushik.hgd@gmail.com</a></li>
+      <li><a href="https://instagram.com" rel="noopener">Instagram</a></li>
+      <li><a href="https://github.com" rel="noopener">GitHub</a></li>
+      <li><a href="https://linkedin.com" rel="noopener">LinkedIn</a></li>
+    </ul>
+    <p class="colophon">Set in Silkscreen, EB Garamond &amp; JetBrains Mono · Grid ruled at 16px · Trial section 2026-07-27</p>
+  </div>
+  <div class="rule-hatch" aria-hidden="true"></div>
+</footer>
+
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.cs-toc-list a'));
+  var map = links
+    .map(function (a) { return { a: a, el: document.getElementById(a.getAttribute('href').slice(1)) }; })
+    .filter(function (m) { return m.el; });
+  if (!map.length) return;
+  function onScroll() {
+    var mark = window.scrollY + 140;
+    var current = map[0];
+    for (var i = 0; i < map.length; i++) {
+      if (map[i].el.getBoundingClientRect().top + window.scrollY <= mark) current = map[i];
+    }
+    map.forEach(function (m) {
+      if (m === current) m.a.setAttribute('aria-current', 'true');
+      else m.a.removeAttribute('aria-current');
+    });
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

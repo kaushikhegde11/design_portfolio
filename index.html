@@ -34,6 +34,7 @@
     <button class="menu-btn" aria-expanded="false" aria-controls="nav-overlay">[ Menu ]</button>
     <nav class="site-nav" aria-label="Primary">
       <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
         <li><a href="design.html">Design</a></li>
         <li><a href="photography.html">Photography</a></li>
         <li><a href="case-studies.html">Case Studies</a></li>
@@ -46,6 +47,7 @@
 <div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Menu">
   <button class="close-btn">[ Close ]</button>
   <ul>
+    <li><a href="index.html">Home</a></li>
     <li><a href="design.html">Design</a></li>
     <li><a href="photography.html">Photography</a></li>
     <li><a href="case-studies.html">Case Studies</a></li>
@@ -76,8 +78,8 @@
             <span class="layer-label">Design</span>
           </a>
           <a class="layer is-focus" href="photography.html" style="--lift: -50px; z-index: 3;">
-            <span class="face-detail ring" aria-hidden="true"></span>
-            <span class="face-ghost ring" aria-hidden="true"></span>
+            <span class="face-detail" aria-hidden="true"></span>
+            <span class="face-ghost" aria-hidden="true"></span>
             <span class="layer-label">Photography</span>
           </a>
           <a class="layer" href="case-studies.html" style="--lift: 50px; z-index: 2;">
@@ -135,6 +137,36 @@
         <span class="no">04</span><span class="name">About Me</span><span class="leader" aria-hidden="true"></span><span class="count" aria-hidden="true">→</span>
       </a>
     </nav>
+  </section>
+
+  <section class="wrap" style="max-inline-size: 900px; margin-block-start: 64px;" data-reveal>
+    <h2>Featured case study</h2>
+    <div class="study-index" style="margin-block-start: 16px;">
+      <a class="study-row" href="case-study-airbnb.html">
+        <span class="study-no">Study.002</span>
+        <span class="study-title">Airbnb Case study</span>
+        <span class="study-problem">The screens after you book, before you check in.</span>
+        <span class="study-role">Solo · IA</span>
+        <span class="study-year">2026</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <h2 style="margin-block-start: 40px;">Who it's for</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-block-start: 16px;">
+      <div>
+        <p class="mono" style="margin: 0 0 8px;">Maya · the planner</p>
+        <p style="margin: 0;">Reopens a booking six times before a trip to plan rooms and screenshot the address. Wants the place and its photos first.</p>
+      </div>
+      <div>
+        <p class="mono" style="margin: 0 0 8px;">Deepak · the explorer</p>
+        <p style="margin: 0;">Would live in the Experiences tab — but never formed the habit, because the app never let the choice persist.</p>
+      </div>
+      <div>
+        <p class="mono" style="margin: 0 0 8px;">Rina · the first-timer</p>
+        <p style="margin: 0;">Anxious before check-in. Sees two house guides and cannot tell which one is real.</p>
+      </div>
+    </div>
   </section>
 </main>
 

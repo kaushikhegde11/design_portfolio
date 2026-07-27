@@ -488,7 +488,6 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   opacity: 0;
   transition: opacity 120ms linear;
 }
-.explode .layer .face-ghost.ring { inset: 34%; }
 .explode .layer .face-ghost::before,
 .explode .layer .face-ghost::after {
   content: "";
@@ -525,10 +524,6 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   z-index: 5;
   pointer-events: none;
 }
-.explode .layer .face-detail.ring {
-  inset: 34%;
-}
-
 /* placeholder plate art (inline SVG standing in for photos/screens) */
 .ph-art { inline-size: 100%; background: var(--paper); }
 .ph-art .stroke { stroke: var(--blueprint-fill); stroke-width: 1.5; fill: none; }
