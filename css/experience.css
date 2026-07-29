@@ -307,6 +307,21 @@
   .cs-panel { min-block-size: 70vh; }
 }
 
+/* phones: flatten the sticky stack — bars sit above their panels in normal
+   flow (no pinning, no forced-tall panels), so nothing overlaps or gaps */
+@media (max-width: 720px) {
+  .cs-bar,
+  .cs-stack.gsap-pinned .cs-bar {
+    position: static;
+    z-index: auto;
+    block-size: auto;
+    min-block-size: var(--bar-h);
+    padding-block: var(--s2);
+    background: var(--blueprint-tint);
+  }
+  .cs-panel { min-block-size: 0; padding-block: var(--s3) var(--s4); }
+}
+
 /* the floating centered back-to-top stays for mid-page, but hides once the
    footer is on screen (the footer has its own right-aligned link there).
    experience.js toggles .at-footer via an IntersectionObserver on the footer. */
