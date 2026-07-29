@@ -289,8 +289,10 @@
 /* clickable bars (studies with a real page) — hover highlight + arrow */
 a.cs-bar { text-decoration: none; color: inherit; cursor: pointer; }
 .cs-go { margin-inline-start: auto; color: var(--blueprint); transition: transform 120ms linear; }
-a.cs-bar:hover { background: var(--blueprint-tint); }
-a.cs-bar:hover .cs-title { text-decoration: underline; text-underline-offset: 3px; }
+a.cs-bar:hover { background: var(--blueprint); }
+a.cs-bar:hover .cs-no,
+a.cs-bar:hover .cs-title,
+a.cs-bar:hover .cs-go { color: var(--paper); }
 a.cs-bar:hover .cs-go { transform: translateX(4px); }
 
 .cs-panel {
