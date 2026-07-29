@@ -833,7 +833,7 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   color: var(--blueprint);
   background: var(--paper);
   border: 1px solid var(--blueprint);
-  padding: 12px 16px;
+  padding: 8px 12px;
   text-decoration: none;
   opacity: 0;
   visibility: hidden;

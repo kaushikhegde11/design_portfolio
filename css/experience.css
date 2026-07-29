@@ -1,0 +1,445 @@
+/* ==========================================================================
+   EXPERIENCE.CSS — single-scroll page, additive over manual.css
+   Reuses manual.css tokens (--blueprint, --hatch, --graph, --s*, fonts).
+   Loaded AFTER manual.css. Only styles the one-scroll page; other pages
+   never link this file.
+   Sections: A sections/anchors · B pinned title band · C hatch dividers
+   D parallax · E staggered reveal · F scrollspy · G section-progress rail
+   ========================================================================== */
+
+/* A ── SECTIONS + ANCHOR OFFSET ------------------------------------------- */
+/* header is sticky; land anchored scrolls just below it. --headh is the
+   compressed sticky-header height; the real header is taller on load but
+   compresses (.is-stuck) the instant you scroll, which is when anchors land. */
+:root { --headh: 132px; }
+
+.exp-section {
+  position: relative;
+  scroll-margin-block-start: var(--headh);
+  padding-block: var(--s5);
+}
+.exp-section:first-of-type { padding-block-start: var(--s4); }
+
+/* B ── PINNED SECTION-TITLE BAND ----------------------------------------- */
+/* the label pins under the header for a beat, then releases as the section
+   scrolls past. Purely decorative wayfinding; theme-matched mono label. */
+.section-title {
+  position: sticky;
+  inset-block-start: var(--headh);
+  z-index: 20;
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+  margin: 0 0 var(--s4);
+  padding-block: var(--s1);
+  background: var(--paper);
+}
+.section-title .tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+.section-title .bar {
+  flex: 1;
+  block-size: 6px;
+  background: var(--hatch);
+}
+
+/* C ── HATCH DIVIDERS (draw in on scroll) -------------------------------- */
+.section-divider {
+  block-size: 12px;
+  margin: 0;
+  background: var(--hatch);
+  /* collapsed until observed; draws left-to-right */
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.section-divider.is-in { clip-path: inset(0 0 0 0); }
+
+/* D ── PARALLAX ----------------------------------------------------------- */
+/* JS sets --p (px) from scroll position; figures drift slightly against the
+   scroll. Transform only — no layout thrash. */
+.parallax {
+  transform: translate3d(0, var(--p, 0px), 0);
+  will-change: transform;
+}
+
+/* E ── STAGGERED REVEAL --------------------------------------------------- */
+/* manual.css supplies .reveal / .reveal.is-in (fade + 12px rise). Here we
+   cascade siblings by their --i index so plates/frames arrive in sequence. */
+.reveal[style*="--i"], .reveal[data-i] { transition-delay: calc(var(--i, 0) * 70ms); }
+.plate-grid > .reveal:nth-child(1) { --i: 0; }
+.plate-grid > .reveal:nth-child(2) { --i: 1; }
+.plate-grid > .reveal:nth-child(3) { --i: 2; }
+.plate-grid > .reveal:nth-child(4) { --i: 3; }
+.plate-grid > .reveal:nth-child(5) { --i: 4; }
+.plate-grid > .reveal:nth-child(6) { --i: 5; }
+
+/* F ── SCROLLSPY (active nav link) --------------------------------------- */
+/* mirror the existing aria-current treatment: filled square + solid underline */
+.scrollspy a.is-active {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.scrollspy a.is-active::before {
+  content: "";
+  inline-size: 8px;
+  block-size: 8px;
+  background: var(--blueprint);
+}
+.nav-overlay a.is-active { background: var(--blueprint-tint); }
+
+/* G ── SECTION-PROGRESS RAIL (right edge, drafting tick marks) ------------ */
+.scroll-rail {
+  position: fixed;
+  inset-block-start: 50%;
+  inset-inline-end: 14px;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.scroll-rail a {
+  display: block;
+  inline-size: 14px;
+  block-size: 14px;
+  position: relative;
+  text-decoration: none;
+}
+.scroll-rail a::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: 0;
+  inline-size: 18px;
+  block-size: 2px;
+  background: var(--blueprint);
+  opacity: 0.55;
+  transform: translateY(-50%);
+  transition: inline-size 150ms linear, opacity 150ms linear;
+}
+.scroll-rail a.is-active::after { inline-size: 28px; block-size: 3px; opacity: 1; }
+.scroll-rail a:hover::after { inline-size: 28px; opacity: 1; }
+.scroll-rail a .rail-label {
+  position: absolute;
+  inset-inline-end: 22px;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  background: var(--paper);
+  padding: 2px 6px;
+  border: 1px solid var(--blueprint);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms linear;
+}
+.scroll-rail a:hover .rail-label,
+.scroll-rail a:focus-visible .rail-label { opacity: 1; }
+
+/* over the blue footer, invert the rail ticks to white so they stay visible */
+.scroll-rail.over-footer a::after { background: var(--paper); }
+
+/* H ── RESPONSIVE + MOTION ----------------------------------------------- */
+@media (max-width: 899px) {
+  :root { --headh: 148px; }
+  .scroll-rail { display: none; }
+  .section-title { inset-block-start: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-divider { clip-path: none; transition: none; }
+  .parallax { transform: none; }
+  .reveal[style*="--i"], .reveal[data-i] { transition-delay: 0ms; }
+  .section-title { position: static; }
+}
+
+/* I ── GSAP PINNED SEQUENCES (gsap-scroll.js) ----------------------------- */
+/* All of section I only takes effect once gsap-scroll.js adds .gsap-on to
+   <html>. Without GSAP (no JS, reduced motion, mobile, load failure) none of
+   these rules match, so the page falls back to the plain single-scroll layout
+   already defined above. Nothing here is required for the page to read. */
+
+/* I.1 photography horizontal filmstrip.
+   When active, the contact sheet is a single horizontal row inside a pinned
+   viewport; gsap translates the row on the x axis across the extra scroll.
+   Only grid view opts in — list view (main.js toggles .view-list) drops out
+   and the strip is torn down by JS. */
+/* strip fills the viewport below the (live-measured) header so the pinned
+   section has no empty band beneath it. Frames stretch to that height and the
+   SVGs letterbox (default preserveAspectRatio=meet) — 4:3 kept, no distortion. */
+:root { --strip-h: calc(100svh - var(--head-now, var(--headh)) - var(--s5)); }
+.gsap-on .hstrip-viewport { overflow: hidden; position: relative; }
+.gsap-on .contact-sheet.is-hstrip {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(320px, calc(var(--strip-h) * 0.85), 76vw);
+  block-size: var(--strip-h);
+  align-items: stretch;
+  will-change: transform;
+}
+.gsap-on .contact-sheet.is-hstrip > figure {
+  min-inline-size: 0;
+  block-size: var(--strip-h);
+  box-sizing: border-box;
+  padding-block-end: var(--s3); /* keep captions clear of the bottom progress bar */
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+}
+.gsap-on .contact-sheet.is-hstrip .frame-btn {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  display: flex;
+}
+.gsap-on .contact-sheet.is-hstrip .ph-art {
+  inline-size: 100%;
+  block-size: 100%;
+  max-inline-size: none;
+}
+/* progress hairline pinned to the bottom of the strip, drafting tick that fills */
+.gsap-on .hstrip-progress {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  block-size: 2px;
+  margin: 0;
+  background: var(--hatch);
+}
+.gsap-on .hstrip-progress::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  inline-size: var(--hp, 0%);
+  background: var(--blueprint);
+}
+
+/* the horizontal strip is a desktop, motion-OK affordance only */
+@media (max-width: 899px), (prefers-reduced-motion: reduce) {
+  .gsap-on .contact-sheet.is-hstrip {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, 1fr);
+    block-size: auto;
+    grid-auto-columns: initial;
+  }
+  .gsap-on .contact-sheet.is-hstrip > figure {
+    block-size: auto;
+    display: block;
+  }
+  .gsap-on .contact-sheet.is-hstrip .frame-btn { display: block; }
+  .gsap-on .contact-sheet.is-hstrip .ph-art { block-size: auto; }
+}
+
+/* J ── CASE-STUDY STICKY STACK -------------------------------------------- */
+/* Full-width bars park one under another using position: sticky with
+   cumulative top offsets; because all bars share one containing block
+   (.cs-stack) they release together when the stack scrolls out. Pure CSS —
+   works with no JS, no GSAP, and under reduced motion. gsap-scroll.js only
+   adds the entry rise + .is-parked class. Nothing in the ancestor chain sets
+   overflow/transform/height:100%, which would silently break sticky. */
+:root { --bar-h: 52px; }
+
+/* only this section drops the sticky title band, so the stack owns the top */
+#case-studies .section-title { position: static; }
+
+.cs-stack { position: relative; }
+
+.cs-bar {
+  position: sticky; /* fallback when GSAP is absent; .gsap-pinned turns this off */
+  inset-block-start: calc(var(--head-now, var(--headh)) + var(--i) * var(--bar-h));
+  z-index: calc(10 + var(--i));
+  block-size: var(--bar-h);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding-inline: var(--s3);
+  background: var(--paper);
+  /* one rule under every bar; parked bars abut so only the upper bar's rule
+     shows between them → a single consistent 1.5px line everywhere */
+  border-block-end: 1.5px solid var(--blueprint);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.cs-stack > .cs-bar:first-child { border-block-start: 1.5px solid var(--blueprint); }
+
+/* GSAP owns positioning while active, so the CSS sticky fallback stands down */
+.cs-stack.gsap-pinned .cs-bar { position: static; }
+.cs-bar .cs-no { font-size: 11px; color: var(--ink-muted); }
+.cs-bar .cs-title { font-size: 12px; color: var(--blueprint); }
+.cs-bar.is-parked { background: var(--blueprint-tint); }
+
+.cs-panel {
+  min-block-size: 80vh;
+  padding-block: var(--s4);
+  max-inline-size: 640px;
+}
+.cs-panel .cs-line { margin-block: 0 var(--s2); }
+.cs-panel .cs-key {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  display: block;
+  margin-block-end: 2px;
+}
+
+@media (max-width: 899px) {
+  :root { --bar-h: 44px; }
+  .cs-panel { min-block-size: 70vh; }
+}
+
+/* the floating centered back-to-top stays for mid-page, but hides once the
+   footer is on screen (the footer has its own right-aligned link there).
+   experience.js toggles .at-footer via an IntersectionObserver on the footer. */
+.back-top.at-footer { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* K ── BLUEPRINT FOOTER --------------------------------------------------- */
+/* A blueprint-blue panel with a light-blue drafting grid, corner crop marks
+   framing the panel and the wordmark, and mono spec labels. Page-scoped
+   (experience.css only) so other pages keep the plain footer. Palette:
+   --blueprint bg, white-alpha grid reads as light blue, --paper text,
+   --blueprint-fill / --blueprint-tint as the light-blue accents. */
+.site-footer.fb { margin-block-start: 0; }
+
+/* reusable corner crop marks — anchor to the nearest .framed box */
+.framed { position: relative; }
+.crop {
+  position: absolute;
+  inline-size: 20px;
+  block-size: 20px;
+  border: 0 solid var(--paper);
+  pointer-events: none;
+}
+.crop-tl { inset-block-start: 0; inset-inline-start: 0; border-block-start-width: 2px; border-inline-start-width: 2px; }
+.crop-tr { inset-block-start: 0; inset-inline-end: 0; border-block-start-width: 2px; border-inline-end-width: 2px; }
+.crop-bl { inset-block-end: 0; inset-inline-start: 0; border-block-end-width: 2px; border-inline-start-width: 2px; }
+.crop-br { inset-block-end: 0; inset-inline-end: 0; border-block-end-width: 2px; border-inline-end-width: 2px; }
+
+/* drafting tick ruler seam above the panel */
+.fb .fb-ruler {
+  block-size: 18px;
+  background-image: repeating-linear-gradient(90deg,
+    var(--blueprint) 0, var(--blueprint) 1.5px, transparent 1.5px, transparent 16px);
+  border-block-end: 1.5px solid var(--blueprint);
+  opacity: 0.55;
+}
+
+/* the blue panel + light-blue grid (minor 24px, major 96px). The grid is kept
+   faint so text stays readable over it. */
+.fb .fb-panel {
+  background-color: var(--blueprint);
+  background-image:
+    repeating-linear-gradient(0deg,  rgba(255,255,255,.14) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.14) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(0deg,  rgba(255,255,255,.05) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 24px);
+  background-position: center top;
+  color: var(--paper);
+}
+
+.fb .fb-inner {
+  max-inline-size: 1200px;
+  margin-inline: auto;
+  padding: var(--s5) var(--s4) var(--s4);
+}
+
+/* header tag row */
+.fb .fb-head {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blueprint-tint);
+}
+
+/* columns */
+.fb .fb-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: var(--s4);
+  margin-block-start: var(--s3);
+  padding-block-start: var(--s4);
+  border-block-start: 1px solid rgba(255,255,255,.35);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+.fb .fb-col-h {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blueprint-tint);
+  margin: 0 0 var(--s3);
+}
+.fb .fb-col ul { list-style: none; margin: 0; padding: 0; }
+.fb .fb-col li { padding-block: 7px; }
+.fb .fb-col a { color: var(--paper); text-decoration: none; }
+.fb .fb-col a:hover { text-decoration: underline; text-decoration-style: dashed; text-underline-offset: 4px; }
+/* spec column: label → value on aligned rows sharing the link-list rhythm */
+.fb .fb-spec dl { margin: 0; }
+.fb .fb-spec dl > div {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: var(--s2);
+  align-items: baseline;
+  padding-block: 7px;
+}
+.fb .fb-spec dt {
+  margin: 0;
+  color: var(--blueprint-tint);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+}
+.fb .fb-spec dd { margin: 0; color: var(--paper); }
+
+/* baseline row */
+.fb .fb-base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+  margin-block-start: var(--s4);
+  padding-block-start: var(--s3);
+  border-block-start: 1px solid rgba(255,255,255,.28);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint-tint);
+}
+.fb .fb-plus { color: var(--blueprint-fill); }
+.fb .fb-top-link {
+  margin-inline-start: auto;
+  color: var(--blueprint);
+  background: var(--paper);
+  border: 1px solid var(--paper);
+  padding: 6px 12px;
+  text-decoration: none;
+}
+.fb .fb-top-link:hover { background: var(--blueprint-tint); border-color: var(--blueprint-tint); }
+
+@media (max-width: 899px) {
+  .fb .fb-cols { grid-template-columns: 1fr; gap: var(--s3); }
+  .fb .fb-inner { padding: var(--s4) var(--s3); }
+}
