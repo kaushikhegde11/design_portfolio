@@ -7,6 +7,10 @@
    D parallax · E staggered reveal · F scrollspy · G section-progress rail
    ========================================================================== */
 
+/* clickable design plates on the scroll — stretched overlay link */
+.plate-open { position: absolute; inset: 0; z-index: 4; cursor: pointer; }
+.plate:hover { outline: 1px solid var(--blueprint); outline-offset: 2px; }
+
 /* A ── SECTIONS + ANCHOR OFFSET ------------------------------------------- */
 /* header is sticky; land anchored scrolls just below it. --headh is the
    compressed sticky-header height; the real header is taller on load but

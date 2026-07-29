@@ -744,6 +744,7 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   color: var(--paper);
 }
 .plate.is-hidden { display: none; }
+.plate[id] { scroll-margin-top: 120px; }
 
 /* plate gallery: grid by default, single column in list view */
 .plate-grid {
