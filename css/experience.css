@@ -286,6 +286,13 @@
 .cs-bar .cs-title { font-size: 12px; color: var(--blueprint); }
 .cs-bar.is-parked { background: var(--blueprint-tint); }
 
+/* clickable bars (studies with a real page) — hover highlight + arrow */
+a.cs-bar { text-decoration: none; color: inherit; cursor: pointer; }
+.cs-go { margin-inline-start: auto; color: var(--blueprint); transition: transform 120ms linear; }
+a.cs-bar:hover { background: var(--blueprint-tint); }
+a.cs-bar:hover .cs-title { text-decoration: underline; text-underline-offset: 3px; }
+a.cs-bar:hover .cs-go { transform: translateX(4px); }
+
 .cs-panel {
   min-block-size: 80vh;
   padding-block: var(--s4);
