@@ -208,8 +208,9 @@
   function stackBars() {
     var stack = document.getElementById("cs-stack");
     if (!stack) return;
-    /* on phones the pinned stack overlaps and leaves gaps — render as plain
-       flow instead (CSS mobile breakpoint drops the sticky fallback too) */
+    /* on phones GSAP pinning mis-measures and overlaps — skip it and let the
+       pure-CSS position:sticky fallback (experience.css section J) park the
+       bars instead. Not adding .gsap-pinned keeps that CSS sticky live. */
     if (window.matchMedia("(max-width: 720px)").matches) { markWired(); return; }
     var bars = Array.prototype.slice.call(stack.querySelectorAll(".cs-bar"));
     if (!bars.length) return;
