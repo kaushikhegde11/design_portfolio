@@ -890,6 +890,15 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   padding: var(--s2) 0;
   border-block-end: 1px solid var(--grid-line);
 }
+.overlay-group-label {
+  margin: var(--s5) 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.overlay-group-label + ul { margin-top: var(--s2); }
 .nav-overlay .close-btn { align-self: flex-end; }
 
 .menu-btn, .nav-overlay .close-btn {
