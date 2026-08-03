@@ -215,4 +215,56 @@
     var calloutHost = document.querySelector(".explode-callouts");
     if (calloutHost) calloutHost.classList.add("animate");
   }
+
+  /* ── nav: one blue pill that slides in X to the active link, kept in
+        sync with the scrollspy (which sets aria-current on scroll) ──── */
+  var navList = document.querySelector(".site-nav ul");
+  if (navList) {
+    var indicator = document.createElement("span");
+    indicator.className = "nav-indicator";
+    indicator.setAttribute("aria-hidden", "true");
+    navList.appendChild(indicator);
+
+    var moveIndicator = function () {
+      var active = navList.querySelector('a[aria-current="page"]');
+      if (!active) {
+        indicator.style.opacity = "0";
+        return;
+      }
+      indicator.style.opacity = "1";
+      /* 9px each side so the [ ] brackets flank the text, not overlap it */
+      var pad = 9;
+      indicator.style.width = active.offsetWidth + pad * 2 + "px";
+      indicator.style.height = active.offsetHeight + "px";
+      indicator.style.transform =
+        "translate(" + (active.offsetLeft - pad) + "px," + active.offsetTop + "px)";
+    };
+
+    moveIndicator();
+    /* enable the slide only after first placement so it does not fly in */
+    requestAnimationFrame(function () {
+      indicator.classList.add("is-ready");
+    });
+
+    var navObserver = new MutationObserver(moveIndicator);
+    navObserver.observe(navList, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["aria-current"],
+    });
+    window.addEventListener("resize", moveIndicator);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(moveIndicator);
+    }
+  }
+
+  /* ── about spec stack: tap to expand a part (hover handles it on
+        pointer devices via CSS) ─────────────────────────────────────── */
+  document.querySelectorAll(".spec-head").forEach(function (head) {
+    head.addEventListener("click", function () {
+      var row = head.closest(".spec-row");
+      var open = row.classList.toggle("is-open");
+      head.setAttribute("aria-expanded", String(open));
+    });
+  });
 })();

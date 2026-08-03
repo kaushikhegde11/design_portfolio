@@ -20,6 +20,12 @@
   --font-serif: "EB Garamond", "Iowan Old Style", Georgia, serif;
   --font-mono: "JetBrains Mono", "SF Mono", "Menlo", monospace;
 
+  /* cone-cell accents for the about spec stack (red / green / blue / ink) */
+  --c-skills: #D64550;
+  --c-tools: #2FA65A;
+  --c-interests: #4C63D6;
+  --c-background: #2B2F38;
+
   --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 40px; --s5: 64px; --s6: 96px;
 
   --max-w: 1600px;
@@ -37,6 +43,15 @@
     repeating-linear-gradient(
       90deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 16px);
 }
+
+/* registered vars so the exploded-view drift and hover-lift animate on
+   separate properties — hover never restarts the idle float (no jitter) */
+@property --floatY { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --hoverY { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --driftX { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --driftY { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --popX   { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --popY   { syntax: "<length>"; inherits: false; initial-value: 0px; }
 
 /* 2 ── BASE --------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -205,6 +220,34 @@ hr, .rule-hatch {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  position: relative; /* offset parent for the sliding pill */
+}
+
+/* active-state indicator: one blue pill that slides in X to the active link.
+   the [ ] brackets ride on the pill, so they stay on the fill as it moves */
+.site-nav .nav-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--blueprint);
+  z-index: 0;
+  pointer-events: none;
+  transform: translate(0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--paper);
+}
+.site-nav .nav-indicator::before { content: "["; }
+.site-nav .nav-indicator::after  { content: "]"; }
+.site-nav .nav-indicator.is-ready {
+  transition: transform 340ms cubic-bezier(0.4, 0, 0.2, 1),
+    width 340ms cubic-bezier(0.4, 0, 0.2, 1),
+    height 340ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .site-nav li { display: flex; align-items: center; }
@@ -224,10 +267,12 @@ hr, .rule-hatch {
   letter-spacing: 0.12em;
   color: var(--blueprint);
   text-decoration: none;
-  padding: 12px 4px; /* ≥44px target with line-height */
+  padding: 8px 10px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  position: relative;
+  z-index: 1; /* label sits above the sliding pill */
 }
 
 .site-nav a:hover {
@@ -238,17 +283,15 @@ hr, .rule-hatch {
   text-underline-offset: 4px;
 }
 
-/* active page: filled square + solid underline (hover stays dashed) */
+/* active page: paper text on the sliding blue pill (no dot, no underline) */
 .site-nav a[aria-current="page"] {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
+  color: var(--paper);
+  text-decoration: none;
 }
-.site-nav a[aria-current="page"]::before {
-  content: "";
-  inline-size: 8px;
-  block-size: 8px;
-  background: var(--blueprint);
+.site-nav a[aria-current="page"]:hover {
+  color: var(--paper);
+  background: none;
+  text-decoration: none;
 }
 
 .menu-btn { display: none; }
@@ -396,6 +439,161 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 }
 .callout-list li { padding-block: 4px; border-block-end: 1px solid var(--grid-line); }
 
+/* 7b ── ABOUT SPEC STACK (flat, expand on hover / tap) -------------------- */
+.spec-stack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.spec-row {
+  border: 1.5px solid var(--c);
+  background: var(--paper);
+  transition: background 240ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* glass-glare sweep: two diagonal light streaks cross each row in its
+   accent colour. rows fire in sequence, 3s apart, looping every 12s. */
+@media (prefers-reduced-motion: no-preference) {
+  .spec-row::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    transform: translateX(-140%);
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      color-mix(in srgb, var(--c) 42%, transparent) 36%,
+      transparent 42%,
+      transparent 50%,
+      color-mix(in srgb, var(--c) 42%, transparent) 56%,
+      transparent 62%
+    );
+    animation: glassSweep 8s ease-in-out infinite;
+  }
+  .spec-stack .spec-row:nth-child(1)::after { animation-delay: 0s; }
+  .spec-stack .spec-row:nth-child(2)::after { animation-delay: 2s; }
+  .spec-stack .spec-row:nth-child(3)::after { animation-delay: 4s; }
+  .spec-stack .spec-row:nth-child(4)::after { animation-delay: 6s; }
+  @keyframes glassSweep {
+    0%    { transform: translateX(-140%); }
+    22.5% { transform: translateX(140%); }
+    100%  { transform: translateX(140%); }
+  }
+}
+.spec-head {
+  inline-size: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  text-align: start;
+}
+.spec-icon {
+  inline-size: 26px;
+  block-size: 26px;
+  flex: none;
+  color: var(--c);
+}
+.spec-icon svg {
+  inline-size: 100%;
+  block-size: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.spec-label { font-size: 13px; font-weight: 700; }
+.spec-toggle {
+  margin-inline-start: auto;
+  color: var(--c);
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 300ms ease;
+}
+/* grid 0fr → 1fr gives a smooth height transition without a fixed max */
+.spec-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms ease;
+}
+.spec-body-inner { overflow: hidden; }
+.spec-body p {
+  margin: 0;
+  padding: 0 18px 16px 58px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+/* expanded: each listed thing on its own row with its own icon */
+.spec-items {
+  list-style: none;
+  margin: 0;
+  padding: 2px 18px 18px 58px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+}
+.spec-items li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.spec-item-icon {
+  inline-size: 18px;
+  block-size: 18px;
+  flex: none;
+  color: var(--c);
+}
+.spec-item-icon svg {
+  inline-size: 100%;
+  block-size: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* taller framed figure for the about spec sheet */
+.spec-fig {
+  min-block-size: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.spec-fig .spec-stack { inline-size: 100%; }
+
+/* open state: on hover (pointer devices) and via .is-open (tap toggle) */
+@media (hover: hover) {
+  .spec-row:hover { background: color-mix(in srgb, var(--c) 8%, var(--paper)); }
+  .spec-row:hover .spec-body { grid-template-rows: 1fr; }
+  .spec-row:hover .spec-toggle { transform: rotate(45deg); }
+}
+.spec-row.is-open { background: color-mix(in srgb, var(--c) 8%, var(--paper)); }
+.spec-row.is-open .spec-body { grid-template-rows: 1fr; }
+.spec-row.is-open .spec-toggle { transform: rotate(45deg); }
+
 /* 7 ── EXPLODED STACK ----------------------------------------------------- */
 .explode {
   position: relative;
@@ -422,19 +620,19 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   margin-block-start: calc(var(--layer-w, 240px) / -2);
   border: 1.5px solid var(--blueprint);
   background: var(--paper);
-  transform: translateY(var(--lift)) rotateX(55deg) rotateZ(-45deg);
+  transform: translateY(calc(var(--lift) + var(--floatY) + var(--hoverY))) rotateX(55deg) rotateZ(-45deg);
   transform-style: preserve-3d; /* lets the ghost trails un-project to screen space */
-  transition: transform 120ms linear;
+  transition: transform 120ms linear, --hoverY 120ms linear;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
 }
 
-/* hover: the plate itself rises 4px on screen (translateY is applied in
-   screen space, before the isometric rotations) */
+/* hover: the plate itself rises 4px on screen. --hoverY is its own
+   (transitioned) variable so hovering never touches the float animation */
 .explode .layer:hover {
-  transform: translateY(calc(var(--lift) - 4px)) rotateX(55deg) rotateZ(-45deg);
+  --hoverY: -4px;
 }
 
 .explode .layer.is-focus { background: var(--blueprint-fill); }
@@ -443,18 +641,20 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
    and they read as pressable */
 .explode .layer .layer-label {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--blueprint);
   background: var(--paper);
   border: 1px solid var(--blueprint);
-  padding: 6px 10px;
+  padding: 6px 12px;
   transform: rotateZ(45deg);
   text-align: center;
-  max-inline-size: 82%;
-  line-height: 1.6;
-  overflow-wrap: break-word;
+  max-inline-size: 90%;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow-wrap: normal;
 }
 .explode .layer:hover .layer-label {
   background: var(--blueprint-tint);
@@ -475,9 +675,10 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   inset: 16px;
   border: 1px solid var(--blueprint);
   pointer-events: none;
-  transition: transform 120ms linear;
+  transform: translate(calc(var(--driftX) + var(--popX)), calc(var(--driftY) + var(--popY)));
+  transition: --popX 120ms linear, --popY 120ms linear;
 }
-.explode .layer:hover .face-detail { transform: translate(22px, -22px); }
+.explode .layer:hover .face-detail { --popX: 22px; --popY: -22px; }
 
 /* displacement trails: dotted lines from the resting corners up to the
    popped rectangle's edge, shown only while that layer is hovered */
@@ -989,6 +1190,39 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   .callout.points-left .lead { animation: march-left 1s steps(2) infinite; }
   @keyframes march-right { to { background-position-x: 16px; } }
   @keyframes march-left { to { background-position-x: -16px; } }
+
+  /* EXPLODED-VIEW DRIFT ---------------------------------------------------
+     From the resting position (0), each plate eases up to -Y and back;
+     its inner rectangle eases down to +Y and back — opposite directions,
+     never crossing past rest, both on the same smooth cycle. */
+
+  /* outer plate drifts via --floatY only (screen-space +Y = down) */
+  @keyframes layerFloat {
+    0%, 100% { --floatY: 0px; }
+    50%      { --floatY: 8px; }
+  }
+  .explode .layer {
+    animation: layerFloat 3.4s ease-in-out infinite;
+  }
+  /* home stack: assemble animates `transform`, layerFloat animates `--floatY`
+     — different properties, so they coexist. The 1200ms delay holds --floatY
+     at 0 through the entrance for a clean handoff. */
+  .explode.animate .layer {
+    animation: assemble 1200ms cubic-bezier(0.22, 1, 0.36, 1) backwards,
+               layerFloat 3.4s ease-in-out 1200ms infinite;
+  }
+
+  /* inner rectangle drifts via --driftX/--driftY, opposite the plate.
+     (16,-16) in the plate's tilted plane projects to screen-up. */
+  @keyframes faceDrift {
+    0%, 100% { --driftX: 0px; --driftY: 0px; }
+    50%      { --driftX: 16px; --driftY: -16px; }
+  }
+  .explode .layer .face-detail {
+    animation: faceDrift 3.4s ease-in-out infinite;
+  }
+  /* start together with the plate float on the home stack */
+  .explode.animate .layer .face-detail { animation-delay: 1200ms; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1139,4 +1373,44 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 @media (max-width: 899px) {
   .fb .fb-cols { grid-template-columns: 1fr; gap: var(--s3); }
   .fb .fb-inner { padding: var(--s4) var(--s3); }
+}
+
+/* scroll cue — bouncing arrow at bottom of first viewport, fades on scroll */
+.scroll-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  text-decoration: none;
+  z-index: 40;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.scroll-hint .scroll-hint-txt {
+  background: var(--blueprint);
+  color: var(--paper);
+  padding: 4px 8px;
+  border: 1px solid var(--blueprint);
+}
+.scroll-hint .scroll-hint-arrow {
+  font-size: 16px;
+  line-height: 1;
+  animation: scrollHintBounce 1.4s ease-in-out infinite;
+}
+.scroll-hint.is-hidden { opacity: 0; pointer-events: none; }
+@keyframes scrollHintBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint .scroll-hint-arrow { animation: none; }
 }

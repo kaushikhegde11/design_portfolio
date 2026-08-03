@@ -97,6 +97,10 @@
 }
 .nav-overlay a.is-active { background: var(--blueprint-tint); }
 
+/* header nav uses the sliding blue pill instead — no square dot, no underline */
+.site-nav a.is-active { text-decoration: none; color: var(--paper); }
+.site-nav a.is-active::before { content: none; }
+
 /* G ── SECTION-PROGRESS RAIL (right edge, drafting tick marks) ------------ */
 .scroll-rail {
   position: fixed;
