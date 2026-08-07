@@ -16,9 +16,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&family=Silkscreen&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/manual.css?v=2">
-<link rel="stylesheet" href="css/experience.css?v=2">
-<script src="js/main.js?v=2" defer></script>
+<link rel="stylesheet" href="css/manual.css?v=26">
+<link rel="stylesheet" href="css/experience.css?v=4">
+<script src="js/main.js?v=12" defer></script>
 <script src="js/experience.js?v=2" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -89,7 +89,6 @@
     <article class="wrap spread">
       <div class="col-text prose">
         <div class="page-title-block">
-          <span class="page-no">Index · Updated July 2026</span>
           <h1>Work</h1>
         </div>
         <p class="dropcap">I am a UI designer and front-end developer in Bengaluru. I trained as a mechanical engineer and moved from supply-chain work at Volvo into design. This page holds all of my work on one page: design, photography, case studies, and about. Scroll through it, or jump with the contents.</p>
@@ -176,24 +175,15 @@
   <section class="exp-section" id="design">
     <div class="wrap">
       <div class="section-title">
-        <span class="tag">Sec.01 · Plates</span>
         <span class="bar" aria-hidden="true"></span>
       </div>
     </div>
     <article class="wrap" style="padding-block: 0 8px;">
-      <div class="prose" style="max-inline-size: 480px; margin-block-end: 40px;" data-reveal>
+      <div class="prose" style="max-inline-size: 520px; margin-block-end: 40px;" data-reveal>
         <div class="page-title-block">
           <h1>Design</h1>
         </div>
-        <p class="dropcap">One decision per plate. The callouts on each plate name the specific choice being demonstrated, not the whole project it came from. Filter by discipline, or switch the view, below.</p>
-      </div>
-
-      <div class="filter-bar" role="group" aria-label="Filter plates" style="margin-block-end: 8px;">
-        <button type="button" data-filter="all" aria-pressed="true">All</button>
-        <button type="button" data-filter="ui" aria-pressed="false">UI</button>
-        <button type="button" data-filter="type" aria-pressed="false">Type</button>
-        <button type="button" data-filter="motion" aria-pressed="false">Motion</button>
-        <button type="button" data-filter="print" aria-pressed="false">Print</button>
+        <p class="dropcap">One project, worked end to end. Find the Tempo turns a screenshot of songs into openable streaming links. Hover the plate to wake the interface; open it for the full decision-by-decision breakdown.</p>
       </div>
 
       <div class="view-bar" role="group" aria-label="View" data-target=".plate-grid">
@@ -203,86 +193,17 @@
 
       <div class="plate-grid">
 
-        <figure class="fig plate callout-host" data-cat="ui" data-tag="UI / Plate 01" data-reveal>
-          <a class="plate-open" href="design.html#plate-01" aria-label="Open the Boarding pass card on the Design page"></a>
-          <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-            <title>Boarding pass card layout with oversized tap area</title>
-            <rect class="stroke" x="120" y="80" width="560" height="320"/>
-            <line class="stroke-thin" x1="120" y1="200" x2="680" y2="200"/>
-            <rect class="fill" x="160" y="250" width="200" height="56"/>
-            <rect class="stroke-thin" x="160" y="120" width="280" height="24"/>
-          </svg>
-          <ul class="callout-list"><li>Primary action sized 56px, thumb-reach zone</li></ul>
-          <figcaption>Boarding pass card. The one action a rider needs is the largest thing on the card.</figcaption>
-        </figure>
-
-        <figure class="fig plate callout-host" data-cat="type" data-tag="Type / Plate 02" data-reveal>
-          <a class="plate-open" href="design.html#plate-02" aria-label="Open the Kannada–Latin type specimen on the Design page"></a>
-          <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-            <title>Kannada and Latin type pairing specimen sheet</title>
-            <text x="80" y="180" style="font-size: 64px;">ಕ · K</text>
-            <line class="stroke-thin" x1="80" y1="220" x2="720" y2="220"/>
-            <line class="stroke-thin" x1="80" y1="120" x2="720" y2="120"/>
-            <rect class="stroke-thin" x="80" y="280" width="420" height="18"/>
-            <rect class="stroke-thin" x="80" y="320" width="360" height="18"/>
-            <rect class="tint" x="80" y="360" width="480" height="18"/>
-          </svg>
-          <ul class="callout-list"><li>Kannada and Latin aligned on a shared x-height</li></ul>
-          <figcaption>Bilingual specimen for transit signage. The scripts share a baseline grid, not a font.</figcaption>
-        </figure>
-
-        <figure class="fig plate callout-host" data-cat="motion" data-tag="Motion / Plate 03" data-reveal>
-          <a class="plate-open" href="design.html#plate-03" aria-label="Open the Loading sequence storyboard on the Design page"></a>
-          <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-            <title>Loading sequence storyboard, twelve frames on a strip</title>
-            <g class="stroke-thin">
-              <rect x="60" y="180" width="100" height="120"/><rect x="180" y="180" width="100" height="120"/><rect x="300" y="180" width="100" height="120"/><rect x="420" y="180" width="100" height="120"/><rect x="660" y="180" width="100" height="120"/>
-            </g>
-            <rect class="fill" x="540" y="180" width="100" height="120"/>
-            <line class="stroke-thin" x1="60" y1="340" x2="760" y2="340"/>
-            <text x="60" y="380">0ms</text><text x="640" y="380">600ms</text>
-          </svg>
-          <ul class="callout-list"><li>Deceleration lands at frame 10 of 12</li></ul>
-          <figcaption>Ticket-issue loading sequence. All easing resolves inside 600 milliseconds.</figcaption>
-        </figure>
-
-        <figure class="fig plate callout-host" data-cat="print" data-tag="Print / Plate 04" data-reveal>
-          <a class="plate-open" href="design.html#plate-04" aria-label="Open the Risograph zine cover on the Design page"></a>
-          <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-            <title>Risograph zine cover, two-colour overprint</title>
-            <rect class="stroke" x="220" y="60" width="360" height="360"/>
-            <circle class="tint" cx="360" cy="220" r="90"/>
-            <circle class="fill" cx="440" cy="260" r="90" style="opacity: 0.7;"/>
-            <rect class="stroke-thin" x="250" y="360" width="180" height="16"/>
-          </svg>
-          <ul class="callout-list"><li>Blue and fluorescent pink, misregistration kept</li></ul>
-          <figcaption>Cover for a walk-photography zine. The overprint misregistration is the design.</figcaption>
-        </figure>
-
-        <figure class="fig plate callout-host" data-cat="ui" data-tag="UI / Plate 05" data-reveal>
-          <a class="plate-open" href="design.html#plate-05" aria-label="Open the List density control on the Design page"></a>
-          <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-            <title>Settings screen with a density toggle shown in both states</title>
-            <rect class="stroke" x="80" y="80" width="280" height="320"/>
-            <g class="stroke-thin"><line x1="110" y1="140" x2="330" y2="140"/><line x1="110" y1="190" x2="330" y2="190"/><line x1="110" y1="240" x2="330" y2="240"/></g>
-            <rect class="stroke" x="440" y="80" width="280" height="320"/>
-            <g class="stroke-thin"><line x1="470" y1="130" x2="690" y2="130"/><line x1="470" y1="165" x2="690" y2="165"/><line x1="470" y1="200" x2="690" y2="200"/><line x1="470" y1="235" x2="690" y2="235"/><line x1="470" y1="270" x2="690" y2="270"/></g>
-            <rect class="fill" x="440" y="340" width="120" height="40"/>
-          </svg>
-          <ul class="callout-list"><li>Comfortable and compact list density, user-set</li></ul>
-          <figcaption>List density control for a bookkeeping app. Shopkeepers chose compact 4 to 1.</figcaption>
-        </figure>
-
-        <figure class="fig plate callout-host" data-cat="type" data-tag="Type / Plate 06" data-reveal>
-          <a class="plate-open" href="design.html#plate-06" aria-label="Open the Timetable numerals on the Design page"></a>
-          <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-            <title>Tabular numerals designed for a departure timetable</title>
-            <text x="100" y="200" style="font-size: 88px;">08:42</text>
-            <text x="100" y="320" style="font-size: 88px;">11:07</text>
-            <g class="stroke-thin"><line x1="100" y1="100" x2="100" y2="360"/><line x1="380" y1="100" x2="380" y2="360"/></g>
-          </svg>
-          <ul class="callout-list"><li>Fixed-width digits so times align in columns</li></ul>
-          <figcaption>Timetable numerals. Every digit occupies the same width, so columns never shiver.</figcaption>
+        <figure class="fig plate tempo-card" data-tag="UI / Find the Tempo" data-reveal>
+          <a class="plate-open" href="design-find-the-tempo.html" aria-label="Open the Find the Tempo case study"></a>
+          <span class="tempo-frame">
+            <img class="tempo-shot" src="img/find-the-tempo.png?v=1" alt="Find the Tempo — convert screenshots into findable links" width="1264" height="791" loading="lazy">
+            <span class="tempo-overlay" aria-hidden="true">
+              <p class="tempo-desc">Find the Tempo turns a screenshot of songs into openable links. OCR reads each track and artist, then builds one search link per streaming service. Scattered tracks, gathered in one place.</p>
+              <span class="tempo-arrow">Open →</span>
+            </span>
+          </span>
+          <ul class="callout-list"><li>Screenshot → OCR → one query link per streaming service</li></ul>
+          <figcaption>Find the Tempo. Hover to read what it does.</figcaption>
         </figure>
 
       </div>
@@ -295,7 +216,6 @@
   <section class="exp-section" id="photography">
     <div class="wrap">
       <div class="section-title">
-        <span class="tag">Sec.02 · Contact sheet 01</span>
         <span class="bar" aria-hidden="true"></span>
       </div>
     </div>
@@ -305,7 +225,7 @@
           <h1>Photography</h1>
         </div>
         <p class="dropcap">An index sheet of frames shot on morning walks, or on the way to somewhere else. The captions record where the camera was, when, and what it was set to. Select a frame to inspect it at full size.</p>
-        <p class="mono" style="color: var(--ink-muted);">Placeholder plates — swap each SVG for the real photograph, AVIF + WebP srcset, explicit width and height.</p>
+        <p class="mono" style="color: var(--ink-muted);">Hover a frame for a closer look. Select one to inspect it at full size.</p>
       </div>
 
       <div class="view-bar" role="group" aria-label="View" data-target=".contact-sheet">
@@ -317,11 +237,10 @@
 
         <figure>
           <button class="frame-btn" type="button" aria-label="Open frame 001, Malleshwaram market, in lightbox">
-            <svg class="ph-art" viewBox="0 0 800 600" role="img" width="800" height="600"><title>Vegetable rows at Malleshwaram market, stall awnings overhead</title>
-              <rect class="stroke-thin" x="60" y="380" width="680" height="60"/><rect class="stroke-thin" x="60" y="460" width="680" height="60"/>
-              <path class="stroke" d="M60 340 L400 120 L740 340"/><rect class="tint" x="330" y="400" width="140" height="100"/>
-              <text x="60" y="90">Frame.001</text>
-            </svg>
+            <span class="plate" data-src="img/photography/frame-001.jpg">
+              <span class="plate-shader" aria-hidden="true"></span>
+              <img class="plate-orig" src="img/photography/frame-001.jpg" alt="Vegetable rows at Malleshwaram market, stall awnings overhead" width="800" height="1000" loading="lazy" decoding="async">
+            </span>
           </button>
           <figcaption>
             <span>Malleshwaram market</span>
@@ -331,11 +250,10 @@
 
         <figure>
           <button class="frame-btn" type="button" aria-label="Open frame 002, Church Street after rain, in lightbox">
-            <svg class="ph-art" viewBox="0 0 800 600" role="img" width="800" height="600"><title>Church Street after rain, wet cobbles reflecting shop signs</title>
-              <path class="stroke" d="M100 520 L400 200 L700 520"/><path class="stroke-thin" d="M200 520 L400 260 L600 520"/>
-              <rect class="tint" x="360" y="420" width="80" height="100"/>
-              <text x="60" y="90">Frame.002</text>
-            </svg>
+            <span class="plate" data-src="img/photography/frame-002.jpg">
+              <span class="plate-shader" aria-hidden="true"></span>
+              <img class="plate-orig" src="img/photography/frame-002.jpg" alt="Church Street after rain, wet cobbles reflecting shop signs" width="800" height="1000" loading="lazy" decoding="async">
+            </span>
           </button>
           <figcaption>
             <span>Church Street, after rain</span>
@@ -345,11 +263,10 @@
 
         <figure>
           <button class="frame-btn" type="button" aria-label="Open frame 003, Cubbon Park canopy, in lightbox">
-            <svg class="ph-art" viewBox="0 0 800 600" role="img" width="800" height="600"><title>Rain-tree canopy in Cubbon Park, sky breaking through leaves</title>
-              <circle class="stroke" cx="260" cy="240" r="120"/><circle class="stroke-thin" cx="480" cy="200" r="90"/><circle class="stroke-thin" cx="580" cy="360" r="130"/>
-              <circle class="tint" cx="400" cy="300" r="46"/>
-              <text x="60" y="540">Frame.003</text>
-            </svg>
+            <span class="plate" data-src="img/photography/frame-003.jpg">
+              <span class="plate-shader" aria-hidden="true"></span>
+              <img class="plate-orig" src="img/photography/frame-003.jpg" alt="Rain-tree canopy in Cubbon Park, sky breaking through leaves" width="800" height="1000" loading="lazy" decoding="async">
+            </span>
           </button>
           <figcaption>
             <span>Cubbon Park canopy</span>
@@ -359,12 +276,10 @@
 
         <figure>
           <button class="frame-btn" type="button" aria-label="Open frame 004, KR Market flower rows, in lightbox">
-            <svg class="ph-art" viewBox="0 0 800 600" role="img" width="800" height="600"><title>Marigold garlands stacked in rows at KR Market</title>
-              <g class="stroke-thin"><circle cx="160" cy="200" r="40"/><circle cx="280" cy="200" r="40"/><circle cx="400" cy="200" r="40"/><circle cx="520" cy="200" r="40"/><circle cx="640" cy="200" r="40"/>
-              <circle cx="160" cy="320" r="40"/><circle cx="280" cy="320" r="40"/><circle cx="520" cy="320" r="40"/><circle cx="640" cy="320" r="40"/></g>
-              <circle class="fill" cx="400" cy="320" r="40"/>
-              <text x="60" y="540">Frame.004</text>
-            </svg>
+            <span class="plate" data-src="img/photography/frame-004.jpg">
+              <span class="plate-shader" aria-hidden="true"></span>
+              <img class="plate-orig" src="img/photography/frame-004.jpg" alt="Marigold garlands stacked in rows at KR Market" width="800" height="1000" loading="lazy" decoding="async">
+            </span>
           </button>
           <figcaption>
             <span>KR Market, flower rows</span>
@@ -374,11 +289,10 @@
 
         <figure>
           <button class="frame-btn" type="button" aria-label="Open frame 005, Majestic metro platform, in lightbox">
-            <svg class="ph-art" viewBox="0 0 800 600" role="img" width="800" height="600"><title>Empty platform at Majestic metro, last train indicator lit</title>
-              <g class="stroke-thin"><line x1="60" y1="420" x2="740" y2="420"/><line x1="60" y1="450" x2="740" y2="450"/><line x1="60" y1="480" x2="740" y2="480"/></g>
-              <rect class="stroke" x="280" y="140" width="240" height="80"/><rect class="tint" x="300" y="160" width="120" height="40"/>
-              <text x="60" y="90">Frame.005</text>
-            </svg>
+            <span class="plate" data-src="img/photography/frame-005.jpg">
+              <span class="plate-shader" aria-hidden="true"></span>
+              <img class="plate-orig" src="img/photography/frame-005.jpg" alt="Empty platform at Majestic metro, last train indicator lit" width="800" height="1000" loading="lazy" decoding="async">
+            </span>
           </button>
           <figcaption>
             <span>Majestic metro, platform 2</span>
@@ -388,12 +302,10 @@
 
         <figure>
           <button class="frame-btn" type="button" aria-label="Open frame 006, monsoon window study, in lightbox">
-            <svg class="ph-art" viewBox="0 0 800 600" role="img" width="800" height="600"><title>Rain streaking a bus window, city lights out of focus</title>
-              <rect class="stroke" x="120" y="100" width="560" height="400"/>
-              <g class="stroke-thin"><line x1="220" y1="120" x2="180" y2="480"/><line x1="380" y1="120" x2="340" y2="480"/><line x1="540" y1="120" x2="500" y2="480"/><line x1="640" y1="120" x2="600" y2="480"/></g>
-              <circle class="tint" cx="400" cy="300" r="36"/>
-              <text x="140" y="560">Frame.006</text>
-            </svg>
+            <span class="plate" data-src="img/photography/frame-006.jpg">
+              <span class="plate-shader" aria-hidden="true"></span>
+              <img class="plate-orig" src="img/photography/frame-006.jpg" alt="Rain streaking a bus window, city lights out of focus" width="800" height="1000" loading="lazy" decoding="async">
+            </span>
           </button>
           <figcaption>
             <span>Monsoon window study</span>
@@ -403,11 +315,10 @@
 
         <figure>
           <button class="frame-btn" type="button" aria-label="Open frame 007, Hampi boulders at dawn, in lightbox">
-            <svg class="ph-art" viewBox="0 0 800 600" role="img" width="800" height="600"><title>Granite boulders balanced above the Tungabhadra at first light</title>
-              <ellipse class="stroke" cx="300" cy="380" rx="180" ry="120"/><ellipse class="stroke-thin" cx="520" cy="300" rx="140" ry="100"/><ellipse class="tint" cx="430" cy="180" rx="90" ry="60"/>
-              <line class="stroke-thin" x1="60" y1="520" x2="740" y2="520"/>
-              <text x="60" y="90">Frame.007</text>
-            </svg>
+            <span class="plate" data-src="img/photography/frame-007.jpg">
+              <span class="plate-shader" aria-hidden="true"></span>
+              <img class="plate-orig" src="img/photography/frame-007.jpg" alt="Granite boulders balanced above the Tungabhadra at first light" width="800" height="1000" loading="lazy" decoding="async">
+            </span>
           </button>
           <figcaption>
             <span>Hampi boulders, dawn</span>
@@ -417,11 +328,10 @@
 
         <figure>
           <button class="frame-btn" type="button" aria-label="Open frame 008, filter coffee still life, in lightbox">
-            <svg class="ph-art" viewBox="0 0 800 600" role="img" width="800" height="600"><title>Steel tumbler and dabarah of filter coffee on a marble counter</title>
-              <circle class="stroke" cx="400" cy="280" r="110"/><circle class="stroke-thin" cx="400" cy="280" r="70"/>
-              <rect class="tint" x="330" y="400" width="140" height="60"/><line class="stroke-thin" x1="120" y1="470" x2="680" y2="470"/>
-              <text x="60" y="540">Frame.008</text>
-            </svg>
+            <span class="plate" data-src="img/photography/frame-008.jpg">
+              <span class="plate-shader" aria-hidden="true"></span>
+              <img class="plate-orig" src="img/photography/frame-008.jpg" alt="Steel tumbler and dabarah of filter coffee on a marble counter" width="800" height="1000" loading="lazy" decoding="async">
+            </span>
           </button>
           <figcaption>
             <span>Filter coffee, steel tumbler</span>
@@ -431,11 +341,10 @@
 
         <figure>
           <button class="frame-btn" type="button" aria-label="Open frame 009, Old Airport Road traffic blur, in lightbox">
-            <svg class="ph-art" viewBox="0 0 800 600" role="img" width="800" height="600"><title>Long exposure of evening traffic on Old Airport Road</title>
-              <g class="stroke-thin"><line x1="60" y1="260" x2="740" y2="240"/><line x1="60" y1="300" x2="740" y2="290"/><line x1="60" y1="340" x2="740" y2="345"/><line x1="60" y1="380" x2="740" y2="400"/></g>
-              <rect class="fill" x="600" y="310" width="80" height="24"/>
-              <text x="60" y="90">Frame.009</text>
-            </svg>
+            <span class="plate" data-src="img/photography/frame-009.jpg">
+              <span class="plate-shader" aria-hidden="true"></span>
+              <img class="plate-orig" src="img/photography/frame-009.jpg" alt="Long exposure of evening traffic on Old Airport Road" width="800" height="1000" loading="lazy" decoding="async">
+            </span>
           </button>
           <figcaption>
             <span>Old Airport Road, blur</span>
@@ -444,6 +353,8 @@
         </figure>
 
       </div>
+
+      <a class="frames-more" href="photography.html">[ View all frames → ]</a>
     </article>
   </section>
 
@@ -453,7 +364,6 @@
   <section class="exp-section" id="case-studies">
     <div class="wrap">
       <div class="section-title">
-        <span class="tag">Sec.03 · Specifications</span>
         <span class="bar" aria-hidden="true"></span>
       </div>
     </div>
@@ -471,7 +381,7 @@
       <div class="cs-stack" id="cs-stack">
 
         <a class="cs-bar" style="--i:0" href="case-study-airbnb.html">
-          <span class="cs-no">Study.002</span>
+          <span class="cs-no">01</span>
           <span class="cs-title">Airbnb — the anxious gap</span>
           <span class="cs-go" aria-hidden="true">→</span>
         </a>
@@ -482,38 +392,6 @@
           <p><a href="case-study-airbnb.html">Read the full case study →</a></p>
         </div>
 
-        <!-- placeholder studies — swap content/links for real case-study pages -->
-        <a class="cs-bar" style="--i:1" href="case-study-transit.html">
-          <span class="cs-no">Study.001</span>
-          <span class="cs-title">Namma Transit — offline ticketing</span>
-          <span class="cs-go" aria-hidden="true">→</span>
-        </a>
-        <div class="cs-panel">
-          <p class="cs-line"><span class="cs-key">Problem</span>Riders on patchy networks could not buy a ticket the moment the bus arrived; the queue punished every dropped connection.</p>
-          <p class="cs-line"><span class="cs-key">Method</span>Moved fare logic to the device and let tickets issue offline, reconciling when signal returned.</p>
-          <p class="cs-line"><span class="cs-key">Result</span>Shipped March 2026; boarding no longer waits on a live connection.</p>
-          <p><a href="case-study-transit.html">Read the full case study →</a></p>
-        </div>
-
-        <div class="cs-bar" style="--i:2">
-          <span class="cs-no">Study.003</span>
-          <span class="cs-title">Shopkeeper books — list density</span>
-        </div>
-        <div class="cs-panel">
-          <p class="cs-line"><span class="cs-key">Problem</span>A bookkeeping app for small shops showed too few rows per screen, so owners scrolled instead of scanning during the evening rush.</p>
-          <p class="cs-line"><span class="cs-key">Method</span>Added a user-set compact density and tuned the type for tabular scanning.</p>
-          <p class="cs-line"><span class="cs-key">Result</span>Shopkeepers chose compact roughly four to one. <span class="mono" style="color:var(--ink-muted)">[ placeholder ]</span></p>
-        </div>
-
-        <div class="cs-bar" style="--i:3">
-          <span class="cs-no">Study.004</span>
-          <span class="cs-title">Fieldnotes — capture on the walk</span>
-        </div>
-        <div class="cs-panel">
-          <p class="cs-line"><span class="cs-key">Problem</span>Film photographers wanted to log exposure and location without breaking the walk; every extra tap lost the frame.</p>
-          <p class="cs-line"><span class="cs-key">Method</span>One-thumb capture with sensible defaults, editable later at rest.</p>
-          <p class="cs-line"><span class="cs-key">Result</span>Released 2024 as a side project; 3,000 users in the first year. <span class="mono" style="color:var(--ink-muted)">[ placeholder ]</span></p>
-        </div>
 
       </div>
     </article>
@@ -525,35 +403,79 @@
   <section class="exp-section has-fig" id="about">
     <div class="wrap">
       <div class="section-title">
-        <span class="tag">Sec.04 · The operator</span>
         <span class="bar" aria-hidden="true"></span>
       </div>
     </div>
-    <article class="wrap spread">
-      <div class="col-text prose" data-reveal>
-        <div class="page-title-block">
-          <h1>About Me</h1>
-        </div>
-        <p class="dropcap">I am a UI designer and front-end developer in Bengaluru. I trained as a mechanical engineer. I spent three and a half years in supply chain and material planning at Volvo Auto India Pvt Ltd. That work ran on spreadsheets and dashboards, and on tools built with little thought for the person who used them. That frustration moved me into design.</p>
-        <p>Manufacturing taught me to respect constraints and to trace a problem to its cause, not decorate the symptom. I bring that habit to interfaces. I understand the flow first, then I draw the screen. I like the full span of the work: I talk to users, structure the information, lay out the UI, and build it in the browser so the design holds up in real code.</p>
-        <p>Right now I look for a full-time role as a UI designer and front-end developer. I also take freelance work. I am slow to add features and quick to remove steps.</p>
-
-        <h2 style="margin-block-start: 40px;">Service history</h2>
-        <ul class="timeline">
-          <li><span class="year">2026</span> Independent — open to full-time UI design and front-end roles, and available for freelance.</li>
-          <li><span class="year">2023</span> Executive, Material Planning &amp; Logistics, Volvo Auto India Pvt Ltd (Dec 2023 – Jul 2026). Ran planning workflows and built the design habit on the side.</li>
-          <li><span class="year">2022</span> Supply Chain Management apprentice, Volvo Auto India Pvt Ltd (Dec 2022 – Dec 2023).</li>
-          <li><span class="year">2022</span> B.E. Mechanical Engineering. The engineering brain I still design with.</li>
-        </ul>
-
-        <div class="contact-block" style="margin-block-start: 40px;">
-          <h2>Contact</h2>
-          <p>Write to <a href="mailto:kaushik.hgd@gmail.com">kaushik.hgd@gmail.com</a>. Find my work on <a href="https://github.com/kaushikhegde11" rel="noopener">GitHub</a> and <a href="https://www.linkedin.com/in/kaushik-hegde/" rel="noopener">LinkedIn</a>.</p>
-          <p><span class="status-chip">[ Available for work ]</span></p>
-        </div>
+    <article class="wrap">
+    <div class="prose">
+      <div class="page-title-block">
+        <h1>About Me</h1>
       </div>
 
-      <div class="col-fig">
+      <section class="svc-hz" aria-label="Experience">
+      <h2>Experience</h2>
+      <div class="svc-pin" data-pin>
+        <div class="svc-sticky">
+          <div class="svc-scale">
+            <div class="svc-track">
+              <div class="svc-flow">
+              <div class="svc-card svc-card--edu svc-intro">
+                <div class="svc-card-head"><span class="svc-span">2018 – 2022</span><span class="svc-dur">4 yrs</span></div>
+                <h3>B.E. Mechanical Engineering</h3>
+                <p class="svc-meta">Mangalore Institute of Technology · MITE</p>
+                <div class="svc-bullets">
+                  <div class="svc-bul">Bachelor of Engineering, Mechanical.</div>
+                  <div class="svc-bul">Certified in Power BI and Python for Everybody.</div>
+                </div>
+              </div>
+              <div class="svc-card">
+                <div class="svc-card-head"><span class="svc-span">Oct – Dec 2022</span><span class="svc-dur">3 mo</span></div>
+                <h3>Production Planner &amp; Design Engineer</h3>
+                <p class="svc-meta">Concord United Pvt Ltd</p>
+                <div class="svc-bullets">
+                  <div class="svc-bul">Built daily production and capacity plans for Wire EDM machines.</div>
+                  <div class="svc-bul">Improved forecast accuracy for the shop floor.</div>
+                  <div class="svc-bul">Modeled 3D pallet dies in SolidWorks.</div>
+                  <div class="svc-bul">Worked with senior designers on manufacturability.</div>
+                </div>
+              </div>
+              <div class="svc-card">
+                <div class="svc-card-head"><span class="svc-span">2022 – 2023</span><span class="svc-dur">1 yr</span></div>
+                <h3>Graduate Apprentice — Logistics</h3>
+                <p class="svc-meta">Volvo Group Pvt Ltd</p>
+                <div class="svc-bullets">
+                  <div class="svc-bul">Ran time-and-motion studies on CKD kitting. Saved 24 minutes per operator each day.</div>
+                  <div class="svc-bul">Ran a feasibility study with spaghetti diagrams and cost-benefit analysis.</div>
+                  <div class="svc-bul">Avoided low-return investments.</div>
+                  <div class="svc-bul">Improved inventory data accuracy. Tuned the stock-check frequency.</div>
+                  <div class="svc-bul">Designed ergonomic trolley solutions. Improved operator safety and workflow.</div>
+                </div>
+              </div>
+              <div class="svc-card">
+                <div class="svc-card-head"><span class="svc-span">2023 – Present</span><span class="svc-dur">2.5+ yrs</span></div>
+                <h3>Executive — Material Planning &amp; Logistics</h3>
+                <p class="svc-meta">Volvo Auto India Pvt Ltd</p>
+                <div class="svc-bullets">
+                  <div class="svc-bul">Planned supply for 6 product models from 4 international plants, on Excel and SAP.</div>
+                  <div class="svc-bul">Built a linear forecasting model from historical data. Saved ₹800,000 a year.</div>
+                  <div class="svc-bul">Ran a local-sourcing initiative. Cut procurement cost by 43%.</div>
+                  <div class="svc-bul">Managed the full spare-parts lifecycle at 100% availability.</div>
+                  <div class="svc-bul">Improved JIT flow. Lead time fell 40%, from 5 days to 3.</div>
+                  <div class="svc-bul">Built a Power BI dashboard for real-time inventory. Saved 30 minutes each week.</div>
+                  <div class="svc-bul">Set up inventory management from scratch — ABC analysis and a 2-bin system.</div>
+                  <div class="svc-bul">Covered the manager role. Led monthly plan reviews and owned SRM PO releases.</div>
+                </div>
+              </div>
+              </div>
+              <div class="svc-strip" aria-hidden="true"><span class="svc-yr">2018</span><span class="svc-yr">2019</span><span class="svc-yr">2020</span><span class="svc-yr">2021</span><span class="svc-yr">2022</span><span class="svc-yr">2023</span><span class="svc-yr">2024</span><span class="svc-yr">2025</span><span class="svc-yr">2026</span></div>
+            </div>
+          </div>
+          <p class="svc-hint">Scroll to walk the timeline</p>
+        </div>
+      </div>
+    </section>
+
+      <div class="svc-skills" style="margin-block-start: var(--s5);">
         <figure class="fig spec-fig" data-tag="Operator / Spec sheet">
           <ul class="spec-stack">
             <li class="spec-row" style="--c: var(--c-skills);">
@@ -621,7 +543,14 @@
           <figcaption>My skills, tools, interests, and background, in four parts.</figcaption>
         </figure>
       </div>
-    </article>
+
+      <div class="contact-block" style="margin-block-start: 40px;">
+          <h2>Contact</h2>
+          <p>Write to <a href="mailto:kaushik.hgd@gmail.com">kaushik.hgd@gmail.com</a>. Find my work on <a href="https://github.com/kaushikhegde11" rel="noopener">GitHub</a> and <a href="https://www.linkedin.com/in/kaushik-hegde/" rel="noopener">LinkedIn</a>.</p>
+          <p><span class="status-chip">[ Available for work ]</span></p>
+        </div>
+    </div>
+  </article>
   </section>
 
   <!-- single lightbox for the whole page (main.js binds by #lightbox) -->
@@ -630,7 +559,7 @@
     <p class="lb-caption mono"></p>
     <div class="lb-controls">
       <button type="button" class="lb-prev">[ ← Prev ]</button>
-      <button type="button" class="lb-close">[ Close ]</button>
+      <button type="button" class="lb-close">[ ✕ Close ]</button>
       <button type="button" class="lb-next">[ Next → ]</button>
     </div>
   </dialog>

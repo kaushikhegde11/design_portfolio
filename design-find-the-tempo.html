@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find the Tempo — Design — Kaushik Hegde</title>
+<meta name="description" content="Find the Tempo: a web app that turns a screenshot of songs into openable streaming links. A design case study — problem, decisions, flow, and honest reflection.">
+<link rel="canonical" href="https://kaushikhegde.example/design-find-the-tempo">
+<meta property="og:title" content="Find the Tempo — Design — Kaushik Hegde">
+<meta property="og:description" content="Turning a screenshot of songs into openable streaming links — a design case study.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kaushikhegde.example/design-find-the-tempo">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23FAFAF8'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%232B4CFF'/%3E%3C/svg%3E">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&family=Silkscreen&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/manual.css?v=26">
+<link rel="stylesheet" href="css/case-study.css?v=1">
+<script src="js/main.js?v=12" defer></script>
+<script src="js/case-study.js?v=1" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap masthead">
+    <a class="wordmark" href="index.html">Kaushik Hegde</a>
+    <p class="masthead-right">
+      <span class="subtitle">Design and photography with a curious mind.</span>
+    </p>
+  </div>
+  <div class="rule-hatch" aria-hidden="true"></div>
+  <div class="wrap">
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav-overlay">[ Menu ]</button>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="design.html" aria-current="page">Design</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="about.html">About Me</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Menu">
+  <button class="close-btn">[ Close ]</button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="design.html">Design</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="case-studies.html">Case Studies</a></li>
+    <li><a href="about.html">About Me</a></li>
+  </ul>
+</div>
+
+<main id="main">
+  <div class="wrap cs-head">
+    <span class="page-no"><a href="design.html">← All plates</a></span>
+    <h1>Find the Tempo</h1>
+  </div>
+
+  <div class="wrap cs-layout">
+    <aside class="cs-toc" aria-label="Contents">
+      <p class="cs-toc-title">Contents</p>
+      <ol class="cs-toc-list">
+        <li><a href="#h-snapshot">01 · Snapshot</a></li>
+        <li><a href="#h-problem">02 · The problem</a></li>
+        <li><a href="#h-who">03 · Who it's for</a></li>
+        <li><a href="#h-goals">04 · Goals &amp; signals</a></li>
+        <li><a href="#h-constraints">05 · Constraints</a></li>
+        <li><a href="#h-options">06 · Options considered</a></li>
+        <li><a href="#h-ocr">07 · Decision · OCR</a></li>
+        <li><a href="#h-linking">08 · Decision · Linking</a></li>
+        <li><a href="#h-flow">09 · The flow</a></li>
+        <li><a href="#h-next">10 · Shipped / next</a></li>
+        <li><a href="#h-reflection">11 · Reflection</a></li>
+      </ol>
+    </aside>
+
+    <div class="cs-content prose">
+
+      <section class="cs-section" aria-labelledby="h-snapshot">
+        <div class="cs-text">
+          <h2 id="h-snapshot"><span class="page-no cs-num">01</span> &nbsp;Snapshot</h2>
+          <p class="dropcap">Find the Tempo is a web app. I designed it and built it to solve my own problem. It turns a screenshot of songs into openable streaming links.</p>
+          <ul class="cs-bullets">
+            <li><strong>Role.</strong> Solo — UX research, UI design, and front-end build.</li>
+            <li><strong>Timeline · tools.</strong> 2026 · Next.js on Netlify, Vertex AI OCR, GA4.</li>
+            <li><strong>Live.</strong> <a href="https://findthetempo.netlify.app" rel="noopener">findthetempo.netlify.app ↗</a></li>
+          </ul>
+        </div>
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / Interface" data-reveal>
+            <span class="tempo-frame">
+              <img class="tempo-shot" src="img/find-the-tempo.png?v=1" alt="Find the Tempo — convert screenshots into findable links" width="1264" height="791" loading="lazy">
+            </span>
+            <figcaption>A screenshot of songs becomes openable links, gathered in one place.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-problem">
+        <div class="cs-text">
+          <h2 id="h-problem"><span class="page-no cs-num">02</span> &nbsp;The problem</h2>
+          <p>Songs reach you scattered across apps — screenshots, Shazams, shared links. To pull them into one usable list is manual work, and the tracks are easy to lose.</p>
+          <p>This started as my own problem. That personal origin is a strength, not a weakness. I felt the friction before I designed for it.</p>
+        </div>
+
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / Problem" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 300" role="img" width="800" height="300">
+              <title>Songs arrive scattered across apps and are easy to lose.</title>
+              <text x="40" y="34">Scattered across apps</text>
+              <g class="stroke-thin">
+                <rect x="60" y="70" width="110" height="140" transform="rotate(-8 115 140)"/>
+                <rect x="150" y="95" width="110" height="140" transform="rotate(7 205 165)"/>
+                <rect x="95" y="120" width="110" height="140" transform="rotate(-2 150 190)"/>
+              </g>
+              <line class="stroke-thin" x1="330" y1="150" x2="405" y2="150"/><path class="fill" d="M411 150 l-10 -5 l0 10 z"/>
+              <rect class="stroke" x="440" y="70" width="300" height="160"/>
+              <text x="590" y="178" text-anchor="middle" style="font-size:72px; fill:var(--blueprint-fill)">?</text>
+              <text x="470" y="262">easy to lose</text>
+            </svg>
+            <figcaption>Songs scatter across apps — a pile that is easy to lose.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-who">
+        <div class="cs-text">
+          <h2 id="h-who"><span class="page-no cs-num">03</span> &nbsp;Who it's for</h2>
+          <ul class="cs-bullets">
+            <li><strong>Primary user.</strong> DJs and everyday music fans who gather tracks from several streaming services and want them in one place.</li>
+            <li><strong>What I know.</strong> They collect from many sources and switch apps to listen.</li>
+            <li><strong>What I do not know yet.</strong> Which segment actually needs this. The target segment is still under review.</li>
+          </ul>
+        </div>
+
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / Users" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 300" role="img" width="800" height="300">
+              <title>Two users: DJs and everyday listeners.</title>
+              <circle class="stroke" cx="220" cy="150" r="62"/>
+              <path class="stroke-thin" d="M168 150 a52 52 0 0 1 104 0" fill="none"/>
+              <rect class="fill" x="160" y="150" width="16" height="34"/><rect class="fill" x="264" y="150" width="16" height="34"/>
+              <text x="220" y="252" text-anchor="middle">DJ</text>
+              <circle class="stroke" cx="560" cy="150" r="62"/>
+              <circle class="stroke-thin" cx="560" cy="128" r="20" fill="none"/>
+              <path class="stroke-thin" d="M528 188 a32 30 0 0 1 64 0" fill="none"/>
+              <text x="560" y="252" text-anchor="middle">Listener</text>
+            </svg>
+            <figcaption>Two users: DJs and everyday listeners.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-goals">
+        <div class="cs-text">
+          <h2 id="h-goals"><span class="page-no cs-num">04</span> &nbsp;Goals &amp; signals</h2>
+          <ul class="cs-bullets">
+            <li><strong>User goal.</strong> Get scattered tracks openable in one pass, without retyping.</li>
+            <li><strong>Product goal.</strong> Validate demand before building more.</li>
+            <li><strong>Success signals.</strong> Upload-to-link-open rate, repeat uploads, and survey pricing intent — stated intent, not proven demand.</li>
+          </ul>
+        </div>
+
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / Goals" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 300" role="img" width="800" height="300">
+              <title>Upload to open, measured by a few signals.</title>
+              <rect class="stroke" x="60" y="120" width="150" height="64"/><text x="135" y="158" text-anchor="middle">Upload</text>
+              <line class="stroke-thin" x1="215" y1="152" x2="285" y2="152"/><path class="fill" d="M291 152 l-10 -5 l0 10 z"/>
+              <rect class="fill" x="300" y="120" width="150" height="64"/><text x="375" y="158" text-anchor="middle" style="fill:var(--paper)">Open</text>
+              <g class="stroke-thin"><rect x="560" y="150" width="34" height="50"/><rect x="612" y="120" width="34" height="80"/><rect x="664" y="92" width="34" height="108"/></g>
+              <text x="560" y="232">signals</text>
+            </svg>
+            <figcaption>Upload → open, read by a few honest signals.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-constraints">
+        <div class="cs-text">
+          <h2 id="h-constraints"><span class="page-no cs-num">05</span> &nbsp;Constraints</h2>
+          <ul class="cs-bullets">
+            <li><strong>Technical.</strong> Official streaming APIs bring terms, quotas, and OAuth. Every decision below traces back to this.</li>
+            <li><strong>Cost.</strong> OCR costs money. GCP credits cover it, so the provider choice stays cost-driven.</li>
+            <li><strong>Time and skill.</strong> Solo, with limited time. Ship a small MVP, not a platform.</li>
+          </ul>
+        </div>
+
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / Constraints" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 300" role="img" width="800" height="300">
+              <title>Three limits: API terms, cost, and time.</title>
+              <rect class="stroke" x="40" y="80" width="200" height="140"/>
+              <rect class="stroke-thin" x="110" y="140" width="60" height="46"/>
+              <path class="stroke-thin" d="M120 140 v-14 a20 20 0 0 1 40 0 v14" fill="none"/>
+              <text x="140" y="252" text-anchor="middle">API</text>
+              <rect class="stroke" x="300" y="80" width="200" height="140"/>
+              <circle class="stroke-thin" cx="400" cy="150" r="34"/><text x="400" y="158" text-anchor="middle">$</text>
+              <text x="400" y="252" text-anchor="middle">Cost</text>
+              <rect class="stroke" x="560" y="80" width="200" height="140"/>
+              <circle class="stroke-thin" cx="660" cy="150" r="34"/>
+              <line class="stroke-thin" x1="660" y1="150" x2="660" y2="128"/><line class="stroke-thin" x1="660" y1="150" x2="680" y2="150"/>
+              <text x="660" y="252" text-anchor="middle">Time</text>
+            </svg>
+            <figcaption>Three limits: API terms, cost, and time.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-options">
+        <div class="cs-text">
+          <h2 id="h-options"><span class="page-no cs-num">06</span> &nbsp;Options considered</h2>
+          <ul class="cs-bullets">
+            <li><strong>A — Exact match.</strong> Match tracks by catalog ID through official APIs. Precise, but blocked by API terms, quotas, and OAuth.</li>
+            <li><strong>B — Query links.</strong> Open a per-service search link. No API, ships fast, lands on the service's own search — but not the exact track.</li>
+            <li><strong>Chosen.</strong> B, for a validation MVP. Exact matching waits for proven demand.</li>
+          </ul>
+        </div>
+
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / Options" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 300" role="img" width="800" height="300">
+              <title>Exact-match API blocked; query links chosen.</title>
+              <rect class="stroke" x="40" y="120" width="150" height="60"/><text x="115" y="156" text-anchor="middle">Need</text>
+              <line class="stroke-thin" x1="190" y1="150" x2="290" y2="82"/><line class="stroke-thin" x1="190" y1="150" x2="290" y2="222"/>
+              <rect class="stroke-thin" x="300" y="52" width="230" height="60"/><text x="326" y="88">A · Exact match</text>
+              <line class="stroke" x1="548" y1="60" x2="580" y2="104"/><line class="stroke" x1="580" y1="60" x2="548" y2="104"/>
+              <rect class="fill" x="300" y="190" width="230" height="60"/><text x="326" y="226" style="fill:var(--paper)">B · Query links</text>
+              <path class="stroke" d="M552 222 l12 12 l24 -26" fill="none"/>
+            </svg>
+            <figcaption>Exact-match API (blocked) vs. query links (chosen).</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-ocr">
+        <div class="cs-text">
+          <h2 id="h-ocr"><span class="page-no cs-num">07</span> &nbsp;Decision · OCR</h2>
+          <ul class="cs-bullets">
+            <li><strong>Problem.</strong> Read track and artist text out of an uploaded image.</li>
+            <li><strong>Options.</strong> On-device Tesseract, or a cloud OCR service.</li>
+            <li><strong>Choice.</strong> Vertex AI, behind an <code>OCR_PROVIDER</code> switch.</li>
+            <li><strong>Why.</strong> The switch swaps OCR backends without touching call sites, so accuracy and cost stay easy to compare. GCP credits cover the bill.</li>
+            <li><strong>Revisit.</strong> If accuracy or cost shifts, or a better OCR option appears.</li>
+          </ul>
+        </div>
+
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / OCR" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 300" role="img" width="800" height="300">
+              <title>OCR reads track and artist out of the image.</title>
+              <text x="40" y="60">image</text>
+              <rect class="stroke" x="40" y="72" width="200" height="150"/>
+              <g class="stroke-thin"><circle cx="88" cy="118" r="14"/><path d="M60 196 q45 -46 90 0 t86 0" fill="none"/></g>
+              <line class="stroke-thin" x1="260" y1="150" x2="335" y2="150"/><path class="fill" d="M341 150 l-10 -5 l0 10 z"/>
+              <rect class="stroke" x="370" y="72" width="380" height="150"/>
+              <text x="400" y="108">Track · Artist</text>
+              <g class="stroke-thin"><line x1="400" y1="132" x2="700" y2="132"/><line x1="400" y1="166" x2="640" y2="166"/><line x1="400" y1="200" x2="680" y2="200"/></g>
+            </svg>
+            <figcaption>OCR reads the track and artist out of the image.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-linking">
+        <div class="cs-text">
+          <h2 id="h-linking"><span class="page-no cs-num">08</span> &nbsp;Decision · Linking</h2>
+          <ul class="cs-bullets">
+            <li><strong>Problem.</strong> Open each track on the service the user actually uses.</li>
+            <li><strong>Options.</strong> Official-API catalog match, or a per-service query link.</li>
+            <li><strong>Choice.</strong> Query-based deep links.</li>
+            <li><strong>Why.</strong> This avoids API terms, quotas, and OAuth, and ships fast. The user lands on the service's own search.</li>
+            <li><strong>Revisit.</strong> When exact-track matching matters, or a partner API becomes available.</li>
+          </ul>
+        </div>
+
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / Linking" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 300" role="img" width="800" height="300">
+              <title>One track becomes a search link per service.</title>
+              <rect class="stroke" x="40" y="120" width="160" height="60"/><text x="120" y="156" text-anchor="middle">Track</text>
+              <line class="stroke-thin" x1="200" y1="150" x2="280" y2="88"/><line class="stroke-thin" x1="200" y1="150" x2="280" y2="150"/><line class="stroke-thin" x1="200" y1="150" x2="280" y2="212"/>
+              <g class="stroke-thin">
+                <rect x="290" y="62" width="250" height="52"/><circle cx="316" cy="88" r="10"/><line x1="323" y1="95" x2="333" y2="105"/><text x="348" y="94">search · service</text>
+                <rect x="290" y="124" width="250" height="52"/><circle cx="316" cy="150" r="10"/><line x1="323" y1="157" x2="333" y2="167"/><text x="348" y="156">search · service</text>
+                <rect x="290" y="186" width="250" height="52"/><circle cx="316" cy="212" r="10"/><line x1="323" y1="219" x2="333" y2="229"/><text x="348" y="218">search · service</text>
+              </g>
+            </svg>
+            <figcaption>One track becomes a search link per service.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-flow">
+        <div class="cs-text">
+          <h2 id="h-flow"><span class="page-no cs-num">09</span> &nbsp;The flow</h2>
+          <p>The whole task is one screen, with no account.</p>
+          <ul class="cs-bullets">
+            <li>Upload a screenshot of a tracklist.</li>
+            <li>OCR reads the track and artist for each row.</li>
+            <li>The app cleans the text and builds one query link per service.</li>
+            <li>Open each track in the app you use.</li>
+          </ul>
+        </div>
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / Flow" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 300" role="img" width="800" height="300">
+              <title>Flow: a screenshot goes to OCR, which builds one query link per streaming service.</title>
+              <rect class="stroke" x="30" y="70" width="180" height="160"/>
+              <rect class="tint" x="30" y="70" width="180" height="30"/>
+              <g class="stroke-thin"><line x1="52" y1="130" x2="188" y2="130"/><line x1="52" y1="160" x2="188" y2="160"/><line x1="52" y1="190" x2="188" y2="190"/></g>
+              <text x="30" y="258">Screenshot</text>
+              <line class="stroke-thin" x1="215" y1="150" x2="285" y2="150"/><path class="fill" d="M291 150 l-10 -5 l0 10 z"/>
+              <rect class="fill" x="295" y="120" width="120" height="60"/>
+              <text x="355" y="156" text-anchor="middle" style="fill:var(--paper)">OCR</text>
+              <text x="295" y="258">Read &amp; clean</text>
+              <line class="stroke-thin" x1="420" y1="150" x2="490" y2="150"/><path class="fill" d="M496 150 l-10 -5 l0 10 z"/>
+              <rect class="stroke" x="500" y="70" width="270" height="160"/>
+              <g class="stroke-thin"><rect x="520" y="92" width="230" height="34"/><rect x="520" y="134" width="230" height="34"/><rect x="520" y="176" width="230" height="34"/></g>
+              <text x="500" y="258">One link per service</text>
+            </svg>
+            <figcaption>Screenshot → OCR → one query link per streaming service.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-next">
+        <div class="cs-text">
+          <h2 id="h-next"><span class="page-no cs-num">10</span> &nbsp;Shipped / next</h2>
+          <ul class="cs-bullets">
+            <li><strong>Shipped.</strong> An MVP that collects links only — query search, no official API — deployed on Netlify with GA4 analytics.</li>
+            <li><strong>Next.</strong> Field the DJ and Listener research surveys. Decide the target segment. Rotate the GCP service-account key. Decide on Spotify integration.</li>
+          </ul>
+          <p class="cs-note">Honest status: validating, not proven.</p>
+        </div>
+
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / Status" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 300" role="img" width="800" height="300">
+              <title>Shipped once; the rest is the next list.</title>
+              <rect class="stroke" x="60" y="58" width="26" height="26"/><path class="stroke" d="M64 72 l7 7 l12 -16" fill="none"/><text x="104" y="80">Shipped — MVP live</text>
+              <circle class="stroke-thin" cx="73" cy="122" r="12"/><text x="104" y="128">Field the surveys</text>
+              <circle class="stroke-thin" cx="73" cy="164" r="12"/><text x="104" y="170">Pick the segment</text>
+              <circle class="stroke-thin" cx="73" cy="206" r="12"/><text x="104" y="212">Rotate the key</text>
+              <circle class="stroke-thin" cx="73" cy="248" r="12"/><text x="104" y="254">Decide on Spotify</text>
+            </svg>
+            <figcaption>Shipped once; the rest is the next list.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cs-section" aria-labelledby="h-reflection">
+        <div class="cs-text">
+          <h2 id="h-reflection"><span class="page-no cs-num">11</span> &nbsp;Reflection</h2>
+          <ul class="cs-bullets">
+            <li><strong>What worked.</strong> Fast to ship, it removes real friction, and the OCR switch keeps the backend flexible.</li>
+            <li><strong>What I would change.</strong> Validate demand earlier, before building the MVP.</li>
+          </ul>
+          <p class="cs-note">Strongest criticism, answered: the consumer "playlist mover" space is crowded (Soundiiz, TuneMyMusic), and DJ links cannot load into Serato or rekordbox. So product-market fit is unproven, and the DJ pivot is blocked by locked store APIs (Beatport, Bandcamp) and an incumbent, Lexicon. My response: treat this as a validation project and run the surveys before I build more.</p>
+        </div>
+
+        <div class="cs-fig">
+          <figure class="fig" data-tag="Find the Tempo / Reflection" data-reveal>
+            <svg class="ph-art" viewBox="0 0 800 300" role="img" width="800" height="300">
+              <title>What worked, and what I would change.</title>
+              <line class="stroke-thin" x1="400" y1="50" x2="400" y2="250"/>
+              <text x="60" y="72" style="fill:var(--blueprint)">+ worked</text>
+              <g class="stroke-thin"><line x1="60" y1="104" x2="360" y2="104"/><line x1="60" y1="146" x2="330" y2="146"/><line x1="60" y1="188" x2="352" y2="188"/></g>
+              <text x="440" y="72" style="fill:var(--blueprint-fill)">− change</text>
+              <g class="stroke-thin"><line x1="440" y1="104" x2="740" y2="104"/><line x1="440" y1="146" x2="700" y2="146"/></g>
+            </svg>
+            <figcaption>What worked, and what I would change.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<a class="back-top" href="#">[ ↑ Back to top ]</a>
+
+<footer class="site-footer fb" aria-label="Site footer">
+  <div class="fb-ruler" aria-hidden="true"></div>
+  <div class="fb-panel">
+    <div class="fb-inner framed">
+      <span class="crop crop-tl" aria-hidden="true"></span>
+      <span class="crop crop-tr" aria-hidden="true"></span>
+      <span class="crop crop-bl" aria-hidden="true"></span>
+      <span class="crop crop-br" aria-hidden="true"></span>
+      <div class="fb-head">
+        <span class="fb-tag">Kaushik Hegde · Portfolio</span>
+        <span class="fb-tag">Rev. 2026 · Bengaluru · IST</span>
+      </div>
+      <div class="fb-cols">
+        <nav class="fb-col" aria-label="Footer navigation">
+          <p class="fb-col-h">Index</p>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="design.html">Design</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="case-studies.html">Case Studies</a></li>
+            <li><a href="about.html">About Me</a></li>
+          </ul>
+        </nav>
+        <div class="fb-col" aria-label="Contact links">
+          <p class="fb-col-h">Contact</p>
+          <ul>
+            <li><a href="mailto:kaushik.hgd@gmail.com">kaushik.hgd@gmail.com</a></li>
+            <li><a href="https://instagram.com/artofkaey" rel="noopener">Instagram</a></li>
+            <li><a href="https://github.com/kaushikhegde11" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/kaushik-hegde/" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://substack.com/@kaeywrites" rel="noopener">Substack</a></li>
+          </ul>
+        </div>
+        <div class="fb-col fb-spec">
+          <p class="fb-col-h">Specification</p>
+          <dl>
+            <div><dt>Type</dt><dd>Silkscreen · EB Garamond · JetBrains Mono</dd></div>
+            <div><dt>Grid</dt><dd>Ruled at 16px</dd></div>
+            <div><dt>Built</dt><dd>2026 · hand-set CSS</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="fb-base">
+        <span>© 2026 Kaushik Hegde</span>
+        <span class="fb-plus" aria-hidden="true">+</span>
+        <span>All frames &amp; plates original</span>
+        <span class="fb-plus" aria-hidden="true">+</span>
+        <a class="fb-top-link" href="#">[ ↑ Back to top ]</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

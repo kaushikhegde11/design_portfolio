@@ -7,9 +7,8 @@
    D parallax · E staggered reveal · F scrollspy · G section-progress rail
    ========================================================================== */
 
-/* clickable design plates on the scroll — stretched overlay link */
-.plate-open { position: absolute; inset: 0; z-index: 4; cursor: pointer; }
-.plate:hover { outline: 1px solid var(--blueprint); outline-offset: 2px; }
+/* .plate-open and .plate:hover moved to manual.css so pages that don't load
+   experience.css (e.g. design.html) still get a clickable plate overlay. */
 
 /* A ── SECTIONS + ANCHOR OFFSET ------------------------------------------- */
 /* header is sticky; land anchored scrolls just below it. --headh is the
@@ -217,6 +216,13 @@
   block-size: 100%;
   max-inline-size: none;
 }
+/* dither plates: height comes from the flex row, not the 4:5 ratio */
+.gsap-on .contact-sheet.is-hstrip .plate {
+  flex: 1 1 auto;
+  inline-size: 100%;
+  block-size: 100%;
+  aspect-ratio: auto;
+}
 /* progress hairline pinned to the bottom of the strip, drafting tick that fills */
 .gsap-on .hstrip-progress {
   position: absolute;
@@ -248,6 +254,7 @@
   }
   .gsap-on .contact-sheet.is-hstrip .frame-btn { display: block; }
   .gsap-on .contact-sheet.is-hstrip .ph-art { block-size: auto; }
+  .gsap-on .contact-sheet.is-hstrip .plate { block-size: auto; aspect-ratio: 4 / 5; }
 }
 
 /* J ── CASE-STUDY STICKY STACK -------------------------------------------- */
@@ -300,7 +307,7 @@ a.cs-bar:hover .cs-go { color: var(--paper); }
 a.cs-bar:hover .cs-go { transform: translateX(4px); }
 
 .cs-panel {
-  min-block-size: 80vh;
+  min-block-size: 52vh;
   padding-block: var(--s4);
   max-inline-size: 640px;
 }
@@ -317,7 +324,7 @@ a.cs-bar:hover .cs-go { transform: translateX(4px); }
 
 @media (max-width: 899px) {
   :root { --bar-h: 44px; }
-  .cs-panel { min-block-size: 70vh; }
+  .cs-panel { min-block-size: 44vh; }
 }
 
 /* the floating centered back-to-top stays for mid-page, but hides once the

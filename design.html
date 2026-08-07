@@ -16,8 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&family=Silkscreen&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/manual.css?v=2">
-<script src="js/main.js?v=2" defer></script>
+<link rel="stylesheet" href="css/manual.css?v=26">
+<script src="js/main.js?v=12" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -57,20 +57,11 @@
 
 <main id="main">
   <article class="wrap" style="padding-block: 40px 64px;">
-    <div class="prose" style="max-inline-size: 480px; margin-block-end: 40px;">
+    <div class="prose" style="max-inline-size: 520px; margin-block-end: 40px;">
       <div class="page-title-block">
-        <span class="page-no">Sec.01 · Plates · Sheet 2 of 5</span>
         <h1>Design</h1>
       </div>
-      <p class="dropcap">One decision per plate. The callouts on each plate name the specific choice being demonstrated, not the whole project it came from. Filter by discipline, or switch the view, below.</p>
-    </div>
-
-    <div class="filter-bar" role="group" aria-label="Filter plates" style="margin-block-end: 8px;">
-      <button type="button" data-filter="all" aria-pressed="true">All</button>
-      <button type="button" data-filter="ui" aria-pressed="false">UI</button>
-      <button type="button" data-filter="type" aria-pressed="false">Type</button>
-      <button type="button" data-filter="motion" aria-pressed="false">Motion</button>
-      <button type="button" data-filter="print" aria-pressed="false">Print</button>
+      <p class="dropcap">One project, worked end to end. Find the Tempo turns a screenshot of songs into openable streaming links. Hover the plate to wake the interface; open it for the full decision-by-decision breakdown.</p>
     </div>
 
     <div class="view-bar" role="group" aria-label="View" data-target=".plate-grid">
@@ -80,80 +71,17 @@
 
     <div class="plate-grid">
 
-      <figure id="plate-01" class="fig plate callout-host" data-cat="ui" data-tag="UI / Plate 01" data-reveal>
-        <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-          <title>Boarding pass card layout with oversized tap area</title>
-          <rect class="stroke" x="120" y="80" width="560" height="320"/>
-          <line class="stroke-thin" x1="120" y1="200" x2="680" y2="200"/>
-          <rect class="fill" x="160" y="250" width="200" height="56"/>
-          <rect class="stroke-thin" x="160" y="120" width="280" height="24"/>
-        </svg>
-        <ul class="callout-list"><li>Primary action sized 56px, thumb-reach zone</li></ul>
-        <figcaption>Boarding pass card. The one action a rider needs is the largest thing on the card.</figcaption>
-      </figure>
-
-      <figure id="plate-02" class="fig plate callout-host" data-cat="type" data-tag="Type / Plate 02" data-reveal>
-        <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-          <title>Kannada and Latin type pairing specimen sheet</title>
-          <text x="80" y="180" style="font-size: 64px;">ಕ · K</text>
-          <line class="stroke-thin" x1="80" y1="220" x2="720" y2="220"/>
-          <line class="stroke-thin" x1="80" y1="120" x2="720" y2="120"/>
-          <rect class="stroke-thin" x="80" y="280" width="420" height="18"/>
-          <rect class="stroke-thin" x="80" y="320" width="360" height="18"/>
-          <rect class="tint" x="80" y="360" width="480" height="18"/>
-        </svg>
-        <ul class="callout-list"><li>Kannada and Latin aligned on a shared x-height</li></ul>
-        <figcaption>Bilingual specimen for transit signage. The scripts share a baseline grid, not a font.</figcaption>
-      </figure>
-
-      <figure id="plate-03" class="fig plate callout-host" data-cat="motion" data-tag="Motion / Plate 03" data-reveal>
-        <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-          <title>Loading sequence storyboard, twelve frames on a strip</title>
-          <g class="stroke-thin">
-            <rect x="60" y="180" width="100" height="120"/><rect x="180" y="180" width="100" height="120"/><rect x="300" y="180" width="100" height="120"/><rect x="420" y="180" width="100" height="120"/><rect x="660" y="180" width="100" height="120"/>
-          </g>
-          <rect class="fill" x="540" y="180" width="100" height="120"/>
-          <line class="stroke-thin" x1="60" y1="340" x2="760" y2="340"/>
-          <text x="60" y="380">0ms</text><text x="640" y="380">600ms</text>
-        </svg>
-        <ul class="callout-list"><li>Deceleration lands at frame 10 of 12</li></ul>
-        <figcaption>Ticket-issue loading sequence. All easing resolves inside 600 milliseconds.</figcaption>
-      </figure>
-
-      <figure id="plate-04" class="fig plate callout-host" data-cat="print" data-tag="Print / Plate 04" data-reveal>
-        <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-          <title>Risograph zine cover, two-colour overprint</title>
-          <rect class="stroke" x="220" y="60" width="360" height="360"/>
-          <circle class="tint" cx="360" cy="220" r="90"/>
-          <circle class="fill" cx="440" cy="260" r="90" style="opacity: 0.7;"/>
-          <rect class="stroke-thin" x="250" y="360" width="180" height="16"/>
-        </svg>
-        <ul class="callout-list"><li>Blue and fluorescent pink, misregistration kept</li></ul>
-        <figcaption>Cover for a walk-photography zine. The overprint misregistration is the design.</figcaption>
-      </figure>
-
-      <figure id="plate-05" class="fig plate callout-host" data-cat="ui" data-tag="UI / Plate 05" data-reveal>
-        <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-          <title>Settings screen with a density toggle shown in both states</title>
-          <rect class="stroke" x="80" y="80" width="280" height="320"/>
-          <g class="stroke-thin"><line x1="110" y1="140" x2="330" y2="140"/><line x1="110" y1="190" x2="330" y2="190"/><line x1="110" y1="240" x2="330" y2="240"/></g>
-          <rect class="stroke" x="440" y="80" width="280" height="320"/>
-          <g class="stroke-thin"><line x1="470" y1="130" x2="690" y2="130"/><line x1="470" y1="165" x2="690" y2="165"/><line x1="470" y1="200" x2="690" y2="200"/><line x1="470" y1="235" x2="690" y2="235"/><line x1="470" y1="270" x2="690" y2="270"/></g>
-          <rect class="fill" x="440" y="340" width="120" height="40"/>
-        </svg>
-        <ul class="callout-list"><li>Comfortable and compact list density, user-set</li></ul>
-        <figcaption>List density control for a bookkeeping app. Shopkeepers chose compact 4 to 1.</figcaption>
-      </figure>
-
-      <figure id="plate-06" class="fig plate callout-host" data-cat="type" data-tag="Type / Plate 06" data-reveal>
-        <svg class="ph-art" viewBox="0 0 800 480" role="img" width="800" height="480">
-          <title>Tabular numerals designed for a departure timetable</title>
-          <text x="100" y="200" style="font-size: 88px;">08:42</text>
-          <text x="100" y="320" style="font-size: 88px;">11:07</text>
-          <g class="stroke-thin"><line x1="100" y1="100" x2="100" y2="360"/><line x1="380" y1="100" x2="380" y2="360"/></g>
-        </svg>
-        <ul class="callout-list"><li>Fixed-width digits so times align in columns</li></ul>
-        <figcaption>Timetable numerals. Every digit occupies the same width, so columns never shiver.</figcaption>
+      <figure id="plate-tempo" class="fig plate tempo-card" data-tag="UI / Find the Tempo" data-reveal>
+        <a class="plate-open" href="design-find-the-tempo.html" aria-label="Open the Find the Tempo case study"></a>
+        <span class="tempo-frame">
+          <img class="tempo-shot" src="img/find-the-tempo.png?v=1" alt="Find the Tempo — convert screenshots into findable links" width="1264" height="791" loading="lazy">
+          <span class="tempo-overlay" aria-hidden="true">
+            <p class="tempo-desc">Find the Tempo turns a screenshot of songs into openable links. OCR reads each track and artist, then builds one search link per streaming service. Scattered tracks, gathered in one place.</p>
+            <span class="tempo-arrow">Open →</span>
+          </span>
+        </span>
+        <ul class="callout-list"><li>Screenshot → OCR → one query link per streaming service</li></ul>
+        <figcaption>Find the Tempo. Hover to read what it does.</figcaption>
       </figure>
 
     </div>

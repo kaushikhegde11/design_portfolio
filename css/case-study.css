@@ -1,0 +1,134 @@
+/* ============================================================================
+   CASE STUDY LAYOUT   ·   style name: "study-spread"
+   ----------------------------------------------------------------------------
+   A reusable reading layout for long-form case studies: a sticky contents rail
+   on the left, and a sectioned prose + blueprint-figure spread on the right.
+   First used on Study.002 (Airbnb); reused for design case studies.
+
+   HOW TO USE (markup contract)
+   ----------------------------------------------------------------------------
+   <link rel="stylesheet" href="css/manual.css">      (tokens + .fig/.ph-art/.metrics)
+   <link rel="stylesheet" href="css/case-study.css">   (this file)
+   <script src="js/case-study.js" defer></script>      (TOC scroll-spy)
+
+   <main id="main">
+     <div class="wrap cs-head">
+       <span class="page-no">…eyebrow · ← back link</span>
+       <h1>…title</h1>
+     </div>
+
+     <div class="wrap cs-layout">
+       <aside class="cs-toc" aria-label="Contents">
+         <ol class="cs-toc-list">
+           <li><a href="#h-x">01 · Section</a></li> …
+         </ol>
+       </aside>
+
+       <div class="cs-content prose">
+         <section class="cs-section" aria-labelledby="h-x">   (40/60 text|figure)
+           <div class="cs-text">
+             <h2 id="h-x"><span class="page-no cs-num">01</span> &nbsp;Section</h2>
+             <p class="dropcap">…</p>
+             <ul class="cs-bullets"><li>…<ul><li>…</li></ul></li></ul>
+             <p class="cs-note">…aside…</p>
+           </div>
+           <div class="cs-fig"><figure class="fig" …>…</figure></div>
+         </section>
+
+         <section class="cs-section cs-section--solo" …>   (single column, text only)
+           <div class="cs-text" style="max-inline-size: 64ch;">…</div>
+         </section>
+       </div>
+     </div>
+   </main>
+
+   The scroll-spy in js/case-study.js reads `.cs-toc-list a` hrefs against the
+   matching `h2[id]`, and sets aria-current on the section in view.
+   ============================================================================ */
+
+.cs-head { padding-block: var(--s4) 0; }
+
+.cs-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s5);
+  padding-block: var(--s3) var(--s6);
+}
+
+.cs-toc { flex: 0 0 232px; position: sticky; inset-block-start: 140px; }
+.cs-toc-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 var(--s2);
+}
+.cs-toc-list { list-style: none; margin: 0; padding: 0; }
+.cs-toc-list li { border-block-end: 1px solid var(--grid-line); }
+.cs-toc-list a {
+  display: block;
+  padding: 12px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  text-decoration: none;
+}
+.cs-toc-list a:hover { background: var(--blueprint-tint); }
+.cs-toc-list a[aria-current="true"] {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.cs-toc-list a[aria-current="true"]::before { content: "► "; }
+
+/* inline section number that leads each h2 */
+.cs-num { display: inline; margin: 0; color: var(--blueprint-fill); }
+
+.cs-bullets { list-style: none; margin: 0; padding: 0; }
+.cs-bullets > li { position: relative; padding-inline-start: 22px; margin-block-end: var(--s2); text-align: start; }
+.cs-bullets > li::before {
+  content: "—";
+  position: absolute;
+  inset-inline-start: 0;
+  color: var(--blueprint);
+  font-family: var(--font-mono);
+}
+.cs-bullets ul { list-style: none; margin: var(--s1) 0 0; padding: 0; }
+.cs-bullets ul li { position: relative; padding-inline-start: 22px; margin-block-start: 6px; text-align: start; }
+.cs-bullets ul li::before {
+  content: "▪";
+  position: absolute;
+  inset-inline-start: 2px;
+  color: var(--blueprint-fill);
+  font-size: 10px;
+}
+.cs-note { margin-block-start: var(--s3); padding-inline-start: 14px; border-inline-start: 2px solid var(--blueprint-fill); color: var(--blueprint); font-size: 0.95em; }
+
+.cs-content { flex: 1 1 auto; min-inline-size: 0; display: flex; flex-direction: column; gap: var(--s5); }
+.cs-section {
+  display: grid;
+  grid-template-columns: minmax(0, 40fr) minmax(0, 60fr);
+  column-gap: var(--s4);
+  align-items: start;
+  border-block-start: 1px solid var(--grid-line);
+  padding-block-start: var(--s4);
+}
+.cs-section > .cs-text { padding-inline-end: var(--s3); }
+.cs-section > .cs-fig { min-inline-size: 0; }
+.cs-section > .cs-fig .fig:last-child { margin-block-end: 0; }
+.cs-section--solo { grid-template-columns: 1fr; min-block-size: 60vh; }
+
+h2[id] { scroll-margin-block-start: 140px; }
+
+@media (max-width: 899px) {
+  .cs-layout { flex-direction: column; gap: var(--s3); padding-block: var(--s3) var(--s5); }
+  .cs-toc { position: static; flex-basis: auto; }
+  .cs-toc-list { display: flex; flex-wrap: wrap; gap: var(--s1); margin-block-end: var(--s3); position: static; }
+  .cs-toc-list li { border: 1px solid var(--grid-line); }
+  .cs-toc-list a { padding: 8px 12px; }
+  .cs-section { grid-template-columns: 1fr; row-gap: var(--s3); }
+  .cs-section > .cs-text { padding-inline-end: 0; }
+}

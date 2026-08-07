@@ -16,92 +16,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&family=Silkscreen&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/manual.css?v=2">
-<style>
-  /* Study.002 — reading layout: left contents rail + right sectioned spread */
-  .cs-head { padding-block: var(--s4) 0; }
-  .cs-layout {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--s5);
-    padding-block: var(--s3) var(--s6);
-  }
-  .cs-toc { flex: 0 0 232px; position: sticky; inset-block-start: 140px; }
-  .cs-toc-title {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin: 0 0 var(--s2);
-  }
-  .cs-toc-list { list-style: none; margin: 0; padding: 0; }
-  .cs-toc-list li { border-block-end: 1px solid var(--grid-line); }
-  .cs-toc-list a {
-    display: block;
-    padding: 12px 0;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--blueprint);
-    text-decoration: none;
-  }
-  .cs-toc-list a:hover { background: var(--blueprint-tint); }
-  .cs-toc-list a[aria-current="true"] {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-  }
-  .cs-toc-list a[aria-current="true"]::before { content: "► "; }
-
-  .cs-bullets { list-style: none; margin: 0; padding: 0; }
-  .cs-bullets > li { position: relative; padding-inline-start: 22px; margin-block-end: var(--s2); text-align: start; }
-  .cs-bullets > li::before {
-    content: "—";
-    position: absolute;
-    inset-inline-start: 0;
-    color: var(--blueprint);
-    font-family: var(--font-mono);
-  }
-  .cs-bullets ul { list-style: none; margin: var(--s1) 0 0; padding: 0; }
-  .cs-bullets ul li { position: relative; padding-inline-start: 22px; margin-block-start: 6px; text-align: start; }
-  .cs-bullets ul li::before {
-    content: "▪";
-    position: absolute;
-    inset-inline-start: 2px;
-    color: var(--blueprint-fill);
-    font-size: 10px;
-  }
-  .cs-note { margin-block-start: var(--s3); padding-inline-start: 14px; border-inline-start: 2px solid var(--blueprint-fill); color: var(--blueprint); font-size: 0.95em; }
-
-  .cs-content { flex: 1 1 auto; min-inline-size: 0; display: flex; flex-direction: column; gap: var(--s5); }
-  .cs-section {
-    display: grid;
-    grid-template-columns: minmax(0, 40fr) minmax(0, 60fr);
-    column-gap: var(--s4);
-    align-items: start;
-    border-block-start: 1px solid var(--grid-line);
-    padding-block-start: var(--s4);
-  }
-  .cs-section > .cs-text { padding-inline-end: var(--s3); }
-  .cs-section > .cs-fig { min-inline-size: 0; }
-  .cs-section > .cs-fig .fig:last-child { margin-block-end: 0; }
-  .cs-section--solo { grid-template-columns: 1fr; min-block-size: 60vh; }
-
-  h2[id] { scroll-margin-block-start: 140px; }
-
-  @media (max-width: 899px) {
-    .cs-layout { flex-direction: column; gap: var(--s3); padding-block: var(--s3) var(--s5); }
-    .cs-toc { position: static; flex-basis: auto; }
-    .cs-toc-list { display: flex; flex-wrap: wrap; gap: var(--s1); margin-block-end: var(--s3); position: static; }
-    .cs-toc-list li { border: 1px solid var(--grid-line); }
-    .cs-toc-list a { padding: 8px 12px; }
-    .cs-section { grid-template-columns: 1fr; row-gap: var(--s3); }
-    .cs-section > .cs-text { padding-inline-end: 0; }
-  }
-</style>
-<script src="js/main.js?v=2" defer></script>
+<link rel="stylesheet" href="css/manual.css?v=26">
+<link rel="stylesheet" href="css/case-study.css?v=1">
+<script src="js/main.js?v=12" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -152,7 +69,7 @@
 
 <main id="main">
   <div class="wrap cs-head">
-    <span class="page-no">Study.002 · 2026 · <a href="case-studies.html">← All studies</a></span>
+    <span class="page-no"><a href="case-studies.html">← All studies</a></span>
     <h1>Airbnb Case study</h1>
   </div>
 
@@ -171,7 +88,7 @@
 
       <section class="cs-section" aria-labelledby="h-problem">
         <div class="cs-text">
-          <h2 id="h-problem"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">01</span> &nbsp;Problem</h2>
+          <h2 id="h-problem"><span class="page-no cs-num">01</span> &nbsp;Problem</h2>
           <p class="dropcap">Airbnb polishes the booking moment. But every trip has a quieter stretch that the app barely tends: after you pay, and before you check in.</p>
           <ul>
             <li>In that stretch, the user opens the app again for three tasks: check the address, look at the photos, and message the host.</li>
@@ -215,7 +132,7 @@
 
       <section class="cs-section" aria-labelledby="h-method">
         <div class="cs-text">
-          <h2 id="h-method"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">02</span> &nbsp;Research method</h2>
+          <h2 id="h-method"><span class="page-no cs-num">02</span> &nbsp;Research method</h2>
           <p>A heuristic pass came first. It scored each screen against Nielsen's ten heuristics. Guerrilla usability sessions came next, on a small sample, run solo. Each session paired a short interview with a timed observation. The person opened a real booking on their own phone. The goal was not statistical weight. The goal was to see where hands hesitated.</p>
         </div>
         <div class="cs-fig">
@@ -244,7 +161,7 @@
 
       <section class="cs-section" aria-labelledby="h-findings">
         <div class="cs-text">
-          <h2 id="h-findings"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">03</span> &nbsp;Findings</h2>
+          <h2 id="h-findings"><span class="page-no cs-num">03</span> &nbsp;Findings</h2>
           <ul class="cs-bullets">
             <li>The clearest finding looked like a visual problem, but it was not.</li>
             <li>Four in five participants never noticed the Home, Experiences, and Services tabs on Search.</li>
@@ -299,7 +216,7 @@
 
       <section class="cs-section" aria-labelledby="h-solution">
         <div class="cs-text">
-          <h2 id="h-solution"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">04</span> &nbsp;Solution</h2>
+          <h2 id="h-solution"><span class="page-no cs-num">04</span> &nbsp;Solution</h2>
           <ul class="cs-bullets">
             <li><strong>Keep the last Search tab across back-navigation and sessions.</strong> Then Experiences and Services stop resetting to invisible. The tab is the user's intent. The intent must last until the user changes it, not until the app forgets it. This bug fires on every return trip, so a small fix removes frequent friction.</li>
             <li><strong>Reorder Trips to match the task:</strong> the place and its photos first, then check-in, then Message your host above the guide, then the guide once. Screen order follows task order. An anxious guest wants a person first, so Message your host sits above the guide. One guide replaces two, so nothing competes for the same job.</li>
@@ -337,7 +254,7 @@
 
       <section class="cs-section cs-section--solo" aria-labelledby="h-personas">
         <div class="cs-text" style="max-inline-size: 64ch;">
-          <h2 id="h-personas"><span class="page-no" style="display:inline; margin:0; color:var(--blueprint-fill);">05</span> &nbsp;Who feels it</h2>
+          <h2 id="h-personas"><span class="page-no cs-num">05</span> &nbsp;Who feels it</h2>
           <p><strong>Maya, the planner.</strong> Reopens a booking six times before a trip to plan rooms and screenshot the address. Wants the place and its photos first.</p>
           <p><strong>Deepak, the explorer.</strong> Would live in the Experiences tab — but never formed the habit, because the app never let the choice persist.</p>
           <p><strong>Rina, the first-timer.</strong> Anxious before check-in. Sees two house guides and cannot tell which one is real.</p>
@@ -403,29 +320,6 @@
   </div>
 </footer>
 
-<script>
-(function () {
-  var links = Array.prototype.slice.call(document.querySelectorAll('.cs-toc-list a'));
-  var map = links
-    .map(function (a) { return { a: a, el: document.getElementById(a.getAttribute('href').slice(1)) }; })
-    .filter(function (m) { return m.el; });
-  if (!map.length) return;
-  function onScroll() {
-    var mark = window.scrollY + 140;
-    var current = map[0];
-    for (var i = 0; i < map.length; i++) {
-      if (map[i].el.getBoundingClientRect().top + window.scrollY <= mark) current = map[i];
-    }
-    var doc = document.documentElement;
-    if (window.innerHeight + window.scrollY >= doc.scrollHeight - 2) current = map[map.length - 1];
-    map.forEach(function (m) {
-      if (m === current) m.a.setAttribute('aria-current', 'true');
-      else m.a.removeAttribute('aria-current');
-    });
-  }
-  document.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
-</script>
+<script src="js/case-study.js?v=1" defer></script>
 </body>
 </html>

@@ -329,31 +329,133 @@ hr, .rule-hatch {
   padding: var(--s4);
 }
 
-/* rotated figure ID down the left edge */
-.fig::before {
-  content: "FIG.0" counter(fig, decimal-leading-zero);
-  position: absolute;
-  inset-block-start: var(--s1);
-  inset-inline-start: 4px;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
+/* rotated figure ID + bracketed data-tag removed sitewide */
+.fig::before,
+.fig::after { content: none; display: none; }
+
+/* service-history role meta line (About Me) */
+.svc-meta {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: var(--blueprint-fill);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  margin: 2px 0 10px;
 }
 
-/* bracketed section tag up the right edge */
-.fig::after {
-  content: "[ " attr(data-tag) " ]";
-  position: absolute;
-  inset-block-end: var(--s1);
-  inset-inline-end: 4px;
-  writing-mode: vertical-rl;
+/* ── Experience: flex-row cards (auto-layout) + decorative year strip ───── */
+.svc-hz { margin-block: var(--s3) var(--s5); }
+.svc-hz > h2 { margin-block-end: var(--s2); }
+
+/* pinned horizontal scroll: .svc-pin is tall (JS sizes it), .svc-sticky sticks
+   below the menu while scroll scrubs the track sideways, then releases */
+.svc-pin { position: relative; }
+.svc-sticky { position: sticky; /* inset-block-start set by JS = header + 100 */ }
+.svc-scale { position: relative; overflow: hidden; }
+.svc-track {
+  position: relative;      /* in-flow so the band takes the cards' height */
+  inline-size: max-content; /* wider than the band → translateX scrubs it */
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  will-change: transform;
+}
+
+/* below 900px or reduced motion: no pin — plain horizontal scroll */
+@media (max-width: 899px), (prefers-reduced-motion: reduce) {
+  .svc-pin { block-size: auto !important; }
+  .svc-sticky { position: static; }
+  .svc-scale { overflow-x: auto; }
+  .svc-track { transform: none !important; }
+}
+
+/* auto-layout row of experience cards */
+.svc-flow {
+  display: flex;
+  gap: 8px;                 /* ≥8px between experiences */
+  align-items: stretch;     /* all cards equal height */
+  padding: 16px 48px;       /* 48px lead so the first card is off the edge */
+}
+.svc-card {
+  flex: 0 0 auto;
+  max-inline-size: 720px;   /* cap so many-bullet cards stay within the band */
+  border: 1px solid var(--blueprint);
+  background: var(--paper);
+  padding: 10px;            /* 10px inner padding */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.svc-card-head { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.svc-card h3 { margin: 2px 0 0; font-size: 1rem; }
+.svc-card .svc-meta { margin: 0 0 6px; }
+.svc-span {
+  display: inline-block;
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: var(--blueprint-fill);
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--paper); background: var(--blueprint); padding: 2px 7px;
+}
+.svc-dur {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.06em;
+  color: var(--blueprint);
+}
+
+/* bullets: horizontal auto-layout inside a card */
+.svc-bullets { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: flex-start; }
+.svc-bul {
+  flex: 0 0 clamp(140px, 15vw, 172px);
+  position: relative;
+  padding-block-start: 12px;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+.svc-bul::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0; inset-inline-start: 0;
+  inline-size: 18px; block-size: 3px;
+  background: var(--blueprint);
+}
+/* B.E. card: fewer bullets, stack them narrow */
+.svc-card--edu .svc-bullets { flex-direction: column; gap: 6px; }
+.svc-card--edu .svc-bul { flex: none; inline-size: 210px; }
+
+/* decorative year strip below the cards (not aligned to the cards) */
+.svc-strip {
+  display: flex;
+  justify-content: space-between;
+  margin-inline: 48px;
+  padding-block-start: 8px;
+  border-block-start: 1.5px solid var(--blueprint);
+}
+.svc-strip .svc-yr {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--blueprint);
+  padding-block-start: 8px;
+}
+.svc-strip .svc-yr::before { /* short tick up to the strip line */
+  content: "";
+  position: absolute;
+  inset-block-start: -1.5px; inset-inline-start: 50%;
+  inline-size: 1.5px; block-size: 6px;
+  background: var(--blueprint-fill);
+}
+
+.svc-hint {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
+  color: var(--ink-muted); margin-block-start: 8px;
+}
+
+/* B.E. card slides in from the right when the section reaches view */
+.svc-intro { transform: translate(64px, 18px); opacity: 0; transition: transform 0.6s ease, opacity 0.6s ease; }
+.svc-intro.is-in { transform: none; opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-scale { overflow-x: auto; }
+  .svc-track { position: relative; transform: none !important; }
+  .svc-intro { transform: none; opacity: 1; transition: none; }
 }
 
 .fig > figcaption,
@@ -370,6 +472,11 @@ hr, .rule-hatch {
 .fig .part-focus { fill: var(--blueprint-fill); }
 
 .plate-art { border: 1px solid var(--grid-line); background: var(--paper); }
+
+/* clickable design plates — stretched overlay link (used on every page that
+   shows a plate grid, so it lives here in manual.css, not experience.css) */
+.plate-open { position: absolute; inset: 0; z-index: 4; cursor: pointer; }
+.plate:hover { outline: 1px solid var(--blueprint); outline-offset: 2px; }
 
 /* 6 ── CALLOUTS with leader lines ---------------------------------------- */
 .callout-host { position: relative; }
@@ -444,9 +551,18 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* 2×2 card grid */
+  grid-template-rows: 1fr 1fr;
   gap: 12px;
+  block-size: 100%;                 /* fill the fixed-height spec figure */
+}
+.spec-fig { padding: 10px; }         /* tighter than the global .fig 40px */
+/* all cards expand DOWNWARD (contents below the header) */
+.spec-stack > .spec-row { align-self: start; }
+@media (max-width: 560px) {
+  .spec-stack { grid-template-columns: 1fr; grid-template-rows: none; block-size: auto; }
+  .spec-stack > .spec-row { align-self: auto; display: block; }
 }
 .spec-row {
   border: 1.5px solid var(--c);
@@ -739,6 +855,76 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   text-transform: uppercase;
 }
 
+/* Find the Tempo card — clean screenshot that pops out on hover / keyboard
+   focus, revealing a short description panel and an underlined arrow. */
+.tempo-frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 1264 / 791;
+  overflow: hidden;
+  border: 1px solid var(--grid-line);
+  background: var(--paper);
+}
+.tempo-frame img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  display: block;
+}
+.tempo-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.tempo-card:hover,
+.tempo-card:focus-within {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 40px -12px rgba(43, 76, 255, 0.35);
+  position: relative;
+  z-index: 5;
+}
+/* description panel over the image, hidden until hover */
+.tempo-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--s2);
+  padding: var(--s3);
+  background: linear-gradient(to top,
+    rgba(250, 250, 248, 0.97),
+    rgba(250, 250, 248, 0.78) 55%,
+    rgba(250, 250, 248, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none; /* clicks fall through to the .plate-open link */
+}
+.tempo-card:hover .tempo-overlay,
+.tempo-card:focus-within .tempo-overlay { opacity: 1; }
+.tempo-desc {
+  margin: 0;
+  max-inline-size: 48ch;
+  font-family: var(--font-serif);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.45;
+}
+.tempo-arrow {
+  align-self: flex-end;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tempo-card,
+  .tempo-overlay { transition: none; }
+}
+
 /* rectangular "screen" layers for wireframe stacks */
 .explode--screens { --layer-w: 260px; }
 .explode--screens .layer {
@@ -810,6 +996,36 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   cursor: pointer;
 }
 
+/* plain photo plate (dither removed); a subtle zoom on hover/focus */
+.contact-sheet .plate {
+  position: relative;
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: 4 / 5;
+  background: var(--paper);
+  overflow: hidden;
+}
+.contact-sheet .plate-shader { display: none; } /* dither shader removed */
+.contact-sheet .plate-orig {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  z-index: 2;
+  object-fit: cover;
+  background: var(--paper);
+  transition: transform 0.35s ease;
+}
+.contact-sheet .frame-btn:hover .plate-orig,
+.contact-sheet .frame-btn:focus-visible .plate-orig {
+  transform: scale(1.12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-sheet .plate-orig { transition: none; }
+  .contact-sheet .frame-btn:hover .plate-orig,
+  .contact-sheet .frame-btn:focus-visible .plate-orig { transform: none; }
+}
+
 .contact-sheet figcaption {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -821,13 +1037,19 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   gap: 2px;
 }
 .contact-sheet figcaption .meta { color: var(--ink-muted); }
+/* Grid caption shows only a call to action; the real title + EXIF stay in the
+   DOM (hidden here) so the lightbox can still read them from figcaption. */
+.contact-sheet figcaption > span { display: none; }
+.contact-sheet figcaption::before { content: "[ click to view ]"; }
 
 .lightbox {
   border: 1.5px solid var(--blueprint);
   padding: var(--s4);
   background-color: var(--paper);
   background-image: var(--graph);
-  max-inline-size: min(920px, 90vw);
+  /* fixed width + fixed-height stage below → every photo, portrait or
+     landscape, gets the same frame, so the Prev/Close/Next row never shifts */
+  inline-size: min(920px, 90vw);
 }
 .lightbox::backdrop { background: rgba(21, 23, 28, 0.55); }
 .lightbox .lb-controls {
@@ -848,6 +1070,23 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   cursor: pointer;
 }
 .lightbox button:hover { background: var(--blueprint-tint); }
+.lightbox .lb-stage {
+  inline-size: 100%;
+  block-size: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  border: 1px solid var(--grid-line);
+}
+.lightbox .lb-photo {
+  display: block;
+  max-inline-size: 100%;
+  max-block-size: 100%;
+  inline-size: auto;
+  block-size: auto;
+  object-fit: contain;
+}
 .lightbox .lb-caption { margin-block-start: var(--s2); }
 
 /* 10 ── CASE STUDIES ------------------------------------------------------ */
@@ -1043,6 +1282,22 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 }
 .back-top.is-visible { opacity: 1; visibility: visible; }
 .back-top:hover { background: var(--blueprint-tint); }
+
+/* "view all frames" CTA — bracket-mono button after the photography section */
+.frames-more {
+  display: inline-block;
+  margin-block-start: var(--s3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--blueprint);
+  border: 1px solid var(--blueprint);
+  padding: 10px 16px;
+  text-decoration: none;
+}
+.frames-more:hover { background: var(--blueprint-fill); }
 
 /* 13 ── FOOTER ------------------------------------------------------------ */
 .site-footer { margin-block-start: var(--s5); }

@@ -78,7 +78,21 @@
       current = (i + frames.length) % frames.length;
       var fig = frames[current];
       stage.innerHTML = "";
-      stage.appendChild(fig.querySelector("svg").cloneNode(true));
+      var plate = fig.querySelector(".plate");
+      var media;
+      if (plate) {
+        // full-size original photograph, contained on the cream ground
+        media = document.createElement("img");
+        media.className = "lb-photo";
+        media.src = plate.getAttribute("data-src");
+        var orig = plate.querySelector(".plate-orig");
+        media.alt = orig ? orig.alt : "";
+      } else {
+        // fallback for any legacy SVG plate
+        var svg = fig.querySelector("svg");
+        media = svg ? svg.cloneNode(true) : document.createTextNode("");
+      }
+      stage.appendChild(media);
       caption.innerHTML = fig.querySelector("figcaption").innerHTML;
     };
 
@@ -267,4 +281,71 @@
       head.setAttribute("aria-expanded", String(open));
     });
   });
+
+  /* ── Experience timeline: same principle as the photography filmstrip — the
+        section pins below the menu while scroll scrubs the cards sideways, then
+        releases once every experience is in view. Pure CSS-sticky pin. ─────── */
+  var pins = Array.prototype.slice.call(document.querySelectorAll("[data-pin]"));
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var pinOK = window.matchMedia("(min-width: 900px)").matches;
+  if (pins.length && !reduce && pinOK) {
+    var header = document.querySelector(".site-header");
+    var items = pins.map(function (pin) {
+      return {
+        pin: pin,
+        sticky: pin.querySelector(".svc-sticky"),
+        scale: pin.querySelector(".svc-scale"),
+        track: pin.querySelector(".svc-track"),
+        top: 0,
+        dist: 0
+      };
+    });
+    var layout = function () {
+      var headH = header ? header.getBoundingClientRect().height : 132;
+      items.forEach(function (it) {
+        it.top = headH + 100;                       /* pin 100px below the menu */
+        it.sticky.style.insetBlockStart = it.top + "px";
+        it.dist = Math.max(0, it.track.scrollWidth - it.scale.clientWidth);
+        /* extra scroll room after the stick point == the horizontal distance */
+        it.pin.style.blockSize = it.sticky.offsetHeight + it.dist + "px";
+      });
+    };
+    var pTick = false;
+    var pUpdate = function () {
+      pTick = false;
+      items.forEach(function (it) {
+        var prog = it.dist ? (it.top - it.pin.getBoundingClientRect().top) / it.dist : 0;
+        prog = Math.max(0, Math.min(1, prog));
+        it.track.style.transform = "translateX(" + (-prog * it.dist).toFixed(1) + "px)";
+      });
+    };
+    var pOnScroll = function () {
+      if (!pTick) { pTick = true; window.requestAnimationFrame(pUpdate); }
+    };
+    layout(); pUpdate();
+    window.addEventListener("scroll", pOnScroll, { passive: true });
+    window.addEventListener("resize", function () { layout(); pOnScroll(); }, { passive: true });
+    window.addEventListener("load", function () { layout(); pUpdate(); });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { layout(); pUpdate(); });
+    }
+  }
+
+  /* ── Education card slides in from the right when the timeline reaches view.
+        Observe the section (not the card — the card scrubs off-screen) ─────── */
+  var introCards = Array.prototype.slice.call(document.querySelectorAll(".svc-intro"));
+  var bands = Array.prototype.slice.call(document.querySelectorAll(".svc-scale"));
+  if (introCards.length && bands.length && !reduce && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll(".svc-intro").forEach(function (c) { c.classList.add("is-in"); });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    bands.forEach(function (el) { io.observe(el); });
+  } else {
+    introCards.forEach(function (el) { el.classList.add("is-in"); });
+  }
 })();
