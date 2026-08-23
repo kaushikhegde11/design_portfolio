@@ -597,15 +597,23 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;   /* 2×2 card grid */
-  grid-template-rows: 1fr 1fr;
+  /* fixed track heights sized to the tallest expanded card (Skills). Each row
+     reserves exactly the room a panel needs when open, so the outer square is
+     the tallest-expanded size — no empty waste, no jump when a panel opens. */
+  --spec-track: 174px;
+  grid-template-rows: var(--spec-track) var(--spec-track);
   gap: 12px;
-  block-size: 100%;                 /* fill the fixed-height spec figure */
 }
 .spec-fig { padding: 10px; }         /* tighter than the global .fig 40px */
-/* all cards expand DOWNWARD (contents below the header) */
-.spec-stack > .spec-row { align-self: start; }
+/* Top row (Skills, Tools) expands UPWARD: card pinned to the bottom of its
+   track so added body height grows up (heading stays on top, bullets below).
+   Bottom row (Interests, Background) expands DOWNWARD. */
+.spec-stack > .spec-row:nth-child(1),
+.spec-stack > .spec-row:nth-child(2) { align-self: end; }
+.spec-stack > .spec-row:nth-child(3),
+.spec-stack > .spec-row:nth-child(4) { align-self: start; }
 @media (max-width: 560px) {
-  .spec-stack { grid-template-columns: 1fr; grid-template-rows: none; block-size: auto; }
+  .spec-stack { grid-template-columns: 1fr; grid-template-rows: none; }
   .spec-stack > .spec-row { align-self: auto; display: block; }
 }
 .spec-row {
@@ -735,13 +743,8 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   stroke-linejoin: round;
 }
 
-/* taller framed figure for the about spec sheet */
-.spec-fig {
-  min-block-size: 560px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+/* about spec sheet: height is driven by the grid track reserve above, so the
+   square hugs the tallest-expanded panel with uniform 10px padding. */
 .spec-fig .spec-stack { inline-size: 100%; }
 
 /* open state: on hover (pointer devices) and via .is-open (tap toggle) */
@@ -1049,6 +1052,16 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   background: var(--paper);
   overflow: hidden;
 }
+/* frame drawn over the photo so the 1px outline shows on all four sides —
+   the image (.plate-orig, z-index 2) was painting over the top line */
+.contact-sheet .plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border: 1px solid var(--grid-line);
+  pointer-events: none;
+}
 .contact-sheet .plate-shader { display: none; } /* dither shader removed */
 .contact-sheet .plate-orig {
   position: absolute;
@@ -1131,7 +1144,7 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   block-size: auto;
   object-fit: contain;
 }
-.lightbox .lb-caption { margin-block-start: var(--s2); }
+.lightbox .lb-caption { display: none; } /* caption text removed — leave the lightbox uncaptioned */
 
 /* 10 ── CASE STUDIES ------------------------------------------------------ */
 .study-index { list-style: none; margin: 0; padding: 0; }
@@ -1560,6 +1573,14 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 .crop-bl { inset-block-end: 0; inset-inline-start: 0; border-block-end-width: 2px; border-inline-start-width: 2px; }
 .crop-br { inset-block-end: 0; inset-inline-end: 0; border-block-end-width: 2px; border-inline-end-width: 2px; }
 
+/* footer particle canvas — sits behind the content, clipped to the panel */
+.fb .fb-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* drafting tick ruler seam above the panel */
 .fb .fb-ruler {
   block-size: 18px;
@@ -1572,6 +1593,8 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 /* the blue panel + light-blue grid (minor 24px, major 96px). The grid is kept
    faint so text stays readable over it. */
 .fb .fb-panel {
+  position: relative;
+  overflow: hidden;
   background-color: var(--blueprint);
   background-image:
     repeating-linear-gradient(0deg,  rgba(255,255,255,.14) 0 1px, transparent 1px 96px),
@@ -1585,13 +1608,16 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 .fb .fb-inner {
   max-inline-size: 1200px;
   margin-inline: auto;
-  padding: var(--s5) var(--s4) var(--s4);
+  padding: calc(var(--s5) - 23px) var(--s4) calc(var(--s4) - 22px);
+  position: relative;
+  z-index: 1;
 }
 
 /* header tag row */
 .fb .fb-head {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
   gap: var(--s2);
   font-family: var(--font-mono);
@@ -1604,8 +1630,9 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 /* columns */
 .fb .fb-cols {
   display: grid;
-  grid-template-columns: 1fr 1fr 1.4fr;
-  gap: var(--s4);
+  grid-template-columns: max-content max-content;
+  justify-content: space-between;
+  row-gap: var(--s4);
   margin-block-start: var(--s3);
   padding-block-start: var(--s4);
   border-block-start: 1px solid rgba(255,255,255,.35);
@@ -1622,9 +1649,23 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   margin: 0 0 var(--s3);
 }
 .fb .fb-col ul { list-style: none; margin: 0; padding: 0; }
-.fb .fb-col li { padding-block: 7px; }
-.fb .fb-col a { color: var(--paper); text-decoration: none; }
-.fb .fb-col a:hover { text-decoration: underline; text-decoration-style: dashed; text-underline-offset: 4px; }
+.fb .fb-col li { padding-block: 7px; display: flex; align-items: center; gap: 10px; }
+.fb .fb-col a { color: var(--paper); text-decoration: underline; text-underline-offset: 3px; }
+.fb .fb-col a:hover { text-decoration-style: dashed; text-underline-offset: 4px; }
+.fb .fb-cv {
+  color: var(--blueprint);
+  background: var(--paper);
+  border: 1px solid var(--paper);
+  padding: 6px 12px;
+  text-decoration: none;
+}
+.fb .fb-cv:hover { background: var(--blueprint-tint); border-color: var(--blueprint-tint); }
+.fb .fb-ico { inline-size: 16px; block-size: 16px; flex: none; color: var(--paper); }
+.fb .fb-ico svg {
+  inline-size: 100%; block-size: 100%;
+  fill: none; stroke: currentColor; stroke-width: 1.6;
+  stroke-linecap: round; stroke-linejoin: round;
+}
 /* spec column: label → value on aligned rows sharing the link-list rhythm */
 .fb .fb-spec dl { margin: 0; }
 .fb .fb-spec dl > div {

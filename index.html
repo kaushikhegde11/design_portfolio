@@ -16,9 +16,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/manual.css?v=27">
-<link rel="stylesheet" href="css/experience.css?v=4">
-<script src="js/main.js?v=12" defer></script>
+<link rel="stylesheet" href="css/manual.css?v=36">
+<link rel="stylesheet" href="css/experience.css?v=6">
+<script src="js/main.js?v=14" defer></script>
 <script src="js/experience.js?v=2" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -26,6 +26,7 @@
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="site-header">
   <div class="wrap masthead">
@@ -57,14 +58,6 @@
     <li><a href="#photography">Photography</a></li>
     <li><a href="#case-studies">Case Studies</a></li>
     <li><a href="#about">About Me</a></li>
-  </ul>
-  <p class="overlay-group-label">Full pages</p>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="design.html">Design</a></li>
-    <li><a href="photography.html">Photography</a></li>
-    <li><a href="case-studies.html">Case Studies</a></li>
-    <li><a href="about.html">About Me</a></li>
   </ul>
 </div>
 
@@ -150,23 +143,6 @@
       </div>
     </article>
 
-    <section class="wrap" style="max-inline-size: 760px;" data-reveal>
-      <h2>Contents</h2>
-      <nav class="toc" aria-label="Contents" style="margin-block-start: 16px;">
-        <a class="toc-row" href="#design">
-          <span class="no">01</span><span class="name">Design</span><span class="leader" aria-hidden="true"></span><span class="count" aria-hidden="true">↓</span>
-        </a>
-        <a class="toc-row" href="#photography">
-          <span class="no">02</span><span class="name">Photography</span><span class="leader" aria-hidden="true"></span><span class="count" aria-hidden="true">↓</span>
-        </a>
-        <a class="toc-row" href="#case-studies">
-          <span class="no">03</span><span class="name">Case Studies</span><span class="leader" aria-hidden="true"></span><span class="count" aria-hidden="true">↓</span>
-        </a>
-        <a class="toc-row" href="#about">
-          <span class="no">04</span><span class="name">About Me</span><span class="leader" aria-hidden="true"></span><span class="count" aria-hidden="true">↓</span>
-        </a>
-      </nav>
-    </section>
   </section>
 
   <div class="section-divider" aria-hidden="true"></div>
@@ -207,6 +183,8 @@
         </figure>
 
       </div>
+
+      <a class="frames-more" href="design.html">[ View all projects → ]</a>
     </article>
   </section>
 
@@ -440,7 +418,7 @@
                 </div>
               </div>
               <div class="svc-card">
-                <div class="svc-card-head"><span class="svc-span">2022 – 2023</span><span class="svc-dur">1 yr</span></div>
+                <div class="svc-card-head"><span class="svc-span">Dec 2022 – Dec 2023</span><span class="svc-dur">1 yr</span></div>
                 <h3>Graduate Apprentice — Logistics</h3>
                 <p class="svc-meta">Volvo Group Pvt Ltd</p>
                 <div class="svc-bullets">
@@ -452,7 +430,7 @@
                 </div>
               </div>
               <div class="svc-card">
-                <div class="svc-card-head"><span class="svc-span">2023 – Jul 2026</span><span class="svc-dur">2.5 yrs</span></div>
+                <div class="svc-card-head"><span class="svc-span">Dec 2023 – Jul 2026</span><span class="svc-dur">2.5 yrs</span></div>
                 <h3>Executive — Material Planning &amp; Logistics</h3>
                 <p class="svc-meta">Volvo Auto India Pvt Ltd</p>
                 <div class="svc-bullets">
@@ -544,11 +522,6 @@
         </figure>
       </div>
 
-      <div class="contact-block" style="margin-block-start: 40px;">
-          <h2>Contact</h2>
-          <p>Write to <a href="mailto:kaushik.hgd@gmail.com">kaushik.hgd@gmail.com</a>. Find my work on <a href="https://github.com/kaushikhegde11" rel="noopener">GitHub</a> and <a href="https://www.linkedin.com/in/kaushik-hegde/" rel="noopener">LinkedIn</a>.</p>
-          <p><span class="status-chip">[ Available for work ]</span></p>
-        </div>
     </div>
   </article>
   </section>
@@ -584,6 +557,7 @@
   <div class="fb-ruler" aria-hidden="true"></div>
 
   <div class="fb-panel">
+    <canvas class="fb-particles" aria-hidden="true"></canvas>
     <div class="fb-inner framed">
       <!-- crop marks framing the whole panel -->
       <span class="crop crop-tl" aria-hidden="true"></span>
@@ -592,11 +566,21 @@
       <span class="crop crop-br" aria-hidden="true"></span>
 
       <div class="fb-head">
-        <span class="fb-tag">Sheet 04 / 04 · One-scroll edition</span>
-        <span class="fb-tag">Rev. 2026 · Bengaluru · IST</span>
+        <span class="fb-tag">Bengaluru · IST</span>
+        <a class="fb-tag fb-cv" href="Kaushik-Hegde-CV.pdf" download>[ Download CV ]</a>
       </div>
 
       <div class="fb-cols">
+        <div class="fb-col" aria-label="Contact links">
+          <p class="fb-col-h">Contact</p>
+          <ul>
+            <li><span class="fb-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6l9 7 9-7"/></svg></span><a href="mailto:kaushik.hgd@gmail.com">kaushik.hgd@gmail.com</a></li>
+            <li><span class="fb-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span><a href="https://instagram.com/artofkaey" rel="noopener">Instagram</a></li>
+            <li><span class="fb-ico" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></span><a href="https://github.com/kaushikhegde11" rel="noopener">GitHub</a></li>
+            <li><span class="fb-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="6.4" r="1"/><path d="M11 17v-4a2 2 0 0 1 4 0v4"/><line x1="11" y1="10" x2="11" y2="17"/></svg></span><a href="https://www.linkedin.com/in/kaushik-hegde/" rel="noopener">LinkedIn</a></li>
+            <li><span class="fb-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><line x1="4" y1="6.5" x2="20" y2="6.5"/><line x1="4" y1="11" x2="20" y2="11"/><path d="M4 15l8 5 8-5"/></svg></span><a href="https://substack.com/@kaeywrites" rel="noopener">Substack</a></li>
+          </ul>
+        </div>
         <nav class="fb-col" aria-label="Footer navigation">
           <p class="fb-col-h">Index</p>
           <ul>
@@ -607,32 +591,12 @@
             <li><a href="#about">About Me</a></li>
           </ul>
         </nav>
-        <div class="fb-col" aria-label="Contact links">
-          <p class="fb-col-h">Contact</p>
-          <ul>
-            <li><a href="mailto:kaushik.hgd@gmail.com">kaushik.hgd@gmail.com</a></li>
-            <li><a href="https://instagram.com/artofkaey" rel="noopener">Instagram</a></li>
-            <li><a href="https://github.com/kaushikhegde11" rel="noopener">GitHub</a></li>
-            <li><a href="https://www.linkedin.com/in/kaushik-hegde/" rel="noopener">LinkedIn</a></li>
-            <li><a href="https://substack.com/@kaeywrites" rel="noopener">Substack</a></li>
-          </ul>
-        </div>
-        <div class="fb-col fb-spec">
-          <p class="fb-col-h">Specification</p>
-          <dl>
-            <div><dt>Type</dt><dd>Silkscreen · Cormorant · Drafting Mono</dd></div>
-            <div><dt>Grid</dt><dd>Ruled at 16px</dd></div>
-            <div><dt>Built</dt><dd>2026 · hand-set CSS</dd></div>
-          </dl>
-        </div>
       </div>
 
       <div class="fb-base">
         <span>© 2026 Kaushik Hegde</span>
         <span class="fb-plus" aria-hidden="true">+</span>
         <span>All frames &amp; plates original</span>
-        <span class="fb-plus" aria-hidden="true">+</span>
-        <a class="fb-top-link" href="#home">[ ↑ Back to top ]</a>
       </div>
     </div>
   </div>

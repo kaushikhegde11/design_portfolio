@@ -349,3 +349,117 @@
     introCards.forEach(function (el) { el.classList.add("is-in"); });
   }
 })();
+
+/* ── footer particle field ───────────────────────────────────────────────
+   A subtle drift of paper-coloured dots on the blue footer panel. Dots are
+   gently pushed away from the cursor on hover. Paused when off-screen; under
+   prefers-reduced-motion it draws a single static field with no animation. */
+(function () {
+  "use strict";
+  var canvas = document.querySelector(".fb-particles");
+  if (!canvas) return;
+  var panel = canvas.closest(".fb-panel");
+  if (!panel) return;
+  var ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var W = 0, H = 0, dots = [], raf = 0, running = false;
+  var mouse = { x: -9999, y: -9999, on: false };
+  var COUNT = 67, R = 1.4, REPEL = 90, COLOR = "rgba(250,250,248,0.35)";
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function build() {
+    var rect = panel.getBoundingClientRect();
+    W = Math.max(1, Math.round(rect.width));
+    H = Math.max(1, Math.round(rect.height));
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // scale count a touch with area, capped
+    var n = Math.min(COUNT, Math.round((W * H) / 15000));
+    n = Math.max(25, n);
+    dots = [];
+    for (var i = 0; i < n; i++) {
+      dots.push({
+        x: rand(0, W), y: rand(0, H),
+        vx: rand(-0.18, 0.18), vy: rand(-0.18, 0.18)
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = COLOR;
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, R, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function step() {
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      d.x += d.vx; d.y += d.vy;
+      if (mouse.on) {
+        var dx = d.x - mouse.x, dy = d.y - mouse.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < REPEL && dist > 0.01) {
+          var f = (1 - dist / REPEL) * 0.9;
+          d.x += (dx / dist) * f;
+          d.y += (dy / dist) * f;
+        }
+      }
+      // wrap at edges
+      if (d.x < -2) d.x = W + 2; else if (d.x > W + 2) d.x = -2;
+      if (d.y < -2) d.y = H + 2; else if (d.y > H + 2) d.y = -2;
+    }
+    draw();
+    raf = window.requestAnimationFrame(step);
+  }
+
+  function start() {
+    if (running || reduce) return;
+    running = true;
+    raf = window.requestAnimationFrame(step);
+  }
+  function stop() {
+    running = false;
+    if (raf) window.cancelAnimationFrame(raf);
+    raf = 0;
+  }
+
+  panel.addEventListener("mousemove", function (e) {
+    var rect = panel.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    mouse.on = true;
+  });
+  panel.addEventListener("mouseleave", function () { mouse.on = false; mouse.x = mouse.y = -9999; });
+
+  var rt;
+  window.addEventListener("resize", function () {
+    window.clearTimeout(rt);
+    rt = window.setTimeout(function () { build(); draw(); }, 150);
+  }, { passive: true });
+
+  build();
+  draw();
+
+  if (reduce) return; // static field, no animation
+
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) start(); else stop(); });
+    }, { threshold: 0 });
+    io.observe(panel);
+  } else {
+    start();
+  }
+})();
