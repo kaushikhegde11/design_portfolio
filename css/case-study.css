@@ -132,3 +132,75 @@ h2[id] { scroll-margin-block-start: 140px; }
   .cs-section { grid-template-columns: 1fr; row-gap: var(--s3); }
   .cs-section > .cs-text { padding-inline-end: 0; }
 }
+
+/* ============================================================================
+   DECK VIEW — a slide deck exported to PDF, shown page by page.
+   Layout: deck plates on the left (.cs-deck), sticky Contents on the right
+   (.cs-layout--deck reverses the source order so the TOC stays first in the
+   DOM for the scroll-spy and for keyboard order on mobile).
+   Markup:
+     <div class="wrap cs-layout cs-layout--deck">
+       <aside class="cs-toc">…</aside>
+       <div class="cs-deck">
+         <figure class="deck-page" id="pg-1"><img …><figcaption>…</figcaption></figure>
+       </div>
+     </div>
+   ============================================================================ */
+
+.cs-layout--deck { flex-direction: row-reverse; }
+.cs-layout--deck .cs-toc { flex: 0 0 236px; }
+
+.cs-deck { flex: 1 1 auto; min-inline-size: 0; display: flex; flex-direction: column; gap: var(--s4); }
+
+.deck-lede { margin: 0 0 var(--s2); max-inline-size: 68ch; }
+
+.deck-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-block-end: var(--s3);
+  padding-block-end: var(--s3);
+  border-block-end: 1px solid var(--grid-line);
+}
+.deck-actions a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid var(--grid-line);
+}
+.deck-actions a:hover { background: var(--blueprint-tint); }
+
+.deck-page {
+  margin: 0;
+  scroll-margin-block-start: 140px;
+  border: 1px solid var(--grid-line);
+  background: var(--paper, #fff);
+  padding: 10px;
+}
+.deck-page img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+.deck-page figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s2);
+  margin-block-start: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.deck-page figcaption .deck-no { color: var(--blueprint-fill); }
+
+@media (max-width: 899px) {
+  .cs-layout--deck { flex-direction: column; }
+  .cs-layout--deck .cs-toc { flex-basis: auto; }
+  .deck-page { padding: 6px; }
+}
