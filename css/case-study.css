@@ -135,9 +135,8 @@ h2[id] { scroll-margin-block-start: 140px; }
 
 /* ============================================================================
    DECK VIEW — a slide deck exported to PDF, shown page by page.
-   Layout: deck plates on the left (.cs-deck), sticky Contents on the right
-   (.cs-layout--deck reverses the source order so the TOC stays first in the
-   DOM for the scroll-spy and for keyboard order on mobile).
+   Layout: sticky Contents rail on the left (.cs-toc), deck plates on the
+   right (.cs-deck) — same source order as the prose case study.
    Markup:
      <div class="wrap cs-layout cs-layout--deck">
        <aside class="cs-toc">…</aside>
@@ -147,7 +146,6 @@ h2[id] { scroll-margin-block-start: 140px; }
      </div>
    ============================================================================ */
 
-.cs-layout--deck { flex-direction: row-reverse; }
 .cs-layout--deck .cs-toc { flex: 0 0 236px; }
 
 .cs-deck { flex: 1 1 auto; min-inline-size: 0; display: flex; flex-direction: column; gap: var(--s4); }
@@ -200,7 +198,6 @@ h2[id] { scroll-margin-block-start: 140px; }
 .deck-page figcaption .deck-no { color: var(--blueprint-fill); }
 
 @media (max-width: 899px) {
-  .cs-layout--deck { flex-direction: column; }
   .cs-layout--deck .cs-toc { flex-basis: auto; }
   .deck-page { padding: 6px; }
 }
