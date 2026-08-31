@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Find the Tempo — Design — Kaushik Hegde</title>
-<meta name="description" content="Find the Tempo: a web app that turns a screenshot of songs into openable streaming links. The full case-study deck — problem, constraints, decisions, colour system, flow, and reflection.">
+<title>Find the Tempo - Design - Kaushik Hegde</title>
+<meta name="description" content="Find the Tempo: a web app that turns a screenshot of songs into openable streaming links. The full case-study deck - problem, constraints, decisions, colour system, flow, and reflection.">
 <link rel="canonical" href="https://kaushikhegde.example/design-find-the-tempo">
-<meta property="og:title" content="Find the Tempo — Design — Kaushik Hegde">
-<meta property="og:description" content="Turning a screenshot of songs into openable streaming links — a design case study.">
+<meta property="og:title" content="Find the Tempo - Design - Kaushik Hegde">
+<meta property="og:description" content="Turning a screenshot of songs into openable streaming links - a design case study.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://kaushikhegde.example/design-find-the-tempo">
 <meta name="twitter:card" content="summary">
@@ -16,9 +17,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/manual.css?v=36">
+<link rel="stylesheet" href="css/manual.css?v=47">
 <link rel="stylesheet" href="css/case-study.css?v=3">
-<script src="js/main.js?v=14" defer></script>
+<script src="js/main.js?v=20" defer></script>
 <script src="js/case-study.js?v=1" defer></script>
 </head>
 <body>
@@ -27,7 +28,13 @@
 
 <header class="site-header">
   <div class="wrap masthead">
-    <a class="wordmark" href="index.html">Kaushik Hegde</a>
+    <div class="masthead-left">
+      <a class="wordmark" href="index.html">Kaushik Hegde</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="ti ti-sun" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="4.6"/><line x1="12" y1="19.4" x2="12" y2="22"/><line x1="2" y1="12" x2="4.6" y2="12"/><line x1="19.4" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.1" y2="4.9"/></g></svg>
+        <svg class="ti ti-moon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
     <p class="masthead-right">
       <span class="subtitle">Design and photography with a curious mind.</span>
     </p>
@@ -72,7 +79,7 @@
         <li><a href="#pg-2">02 · The problem</a></li>
         <li><a href="#pg-3">03 · Who it's for</a></li>
         <li><a href="#pg-4">04 · Constraints</a></li>
-        <li><a href="#pg-5">05 · Decisions 1–2</a></li>
+        <li><a href="#pg-5">05 · Decisions 1-2</a></li>
         <li><a href="#pg-6">06 · Decision 3</a></li>
         <li><a href="#pg-7">07 · Colour system</a></li>
         <li><a href="#pg-8">08 · Brand accents</a></li>
@@ -104,10 +111,10 @@
       </figure>
       <figure class="deck-page" id="pg-4">
         <img src="img/tempo-deck/page-4.jpg?v=1" alt="Find the Tempo case study, page 4: Constraints" width="1500" height="1125" loading="lazy" decoding="async">
-        <figcaption><span>Cost, API access, solo builder — and the two options</span><span class="deck-no">04 / 10</span></figcaption>
+        <figcaption><span>Cost, API access, solo builder - and the two options</span><span class="deck-no">04 / 10</span></figcaption>
       </figure>
       <figure class="deck-page" id="pg-5">
-        <img src="img/tempo-deck/page-5.jpg?v=1" alt="Find the Tempo case study, page 5: Decisions 1–2" width="1500" height="1125" loading="lazy" decoding="async">
+        <img src="img/tempo-deck/page-5.jpg?v=1" alt="Find the Tempo case study, page 5: Decisions 1-2" width="1500" height="1125" loading="lazy" decoding="async">
         <figcaption><span>Test before building; core function first</span><span class="deck-no">05 / 10</span></figcaption>
       </figure>
       <figure class="deck-page" id="pg-6">

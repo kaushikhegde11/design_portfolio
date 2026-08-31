@@ -1,9 +1,9 @@
 /* ==========================================================================
    MANUAL.CSS — technical-manual portfolio
    Sections: 1 tokens · 2 base · 3 header/nav · 4 layout · 5 figure panels
-   6 callouts · 7 exploded stack · 8 contents table · 9 photography
+   6 callouts · 7 schematic · 8 contents table · 9 photography
    10 case studies · 11 design plates · 12 about · 13 footer
-   14 focus/a11y · 15 responsive · 16 motion · 17 print
+   14 focus/a11y · 15 responsive · 16 motion · 17 print · 18 cursor
    ========================================================================== */
 
 /* 0 ── SELF-HOSTED FONTS -------------------------------------------------- */
@@ -53,6 +53,7 @@
 /* 1 ── TOKENS ------------------------------------------------------------- */
 :root {
   --paper: #FAFAF8;
+  --paper-rgb: 250, 250, 248;
   --blueprint: #2B4CFF;
   --blueprint-fill: #8E9EF0;
   --blueprint-tint: #EAEEFF;
@@ -86,10 +87,57 @@
       0deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 16px),
     repeating-linear-gradient(
       90deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 16px);
+
+  /* fixed stamp colors for panels that are always "blue ink block, white
+     text" (footer, date pills) - these do not swap in dark mode, so the
+     stamp keeps a consistent identity instead of inverting into a
+     light panel on a dark page. */
+  --stamp-bg: #2B4CFF;
+  --stamp-bg-hover: #2140D6;
+  --stamp-ink: #FAFAF8;
+
+  color-scheme: light;
+}
+
+/* blueprint negative: a true engineering blueprint is white lines on blue
+   paper, so dark mode inverts the brand relationship instead of just
+   dimming it - deep navy paper, brightened accent for contrast. Every rule
+   in this file reads color through these tokens, so this block is the only
+   place dark mode needs to be defined.
+
+   Three tiers: system preference (media query) sets the default, an
+   explicit user choice (data-theme, written by the header toggle) overrides
+   it in either direction. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10152B;
+    --paper-rgb: 16, 21, 43;
+    --blueprint: #6C8CFF;
+    --blueprint-fill: #4A5FCB;
+    --blueprint-tint: #1B2350;
+    --grid-line: #262C52;
+    --ink: #F1F2F8;
+    --ink-muted: #8890B0;
+    --c-background: #F1F2F8;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #10152B;
+  --paper-rgb: 16, 21, 43;
+  --blueprint: #6C8CFF;
+  --blueprint-fill: #4A5FCB;
+  --blueprint-tint: #1B2350;
+  --grid-line: #262C52;
+  --ink: #F1F2F8;
+  --ink-muted: #8890B0;
+  --c-background: #F1F2F8;
+  color-scheme: dark;
 }
 
 /* registered vars so the exploded-view drift and hover-lift animate on
-   separate properties — hover never restarts the idle float (no jitter) */
+   separate properties - hover never restarts the idle float (no jitter) */
 @property --floatY { syntax: "<length>"; inherits: false; initial-value: 0px; }
 @property --hoverY { syntax: "<length>"; inherits: false; initial-value: 0px; }
 @property --driftX { syntax: "<length>"; inherits: false; initial-value: 0px; }
@@ -190,8 +238,8 @@ hr, .rule-hatch {
   inset-inline-start: var(--s2);
   z-index: 100;
   padding: var(--s1) var(--s2);
-  background: var(--blueprint);
-  color: var(--paper);
+  background: var(--stamp-bg);
+  color: var(--stamp-ink);
   font-family: var(--font-mono);
   font-size: 12px;
   text-transform: uppercase;
@@ -227,6 +275,12 @@ hr, .rule-hatch {
   padding-block: var(--s3) var(--s2);
 }
 
+.masthead-left {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
 .wordmark {
   font-family: var(--font-display);
   font-size: clamp(20px, 2.6vw, 34px);
@@ -236,6 +290,47 @@ hr, .rule-hatch {
   text-decoration: none;
   line-height: 1;
   image-rendering: pixelated;
+}
+
+/* dark-mode toggle: sun/moon crossfade, no icon library - a couple of
+   plain strokes fit the drafting-tool mark better than a generic glyph. */
+.theme-toggle {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  inline-size: 30px;
+  block-size: 30px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--blueprint);
+  cursor: pointer;
+}
+.theme-toggle:hover { background: var(--blueprint-tint); }
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--blueprint);
+  outline-offset: 2px;
+}
+.theme-toggle:active { transform: scale(0.94); }
+
+.theme-toggle .ti {
+  grid-area: 1 / 1;
+  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    rotate 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    scale 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.theme-toggle .ti-sun { opacity: 1; rotate: 0deg; scale: 1; }
+.theme-toggle .ti-moon { opacity: 0; rotate: -90deg; scale: 0.5; }
+.theme-toggle.is-dark .ti-sun { opacity: 0; rotate: 90deg; scale: 0.5; }
+.theme-toggle.is-dark .ti-moon { opacity: 1; rotate: 0deg; scale: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle .ti { transition: opacity 120ms linear; }
+  .theme-toggle .ti-sun,
+  .theme-toggle .ti-moon,
+  .theme-toggle.is-dark .ti-sun,
+  .theme-toggle.is-dark .ti-moon { rotate: 0deg; scale: 1; }
 }
 
 .masthead-right {
@@ -436,7 +531,7 @@ hr, .rule-hatch {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--paper); background: var(--blueprint); padding: 2px 7px;
+  color: var(--stamp-ink); background: var(--stamp-bg); padding: 2px 7px;
 }
 .svc-dur {
   font-family: var(--font-mono);
@@ -888,6 +983,14 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   z-index: 5;
   pointer-events: none;
 }
+
+/* rectangular "screen" layers for wireframe stacks */
+.explode--screens { --layer-w: 260px; }
+.explode--screens .layer {
+  block-size: 170px;
+  margin-block-start: -85px;
+}
+
 /* placeholder plate art (inline SVG standing in for photos/screens) */
 .ph-art { inline-size: 100%; background: var(--paper); }
 .ph-art .stroke { stroke: var(--blueprint-fill); stroke-width: 1.5; fill: none; }
@@ -940,9 +1043,9 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   gap: var(--s2);
   padding: var(--s3);
   background: linear-gradient(to top,
-    rgba(250, 250, 248, 1),
-    rgba(250, 250, 248, 0.98) 55%,
-    rgba(250, 250, 248, 0.85) 100%);
+    rgba(var(--paper-rgb), 1),
+    rgba(var(--paper-rgb), 0.98) 55%,
+    rgba(var(--paper-rgb), 0.85) 100%);
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none; /* clicks fall through to the .plate-open link */
@@ -970,13 +1073,6 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 @media (prefers-reduced-motion: reduce) {
   .tempo-card,
   .tempo-overlay { transition: none; }
-}
-
-/* rectangular "screen" layers for wireframe stacks */
-.explode--screens { --layer-w: 260px; }
-.explode--screens .layer {
-  block-size: 170px;
-  margin-block-start: -85px;
 }
 
 /* 404 missing figure */
@@ -1237,8 +1333,8 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 .view-bar button:hover { background: var(--blueprint-tint); }
 .filter-bar button[aria-pressed="true"],
 .view-bar button[aria-pressed="true"] {
-  background: var(--blueprint);
-  color: var(--paper);
+  background: var(--stamp-bg);
+  color: var(--stamp-ink);
 }
 .plate.is-hidden { display: none; }
 .plate[id] { scroll-margin-top: 120px; }
@@ -1348,13 +1444,13 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--paper);
-  background: var(--blueprint);
-  border: 1px solid var(--blueprint);
+  color: var(--stamp-ink);
+  background: var(--stamp-bg);
+  border: 1px solid var(--stamp-bg);
   padding: 10px 16px;
   text-decoration: none;
 }
-.frames-more:hover { background: var(--blueprint-fill); }
+.frames-more:hover { background: var(--stamp-bg-hover); border-color: var(--stamp-bg-hover); }
 
 /* 13 ── FOOTER ------------------------------------------------------------ */
 .site-footer { margin-block-start: var(--s5); }
@@ -1468,7 +1564,7 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 /* 16 ── MOTION ------------------------------------------------------------ */
 @media (prefers-reduced-motion: no-preference) {
   /* the one orchestrated moment: the stack expands from collapsed on load.
-     Fill is `backwards`, not `both` — a forwards fill would keep overriding
+     Fill is `backwards`, not `both` - a forwards fill would keep overriding
      the hover transform after the animation ends. */
   .explode.animate .layer {
     animation: assemble 1200ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
@@ -1505,7 +1601,7 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 
   /* EXPLODED-VIEW DRIFT ---------------------------------------------------
      From the resting position (0), each plate eases up to -Y and back;
-     its inner rectangle eases down to +Y and back — opposite directions,
+     its inner rectangle eases down to +Y and back - opposite directions,
      never crossing past rest, both on the same smooth cycle. */
 
   /* outer plate drifts via --floatY only (screen-space +Y = down) */
@@ -1517,7 +1613,7 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
     animation: layerFloat 3.4s ease-in-out infinite;
   }
   /* home stack: assemble animates `transform`, layerFloat animates `--floatY`
-     — different properties, so they coexist. The 1200ms delay holds --floatY
+     - different properties, so they coexist. The 1200ms delay holds --floatY
      at 0 through the entrance for a clean handoff. */
   .explode.animate .layer {
     animation: assemble 1200ms cubic-bezier(0.22, 1, 0.36, 1) backwards,
@@ -1595,14 +1691,14 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 .fb .fb-panel {
   position: relative;
   overflow: hidden;
-  background-color: var(--blueprint);
+  background-color: var(--stamp-bg);
   background-image:
     repeating-linear-gradient(0deg,  rgba(255,255,255,.14) 0 1px, transparent 1px 96px),
     repeating-linear-gradient(90deg, rgba(255,255,255,.14) 0 1px, transparent 1px 96px),
     repeating-linear-gradient(0deg,  rgba(255,255,255,.05) 0 1px, transparent 1px 24px),
     repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 24px);
   background-position: center top;
-  color: var(--paper);
+  color: var(--stamp-ink);
 }
 
 .fb .fb-inner {
@@ -1736,10 +1832,10 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   transition: opacity 0.3s ease;
 }
 .scroll-hint .scroll-hint-txt {
-  background: var(--blueprint);
-  color: var(--paper);
+  background: var(--stamp-bg);
+  color: var(--stamp-ink);
   padding: 4px 8px;
-  border: 1px solid var(--blueprint);
+  border: 1px solid var(--stamp-bg);
 }
 .scroll-hint .scroll-hint-arrow {
   font-size: 16px;
@@ -1753,4 +1849,51 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 }
 @media (prefers-reduced-motion: reduce) {
   .scroll-hint .scroll-hint-arrow { animation: none; }
+}
+
+/* 18 ── CURSOR -------------------------------------------------------------
+   A small dot follows the pointer; an outer ring appears around it over
+   links/buttons. Both are plain white with mix-blend-mode: difference, so
+   the color is never a fixed brand token - it's a true per-pixel negative
+   of whatever is underneath (dark-on-paper, light-on-dark-mode, amber over
+   the blueprint-blue header/footer panels), always readable regardless of
+   theme or background. Position (--cx/--cy, set from js/main.js every rAF
+   frame) is NOT transitioned - it has to snap 1:1 with the real pointer or
+   the dot visibly lags behind fast mouse movement. Only opacity (ready/hover
+   fades) and the hover scale get a transition. Hover-capable, fine-pointer
+   only: touch/coarse-pointer devices keep their native cursor untouched. */
+@media (hover: hover) and (pointer: fine) {
+  html, a, button, .theme-toggle, .menu-btn { cursor: none; }
+
+  .cursor-dot, .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 200;
+    /* stepped octagon instead of border-radius: 50% - a blocky "pixel
+       circle" silhouette, matching the Silkscreen/pixelated wordmark rather
+       than a smooth anti-aliased circle */
+    clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);
+    opacity: 0;
+    will-change: transform;
+    mix-blend-mode: difference;
+    transform: translate3d(var(--cx, 0px), var(--cy, 0px), 0) translate(-50%, -50%);
+    transition: opacity 150ms ease;
+  }
+  .cursor-dot {
+    inline-size: 9.6px;
+    block-size: 9.6px;
+    background: #fff;
+  }
+  .cursor-ring {
+    inline-size: 34px;
+    block-size: 34px;
+    border: 1.5px solid #fff;
+  }
+  body.cursor-ready .cursor-dot { opacity: 1; }
+  body.cursor-hover .cursor-ring { opacity: 1; }
+  body.cursor-hover .cursor-dot {
+    transform: translate3d(var(--cx, 0px), var(--cy, 0px), 0) translate(-50%, -50%) scale(0.7);
+  }
 }

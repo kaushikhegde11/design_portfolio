@@ -6,6 +6,79 @@
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ── dark mode toggle: an explicit click overrides system preference and
+        is persisted in localStorage. A tiny inline script in <head> already
+        applied any saved choice before first paint, so there is no flash;
+        this only wires up the click and keeps the icon/aria state in sync ── */
+  var themeBtn = document.querySelector("[data-theme-toggle]");
+  if (themeBtn) {
+    var isDark = function () {
+      var saved = null;
+      try { saved = localStorage.getItem("theme"); } catch (e) {}
+      return saved
+        ? saved === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    };
+    var syncThemeButton = function (dark) {
+      themeBtn.classList.toggle("is-dark", dark);
+      themeBtn.setAttribute("aria-pressed", String(dark));
+      themeBtn.setAttribute(
+        "aria-label",
+        dark ? "Switch to light mode" : "Switch to dark mode"
+      );
+    };
+    syncThemeButton(isDark());
+    themeBtn.addEventListener("click", function () {
+      var dark = !isDark();
+      document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch (e) {}
+      syncThemeButton(dark);
+    });
+  }
+
+  /* ── custom cursor: a dot follows the pointer, a ring appears around it
+        over links/buttons. Position is written every rAF frame with no CSS
+        transition on it, so it tracks the real pointer 1:1 instead of
+        chasing it. Fine pointer + hover-capable only (CSS gates
+        `cursor: none` the same way, so touch devices are never affected). */
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    var cdot = document.createElement("div");
+    cdot.className = "cursor-dot";
+    cdot.setAttribute("aria-hidden", "true");
+    var cring = document.createElement("div");
+    cring.className = "cursor-ring";
+    cring.setAttribute("aria-hidden", "true");
+    document.body.append(cdot, cring);
+
+    var cx = 0, cy = 0, cTick = false;
+    var moveCursor = function () {
+      cTick = false;
+      cdot.style.setProperty("--cx", cx + "px");
+      cdot.style.setProperty("--cy", cy + "px");
+      cring.style.setProperty("--cx", cx + "px");
+      cring.style.setProperty("--cy", cy + "px");
+    };
+    window.addEventListener("pointermove", function (e) {
+      cx = e.clientX; cy = e.clientY;
+      document.body.classList.add("cursor-ready");
+      if (!cTick) { cTick = true; window.requestAnimationFrame(moveCursor); }
+    }, { passive: true });
+
+    document.addEventListener("pointerover", function (e) {
+      if (e.target.closest("a, button, [role='button']")) {
+        document.body.classList.add("cursor-hover");
+      }
+    });
+    document.addEventListener("pointerout", function (e) {
+      if (e.target.closest("a, button, [role='button']")) {
+        document.body.classList.remove("cursor-hover");
+      }
+    });
+    document.addEventListener("mouseleave", function () {
+      document.body.classList.remove("cursor-ready");
+    });
+  }
+
   /* ── sticky header compression ─────────────────────────────────────── */
   var header = document.querySelector(".site-header");
   if (header) {
@@ -193,13 +266,23 @@
   /* ── reading-progress hairline (case-study detail) ─────────────────── */
   var progress = document.getElementById("progress");
   if (progress) {
-    var onProgress = function () {
+    var updateProgress = function () {
       var doc = document.documentElement;
       var max = doc.scrollHeight - window.innerHeight;
       progress.style.width = max > 0 ? (window.scrollY / max) * 100 + "%" : "0";
     };
+    var progressTick = false;
+    var onProgress = function () {
+      if (!progressTick) {
+        progressTick = true;
+        window.requestAnimationFrame(function () {
+          progressTick = false;
+          updateProgress();
+        });
+      }
+    };
     window.addEventListener("scroll", onProgress, { passive: true });
-    onProgress();
+    updateProgress();
   }
 
   /* ── scroll reveals: 12px rise + fade, IntersectionObserver ────────── */

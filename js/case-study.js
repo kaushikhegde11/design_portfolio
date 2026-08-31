@@ -9,7 +9,7 @@
     .filter(function (m) { return m.el; });
   if (!map.length) return;
 
-  function onScroll() {
+  function update() {
     var mark = window.scrollY + 140; /* just below the sticky header */
     var current = map[0];
     for (var i = 0; i < map.length; i++) {
@@ -23,6 +23,17 @@
     });
   }
 
+  var ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        ticking = false;
+        update();
+      });
+    }
+  }
+
   document.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  update();
 })();

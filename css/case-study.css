@@ -90,7 +90,7 @@
 .cs-bullets { list-style: none; margin: 0; padding: 0; }
 .cs-bullets > li { position: relative; padding-inline-start: 22px; margin-block-end: var(--s2); text-align: start; }
 .cs-bullets > li::before {
-  content: "—";
+  content: "-";
   position: absolute;
   inset-inline-start: 0;
   color: var(--blueprint);

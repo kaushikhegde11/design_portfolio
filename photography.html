@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Photography — Kaushik Hegde</title>
+<title>Photography - Kaushik Hegde</title>
 <meta name="description" content="Contact sheets by Kaushik Hegde: street, market, and monsoon photography from Bengaluru and around Karnataka.">
 <link rel="canonical" href="https://kaushikhegde.example/photography">
-<meta property="og:title" content="Photography — Kaushik Hegde">
+<meta property="og:title" content="Photography - Kaushik Hegde">
 <meta property="og:description" content="Contact sheet 01: frames from Bengaluru and around Karnataka.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kaushikhegde.example/photography">
@@ -16,8 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/manual.css?v=36">
-<script src="js/main.js?v=14" defer></script>
+<link rel="stylesheet" href="css/manual.css?v=47">
+<script src="js/main.js?v=20" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -25,7 +26,13 @@
 
 <header class="site-header">
   <div class="wrap masthead">
-    <a class="wordmark" href="index.html">Kaushik Hegde</a>
+    <div class="masthead-left">
+      <a class="wordmark" href="index.html">Kaushik Hegde</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="ti ti-sun" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="4.6"/><line x1="12" y1="19.4" x2="12" y2="22"/><line x1="2" y1="12" x2="4.6" y2="12"/><line x1="19.4" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.1" y2="4.9"/></g></svg>
+        <svg class="ti ti-moon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
     <p class="masthead-right">
       <span class="subtitle">Design and photography with a curious mind.</span>
     </p>

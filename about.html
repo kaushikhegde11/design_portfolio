@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About Me — Kaushik Hegde</title>
-<meta name="description" content="About Kaushik Hegde: UI designer and front-end developer in Bengaluru — mechanical engineer turned designer. Background, skills, tools, and availability.">
+<title>About Me - Kaushik Hegde</title>
+<meta name="description" content="About Kaushik Hegde: UI designer and front-end developer in Bengaluru - mechanical engineer turned designer. Background, skills, tools, and availability.">
 <link rel="canonical" href="https://kaushikhegde.example/about">
-<meta property="og:title" content="About Me — Kaushik Hegde">
+<meta property="og:title" content="About Me - Kaushik Hegde">
 <meta property="og:description" content="Mechanical engineer turned UI designer and front-end developer. Skills, tools, background, and interests.">
 <meta property="og:type" content="profile">
 <meta property="og:url" content="https://kaushikhegde.example/about">
@@ -16,8 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/manual.css?v=36">
-<script src="js/main.js?v=14" defer></script>
+<link rel="stylesheet" href="css/manual.css?v=47">
+<script src="js/main.js?v=20" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -36,7 +37,13 @@
 
 <header class="site-header">
   <div class="wrap masthead">
-    <a class="wordmark" href="index.html">Kaushik Hegde</a>
+    <div class="masthead-left">
+      <a class="wordmark" href="index.html">Kaushik Hegde</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="ti ti-sun" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="4.6"/><line x1="12" y1="19.4" x2="12" y2="22"/><line x1="2" y1="12" x2="4.6" y2="12"/><line x1="19.4" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.1" y2="4.9"/></g></svg>
+        <svg class="ti ti-moon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
     <p class="masthead-right">
       <span class="subtitle">Design and photography with a curious mind.</span>
     </p>
@@ -82,7 +89,7 @@
             <div class="svc-track">
               <div class="svc-flow">
               <div class="svc-card svc-card--edu svc-intro">
-                <div class="svc-card-head"><span class="svc-span">2018 – 2022</span><span class="svc-dur">4 yrs</span></div>
+                <div class="svc-card-head"><span class="svc-span">2018-2022</span><span class="svc-dur">4 yrs</span></div>
                 <h3>B.E. Mechanical Engineering</h3>
                 <p class="svc-meta">Mangalore Institute of Technology · MITE</p>
                 <div class="svc-bullets">
@@ -91,7 +98,7 @@
                 </div>
               </div>
               <div class="svc-card">
-                <div class="svc-card-head"><span class="svc-span">Oct – Dec 2022</span><span class="svc-dur">3 mo</span></div>
+                <div class="svc-card-head"><span class="svc-span">Oct-Dec 2022</span><span class="svc-dur">3 mo</span></div>
                 <h3>Production Planner &amp; Design Engineer</h3>
                 <p class="svc-meta">Concord United Pvt Ltd</p>
                 <div class="svc-bullets">
@@ -102,8 +109,8 @@
                 </div>
               </div>
               <div class="svc-card">
-                <div class="svc-card-head"><span class="svc-span">Dec 2022 – Dec 2023</span><span class="svc-dur">1 yr</span></div>
-                <h3>Graduate Apprentice — Logistics</h3>
+                <div class="svc-card-head"><span class="svc-span">Dec 2022-Dec 2023</span><span class="svc-dur">1 yr</span></div>
+                <h3>Graduate Apprentice - Logistics</h3>
                 <p class="svc-meta">Volvo Group Pvt Ltd</p>
                 <div class="svc-bullets">
                   <div class="svc-bul">Ran time-and-motion studies on CKD kitting. Saved 24 minutes per operator each day.</div>
@@ -114,8 +121,8 @@
                 </div>
               </div>
               <div class="svc-card">
-                <div class="svc-card-head"><span class="svc-span">Dec 2023 – Jul 2026</span><span class="svc-dur">2.5 yrs</span></div>
-                <h3>Executive — Material Planning &amp; Logistics</h3>
+                <div class="svc-card-head"><span class="svc-span">Dec 2023-Jul 2026</span><span class="svc-dur">2.5 yrs</span></div>
+                <h3>Executive - Material Planning &amp; Logistics</h3>
                 <p class="svc-meta">Volvo Auto India Pvt Ltd</p>
                 <div class="svc-bullets">
                   <div class="svc-bul">Planned supply for 6 product models from 4 international plants, on Excel and SAP.</div>
@@ -124,7 +131,7 @@
                   <div class="svc-bul">Managed the full spare-parts lifecycle at 100% availability.</div>
                   <div class="svc-bul">Improved JIT flow. Lead time fell 40%, from 5 days to 3.</div>
                   <div class="svc-bul">Built a Power BI dashboard for real-time inventory. Saved 30 minutes each week.</div>
-                  <div class="svc-bul">Set up inventory management from scratch — ABC analysis and a 2-bin system.</div>
+                  <div class="svc-bul">Set up inventory management from scratch - ABC analysis and a 2-bin system.</div>
                   <div class="svc-bul">Covered the manager role. Led monthly plan reviews and owned SRM PO releases.</div>
                 </div>
               </div>

@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Airbnb Case study — Kaushik Hegde</title>
-<meta name="description" content="Case study: fixing the after-you-book, before-you-check-in window in Airbnb's iOS app — search state amnesia, a mis-ordered Trips screen, and a duplicate listing.">
+<title>Airbnb Case study - Kaushik Hegde</title>
+<meta name="description" content="Case study: fixing the after-you-book, before-you-check-in window in Airbnb's iOS app - search state amnesia, a mis-ordered Trips screen, and a duplicate listing.">
 <link rel="canonical" href="https://kaushikhegde.example/case-studies/the-booked-window">
-<meta property="og:title" content="Study.002 The Booked Window — Kaushik Hegde">
+<meta property="og:title" content="Study.002 The Booked Window - Kaushik Hegde">
 <meta property="og:description" content="A self-initiated UX audit of Airbnb's post-booking, pre-check-in window.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://kaushikhegde.example/case-studies/the-booked-window">
@@ -16,14 +17,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/manual.css?v=36">
+<link rel="stylesheet" href="css/manual.css?v=47">
 <link rel="stylesheet" href="css/case-study.css?v=3">
-<script src="js/main.js?v=14" defer></script>
+<script src="js/main.js?v=20" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
-  "name": "The Booked Window — Airbnb post-booking UX audit",
+  "name": "The Booked Window - Airbnb post-booking UX audit",
   "author": { "@type": "Person", "name": "Kaushik Hegde" },
   "dateCreated": "2026",
   "about": "Self-initiated product design case study on the after-booking, pre-check-in window in Airbnb's iOS app."
@@ -36,7 +37,13 @@
 
 <header class="site-header">
   <div class="wrap masthead">
-    <a class="wordmark" href="index.html">Kaushik Hegde</a>
+    <div class="masthead-left">
+      <a class="wordmark" href="index.html">Kaushik Hegde</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="ti ti-sun" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="4.6"/><line x1="12" y1="19.4" x2="12" y2="22"/><line x1="2" y1="12" x2="4.6" y2="12"/><line x1="19.4" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="19.1" y2="4.9"/></g></svg>
+        <svg class="ti ti-moon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
     <p class="masthead-right">
       <span class="subtitle">Design and photography with a curious mind.</span>
     </p>
@@ -101,7 +108,7 @@
           <figure class="fig" data-tag="Study.002 / Bug.01" data-reveal>
             <svg class="ph-art" viewBox="0 0 800 380" role="img" width="800" height="380">
               <title>Search tab state: before, the selected Experiences tab resets to Home on returning from search; after, the selection persists.</title>
-              <text x="20" y="34">Before — return from search</text>
+              <text x="20" y="34">Before - return from search</text>
               <!-- strip 1: Home highlighted (wrong) -->
               <rect class="fill"        x="20"  y="52" width="150" height="56"/>
               <rect class="stroke"      x="185" y="52" width="215" height="56"/>
@@ -110,12 +117,12 @@
               <text x="292" y="86" text-anchor="middle">Experiences</text>
               <text x="490" y="86" text-anchor="middle">Services</text>
               <text x="590" y="74">user picked</text>
-              <text x="590" y="94">Experiences —</text>
+              <text x="590" y="94">Experiences,</text>
               <text x="590" y="114">reset to Home</text>
               <!-- reset arc from Experiences back to Home -->
               <path class="stroke-thin" d="M292 120 C 250 168, 150 168, 100 120" fill="none"/>
               <path class="fill" d="M100 120 l 8 -4 l -1 12 z"/>
-              <text x="20" y="250" text-anchor="start">After — selection persists</text>
+              <text x="20" y="250" text-anchor="start">After - selection persists</text>
               <!-- strip 2: Experiences highlighted (right) -->
               <rect class="stroke"      x="20"  y="268" width="150" height="56"/>
               <rect class="fill"        x="185" y="268" width="215" height="56"/>
@@ -125,7 +132,7 @@
               <text x="490" y="302" text-anchor="middle">Services</text>
               <text x="590" y="300">remembered</text>
             </svg>
-            <figcaption>Search-tab amnesia. Highlighted part: the selected tab — lost on the left, remembered on the right.</figcaption>
+            <figcaption>Search-tab amnesia. Highlighted part: the selected tab - lost on the left, remembered on the right.</figcaption>
           </figure>
         </div>
       </section>
@@ -138,8 +145,8 @@
         <div class="cs-fig">
           <figure class="fig" data-tag="Study.002 / User flow" data-reveal>
             <svg class="ph-art" viewBox="0 0 800 330" role="img" width="800" height="330">
-              <title>User flow of the Search task: open Search, pick Experiences, browse, leave, then reopen Search — the app resets to Home every time.</title>
-              <text x="20" y="34">Observed flow — Search task</text>
+              <title>User flow of the Search task: open Search, pick Experiences, browse, leave, then reopen Search - the app resets to Home every time.</title>
+              <text x="20" y="34">Observed flow - Search task</text>
               <rect class="stroke" x="20"  y="72" width="150" height="60"/><text x="95"  y="107" text-anchor="middle">Open Search</text>
               <rect class="stroke" x="210" y="72" width="150" height="60"/><text x="285" y="107" text-anchor="middle">Pick Experiences</text>
               <rect class="stroke" x="400" y="72" width="150" height="60"/><text x="475" y="107" text-anchor="middle">Browse / filter</text>
@@ -152,7 +159,7 @@
               <text x="420" y="236" text-anchor="middle" style="fill:var(--paper)">Reopen Search</text>
               <text x="420" y="256" text-anchor="middle" style="fill:var(--paper)">= Home (reset)</text>
               <path class="stroke-thin" style="stroke-dasharray:6 5" d="M300 240 C 130 240, 95 200, 95 140" fill="none"/><path class="fill" d="M95 132 l -4 9 l 8 0 z"/>
-              <text x="150" y="300">selection lost — repeats every time</text>
+              <text x="150" y="300">selection lost - repeats every time</text>
             </svg>
             <figcaption>User flow of the Search task. Highlighted step: the reset to Home the user never chose.</figcaption>
           </figure>
@@ -184,7 +191,7 @@
               <div class="metric"><span class="num">30%</span><span class="what">Independently chose the photos-first Trips order</span></div>
               <div class="metric"><span class="num">2→1</span><span class="what">Duplicate house-guide entries, merged to one</span></div>
             </div>
-            <figcaption>Guerrilla test, small sample — directional signal, not statistical weight.</figcaption>
+            <figcaption>Guerrilla test, small sample - directional signal, not statistical weight.</figcaption>
           </figure>
 
           <figure class="fig" data-tag="Study.002 / IA" data-reveal>
@@ -200,7 +207,7 @@
               <rect class="stroke" x="20" y="268" width="350" height="46"/><text x="36" y="297">Your place</text>
               <rect class="stroke-thin" x="20" y="322" width="350" height="46"/><text x="36" y="351">House manual / guide</text>
               <line class="stroke" x1="30" y1="345" x2="360" y2="345"/>
-              <text x="20" y="392">↑ duplicate — remove</text>
+              <text x="20" y="392">↑ duplicate - remove</text>
               <!-- AFTER column -->
               <rect class="stroke" x="430" y="52"  width="350" height="46"/><text x="446" y="81">Your place · photos + details</text>
               <rect class="stroke" x="430" y="106" width="350" height="46"/><text x="446" y="135">Check-in details</text>
@@ -220,7 +227,7 @@
           <ul class="cs-bullets">
             <li><strong>Keep the last Search tab across back-navigation and sessions.</strong> Then Experiences and Services stop resetting to invisible. The tab is the user's intent. The intent must last until the user changes it, not until the app forgets it. This bug fires on every return trip, so a small fix removes frequent friction.</li>
             <li><strong>Reorder Trips to match the task:</strong> the place and its photos first, then check-in, then Message your host above the guide, then the guide once. Screen order follows task order. An anxious guest wants a person first, so Message your host sits above the guide. One guide replaces two, so nothing competes for the same job.</li>
-            <li><strong>Bring the categorized photos into the booked state behind an info control</strong> — bedrooms, kitchen, and spaces, the same groups as the browse view. Then the same place behaves the same way before and after payment. Payment must not delete information. The guest built a mental model before booking, so the booked screen keeps it. The info control hides the detail until the guest asks, which keeps the screen calm.</li>
+            <li><strong>Bring the categorized photos into the booked state behind an info control</strong> - bedrooms, kitchen, and spaces, the same groups as the browse view. Then the same place behaves the same way before and after payment. Payment must not delete information. The guest built a mental model before booking, so the booked screen keeps it. The info control hides the detail until the guest asks, which keeps the screen calm.</li>
           </ul>
           <p class="cs-note">Each decision traces to one guest in one moment: paid, anxious, and before check-in. Two fixes correct state bugs. The rest correct hierarchy. The screen order and the visual weight now match what the guest does next.</p>
         </div>
@@ -228,7 +235,7 @@
           <figure class="fig" data-tag="Study.002 / Consistency" data-reveal>
             <svg class="ph-art" viewBox="0 0 800 400" role="img" width="800" height="400">
               <title>Photo consistency: browsing groups photos by room; the booked view drops the grouping. The fix restores it behind an info affordance.</title>
-              <text x="60" y="34">Browse — grouped by room</text>
+              <text x="60" y="34">Browse - grouped by room</text>
               <rect class="stroke" x="60" y="48" width="300" height="320"/>
               <text x="76" y="92">Bedroom</text>
               <rect class="tint" x="76" y="102" width="130" height="60"/><rect class="tint" x="216" y="102" width="128" height="60"/>
@@ -236,7 +243,7 @@
               <rect class="tint" x="76" y="206" width="130" height="60"/><rect class="tint" x="216" y="206" width="128" height="60"/>
               <text x="76" y="300">Living</text>
               <rect class="tint" x="76" y="310" width="130" height="46"/><rect class="tint" x="216" y="310" width="128" height="46"/>
-              <text x="440" y="34">Booked — flat grid</text>
+              <text x="440" y="34">Booked - flat grid</text>
               <rect class="stroke" x="440" y="48" width="300" height="320"/>
               <rect class="tint" x="456" y="64" width="130" height="60"/><rect class="tint" x="596" y="64" width="128" height="60"/>
               <rect class="tint" x="456" y="134" width="130" height="60"/><rect class="tint" x="596" y="134" width="128" height="60"/>
@@ -244,7 +251,7 @@
               <!-- info affordance = the fix -->
               <circle class="fill" cx="712" cy="80" r="18"/>
               <text x="712" y="86" text-anchor="middle" style="fill:var(--paper)">i</text>
-              <text x="456" y="316">fix — info view</text>
+              <text x="456" y="316">fix - info view</text>
               <text x="456" y="338">restores grouping</text>
             </svg>
             <figcaption>Browse vs. booked photos. Highlighted part: the info affordance that brings back the room grouping.</figcaption>
@@ -256,7 +263,7 @@
         <div class="cs-text" style="max-inline-size: 64ch;">
           <h2 id="h-personas"><span class="page-no cs-num">05</span> &nbsp;Who feels it</h2>
           <p><strong>Maya, the planner.</strong> Reopens a booking six times before a trip to plan rooms and screenshot the address. Wants the place and its photos first.</p>
-          <p><strong>Deepak, the explorer.</strong> Would live in the Experiences tab — but never formed the habit, because the app never let the choice persist.</p>
+          <p><strong>Deepak, the explorer.</strong> Would live in the Experiences tab - but never formed the habit, because the app never let the choice persist.</p>
           <p><strong>Rina, the first-timer.</strong> Anxious before check-in. Sees two house guides and cannot tell which one is real.</p>
         </div>
       </section>
