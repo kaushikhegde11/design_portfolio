@@ -219,9 +219,14 @@
     stack.classList.add("gsap-pinned");
 
     bars.forEach(function (bar, i) {
+      /* reversed slot: the first bar to park lands in the BOTTOM slot, not the
+         top — so when the stack releases and scrolls on, it's the last one to
+         leave (first in, last out). Later bars park progressively closer to
+         the header and so exit first. */
+      var slot = bars.length - 1 - i;
       ScrollTrigger.create({
         trigger: bar,
-        start: function () { return "top " + (headPx() + i * BAR_H) + "px"; },
+        start: function () { return "top " + (headPx() + slot * BAR_H) + "px"; },
         endTrigger: stack,
         end: "bottom top", /* same for every bar → all leave together */
         pin: true,
