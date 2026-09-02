@@ -7,10 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kaushik Hegde - Design &amp; Photography</title>
   <meta name="description"
-    content="The whole portfolio of Kaushik Hegde on a single scroll: design, photography, case studies, and about, in one continuous sheet.">
+    content="The whole portfolio of Kaushik Hegde on a single scroll: design, photography, projects, and about, in one continuous sheet.">
   <link rel="canonical" href="https://kaushikhegde.example/">
   <meta property="og:title" content="Kaushik Hegde - Design &amp; Photography">
-  <meta property="og:description" content="Design, photography, case studies and about - one continuous scroll.">
+  <meta property="og:description" content="Design, photography, projects and about - one continuous scroll.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kaushikhegde.example/">
   <meta name="twitter:card" content="summary">
@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/manual.css?v=47">
-  <link rel="stylesheet" href="css/experience.css?v=6">
+  <link rel="stylesheet" href="css/experience.css?v=7">
   <script src="js/main.js?v=20" defer></script>
   <script src="js/experience.js?v=2" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -54,7 +54,7 @@
           <li><a href="#home" aria-current="page">Home</a></li>
           <li><a href="#design">Design</a></li>
           <li><a href="#photography">Photography</a></li>
-          <li><a href="#case-studies">Case Studies</a></li>
+          <li><a href="#projects">Projects</a></li>
           <li><a href="#about">About Me</a></li>
         </ul>
       </nav>
@@ -67,7 +67,7 @@
       <li><a href="#home">Home</a></li>
       <li><a href="#design">Design</a></li>
       <li><a href="#photography">Photography</a></li>
-      <li><a href="#case-studies">Case Studies</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#about">About Me</a></li>
     </ul>
   </div>
@@ -77,7 +77,7 @@
     <li><a href="#home"><span class="rail-label">Home</span></a></li>
     <li><a href="#design"><span class="rail-label">Design</span></a></li>
     <li><a href="#photography"><span class="rail-label">Photography</span></a></li>
-    <li><a href="#case-studies"><span class="rail-label">Case Studies</span></a></li>
+    <li><a href="#projects"><span class="rail-label">Projects</span></a></li>
     <li><a href="#about"><span class="rail-label">About Me</span></a></li>
   </ul>
 
@@ -97,7 +97,7 @@
           </div>
           <p class="dropcap">I am a UI designer and front-end developer in Bengaluru. I trained as a mechanical engineer
             and moved from supply-chain work at Volvo into design. This page holds all of my work on one page: design,
-            photography, case studies, and about. Scroll through it, or jump with the contents.</p>
+            photography, projects, and about. Scroll through it, or jump with the contents.</p>
           <p>The diagram on the right shows this site as four sections, stacked. Select a layer to open its section, or
             use the contents list below.</p>
         </div>
@@ -118,10 +118,10 @@
                 <span class="face-ghost" aria-hidden="true"></span>
                 <span class="layer-label">Photography</span>
               </a>
-              <a class="layer" href="#case-studies" style="--lift: 50px; z-index: 2;">
+              <a class="layer" href="#projects" style="--lift: 50px; z-index: 2;">
                 <span class="face-detail" aria-hidden="true"></span>
                 <span class="face-ghost" aria-hidden="true"></span>
-                <span class="layer-label">Case Studies</span>
+                <span class="layer-label">Projects</span>
               </a>
               <a class="layer is-focus" href="#about" style="--lift: 150px; z-index: 1;">
                 <span class="face-detail" aria-hidden="true"></span>
@@ -150,7 +150,7 @@
             <ul class="callout-list">
               <li><a href="#design">Design - interface &amp; print</a></li>
               <li><a href="#photography">Photography - frames</a></li>
-              <li><a href="#case-studies">Case studies - product work</a></li>
+              <li><a href="#projects">Projects - product & code</a></li>
               <li><a href="#about">About me - contact + CV</a></li>
             </ul>
 
@@ -384,8 +384,8 @@
 
     <div class="section-divider" aria-hidden="true"></div>
 
-    <!-- ======================================================= CASE STUDIES -->
-    <section class="exp-section" id="case-studies">
+    <!-- =========================================================== PROJECTS -->
+    <section class="exp-section" id="projects">
       <div class="wrap">
         <div class="section-title">
           <span class="bar" aria-hidden="true"></span>
@@ -394,11 +394,10 @@
       <article class="wrap" style="padding-block: 0 8px;">
         <div class="prose" style="max-inline-size: 480px; margin-block-end: 40px;" data-reveal>
           <div class="page-title-block">
-            <h1>Case Studies</h1>
+            <h1>Projects</h1>
           </div>
-          <p class="dropcap">Each study is written as a specification: the problem in one line, the method used, and
-            what changed when it shipped. Numbers are given where they were actually measured, and omitted where they
-            were not.</p>
+          <p class="dropcap">Case studies worked end to end, and open-source builds worth a look. Each is written as
+            a spec: what it's for or the problem it solves, in one line, then where to read or run it.</p>
         </div>
 
         <!-- sticky stack: bars park one under another under the header, all stay
@@ -421,6 +420,63 @@
             <p><a href="case-study-airbnb.html">Read the full case study →</a></p>
           </div>
 
+          <a class="cs-bar" style="--i:1" href="https://github.com/kaushikhegde11/strudel" rel="noopener">
+            <span class="cs-no">02</span>
+            <span class="cs-title">Strudel skill</span>
+            <span class="cs-go" aria-hidden="true">↗</span>
+          </a>
+          <div class="cs-panel">
+            <p class="cs-line"><span class="cs-key">What it is</span>Beginner-friendly assistant instructions for
+              Strudel live-coding music - teaches writing, explaining, and debugging patterns from zero music-theory
+              or JS knowledge.</p>
+            <p class="cs-line"><span class="cs-key">Built for</span>Claude Code, Codex CLI, and ChatGPT, from one
+              shared source.</p>
+            <p><a href="https://github.com/kaushikhegde11/strudel" rel="noopener">View repo on GitHub ↗</a></p>
+          </div>
+
+          <a class="cs-bar" style="--i:2" href="https://github.com/kaushikhegde11/nidhi-epfo-portal" rel="noopener">
+            <span class="cs-no">03</span>
+            <span class="cs-title">Nidhi</span>
+            <span class="cs-go" aria-hidden="true">↗</span>
+          </a>
+          <div class="cs-panel">
+            <p class="cs-line"><span class="cs-key">What it is</span>An unofficial design prototype rethinking EPFO
+              member account access - one sign-in across core services, clearer errors, better password guidance.</p>
+            <p class="cs-line"><span class="cs-key">Built for</span>Browser-based, no backend. All data is
+              synthetic; nothing is sent anywhere.</p>
+            <p><a href="https://github.com/kaushikhegde11/nidhi-epfo-portal" rel="noopener">View repo on GitHub ↗</a>
+            </p>
+          </div>
+
+          <a class="cs-bar" style="--i:3" href="https://github.com/kaushikhegde11/claude-code-weekly-statusline"
+            rel="noopener">
+            <span class="cs-no">04</span>
+            <span class="cs-title">Weekly statusline</span>
+            <span class="cs-go" aria-hidden="true">↗</span>
+          </a>
+          <div class="cs-panel">
+            <p class="cs-line"><span class="cs-key">What it is</span>A Claude Code statusline showing session and
+              weekly rate-limit usage as colored bars, plus a day counter for the 7-day window.</p>
+            <p class="cs-line"><span class="cs-key">Built for</span>Claude Code, as a drop-in statusline script.</p>
+            <p><a href="https://github.com/kaushikhegde11/claude-code-weekly-statusline" rel="noopener">View repo on
+                GitHub ↗</a></p>
+          </div>
+
+          <a class="cs-bar" style="--i:4" href="https://github.com/kaushikhegde11/obsidian-project-memory"
+            rel="noopener">
+            <span class="cs-no">05</span>
+            <span class="cs-title">Obsidian project memory</span>
+            <span class="cs-go" aria-hidden="true">↗</span>
+          </a>
+          <div class="cs-panel">
+            <p class="cs-line"><span class="cs-key">What it is</span>Gives each project a small, durable memory
+              inside an Obsidian vault - a README/STATUS/progress/Decision system an assistant reads later to
+              recover context fast.</p>
+            <p class="cs-line"><span class="cs-key">Built for</span>Claude Code and Codex CLI, as skills; any
+              file-reading agent can use the same source.</p>
+            <p><a href="https://github.com/kaushikhegde11/obsidian-project-memory" rel="noopener">View repo on
+                GitHub ↗</a></p>
+          </div>
 
         </div>
       </article>
@@ -753,7 +809,7 @@
               <li><a href="#home">Home</a></li>
               <li><a href="#design">Design</a></li>
               <li><a href="#photography">Photography</a></li>
-              <li><a href="#case-studies">Case Studies</a></li>
+              <li><a href="#projects">Projects</a></li>
               <li><a href="#about">About Me</a></li>
             </ul>
           </nav>

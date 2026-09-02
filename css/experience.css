@@ -268,7 +268,7 @@
 :root { --bar-h: 52px; }
 
 /* only this section drops the sticky title band, so the stack owns the top */
-#case-studies .section-title { position: static; }
+#projects .section-title { position: static; }
 
 .cs-stack { position: relative; }
 
