@@ -96,6 +96,11 @@
   --stamp-bg-hover: #2140D6;
   --stamp-ink: #FAFAF8;
 
+  /* fixed brand-identity colors for third-party logos (project-title icons) -
+     real brand hex, same in both themes, like --stamp-* above. */
+  --brand-github: #181717;
+  --brand-airbnb: #FF5A5F;
+
   color-scheme: light;
 }
 
@@ -1269,6 +1274,16 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 .study-row .study-year { color: var(--ink-muted); }
 .study-row .study-title { font-weight: 700; font-size: 19px; }
 .study-row .study-problem { color: var(--ink-muted); font-style: italic; }
+
+/* project-title brand icons (GitHub/Airbnb) - shared base, reused by .cs-bar
+   in experience.css. Neutral at rest, tints to real brand hex at low
+   opacity on hover so it doesn't clash with a hover background. */
+.proj-ico { display: inline-flex; flex: none; }
+.proj-ico svg { display: block; width: 15px; height: 15px; fill: currentColor; }
+
+.study-title .proj-ico { margin-inline-start: 6px; vertical-align: -2px; color: var(--ink); }
+a.study-row:hover .proj-ico[data-brand="github"] { color: var(--brand-github); }
+a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
 
 .spec-sheet {
   border: 1.5px solid var(--blueprint);

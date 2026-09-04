@@ -297,15 +297,30 @@
 .cs-bar .cs-no { font-size: 11px; color: var(--ink-muted); }
 .cs-bar .cs-title { font-size: 12px; color: var(--blueprint); }
 .cs-bar.is-parked { background: var(--blueprint-tint); }
+.cs-bar .proj-ico { margin-inline-start: var(--s1); color: var(--blueprint); }
 
 /* clickable bars (studies with a real page) — hover highlight + arrow */
 a.cs-bar { text-decoration: none; color: inherit; cursor: pointer; }
 .cs-go { margin-inline-start: auto; color: var(--blueprint); transition: transform 120ms linear; }
+/* hover background is the row's own brand color, not a fixed blue - each
+   bar carries data-brand (also used by its .proj-ico icon) so the whole
+   strip reads as "this is the GitHub/Airbnb one" on hover, not just a tint
+   on the small icon. */
 a.cs-bar:hover { background: var(--blueprint); }
+a.cs-bar[data-brand="github"]:hover { background: var(--brand-github); }
+a.cs-bar[data-brand="airbnb"]:hover { background: var(--brand-airbnb); }
 a.cs-bar:hover .cs-no,
 a.cs-bar:hover .cs-title,
-a.cs-bar:hover .cs-go { color: var(--paper); }
+a.cs-bar:hover .cs-go,
+a.cs-bar:hover .proj-ico { color: var(--paper); }
 a.cs-bar:hover .cs-go { transform: translateX(4px); }
+/* white text on Airbnb's red fails WCAG AA (~3:1) - fixed dark ink
+   (not the theme-swapping --ink token, since this must stay dark in both
+   themes against a fixed red background) restores ~5.6:1. */
+a.cs-bar[data-brand="airbnb"]:hover .cs-no,
+a.cs-bar[data-brand="airbnb"]:hover .cs-title,
+a.cs-bar[data-brand="airbnb"]:hover .cs-go,
+a.cs-bar[data-brand="airbnb"]:hover .proj-ico { color: #15171C; }
 
 .cs-panel {
   min-block-size: 52vh;
