@@ -1542,6 +1542,10 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
 .reveal { opacity: 0; transform: translateY(12px); transition: opacity 150ms linear, transform 150ms linear; }
 .reveal.is-in { opacity: 1; transform: none; }
 
+/* photo/experience mobile-only hints (hidden on desktop) */
+.photo-tap-hint { display: none; }
+.svc-swipe-hint { display: none; }
+
 /* 15 ── RESPONSIVE (mobile-first collapses live here) --------------------- */
 @media (max-width: 899px) {
   .spread { grid-template-columns: 1fr; }
@@ -1566,6 +1570,13 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
 
   .masthead { flex-direction: column; align-items: flex-start; gap: var(--s2); }
   .masthead-right { text-align: start; }
+
+  /* photography: swap hover hint for tap hint */
+  .photo-hover-hint { display: none; }
+  .photo-tap-hint { display: block; }
+
+  /* experience: show swipe hint, hide on desktop */
+  .svc-swipe-hint { display: block; font-size: 11px; letter-spacing: 0.14em; color: var(--ink-muted); margin-block-end: var(--s2); }
 }
 
 @media (max-width: 639px) {

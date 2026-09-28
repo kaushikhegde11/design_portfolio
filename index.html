@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/manual.css?v=51">
+  <link rel="stylesheet" href="css/manual.css?v=52">
   <link rel="stylesheet" href="css/experience.css?v=12">
   <script src="js/main.js?v=21" defer></script>
   <script src="js/experience.js?v=2" defer></script>
@@ -229,8 +229,9 @@
           <p class="dropcap">An index sheet of frames shot on morning walks, or on the way to somewhere else. The
             captions record where the camera was, when, and what it was set to. Select a frame to inspect it at full
             size.</p>
-          <p class="mono" style="color: var(--ink-muted);">Hover a frame for a closer look. Select one to inspect it at
+          <p class="mono photo-hover-hint" style="color: var(--ink-muted);">Hover a frame for a closer look. Select one to inspect it at
             full size.</p>
+          <p class="mono photo-tap-hint" style="color: var(--ink-muted);">Tap a frame to inspect it at full size.</p>
         </div>
 
         <div class="view-bar" role="group" aria-label="View" data-target=".contact-sheet">
@@ -504,6 +505,7 @@
 
           <section class="svc-hz" aria-label="Experience">
             <h2>Experience</h2>
+            <p class="svc-swipe-hint mono" aria-hidden="true">[ swipe to explore ]</p>
             <div class="svc-pin" data-pin>
               <div class="svc-sticky">
                 <div class="svc-scale">
