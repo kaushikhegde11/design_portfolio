@@ -118,6 +118,10 @@
     menuBtn.addEventListener("click", openMenu);
     closeBtn.addEventListener("click", closeMenu);
 
+    overlay.querySelectorAll("a[href]").forEach(function (link) {
+      link.addEventListener("click", closeMenu);
+    });
+
     overlay.addEventListener("keydown", function (e) {
       if (e.key === "Escape") {
         closeMenu();
