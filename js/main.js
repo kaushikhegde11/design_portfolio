@@ -198,6 +198,57 @@
     });
   }
 
+  /* ── photography frame tilt controls ─────────────────────────────── */
+  var contactSheet = document.querySelector(".contact-sheet");
+  var tiltControls = document.querySelector(".tilt-controls");
+  if (contactSheet && tiltControls) {
+    /* Cursor-to-rotation mapping adapted from NudaUI's MIT vanilla example. */
+    var tiltX = tiltControls.querySelector("#tilt-x");
+    var tiltY = tiltControls.querySelector("#tilt-y");
+    var tiltZoom = tiltControls.querySelector("#tilt-zoom");
+    var tiltXValue = tiltControls.querySelector("#tilt-x-value");
+    var tiltYValue = tiltControls.querySelector("#tilt-y-value");
+    var tiltZoomValue = tiltControls.querySelector("#tilt-zoom-value");
+    var tiltReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var tiltFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+    var syncTiltControls = function () {
+      contactSheet.style.setProperty("--photo-hover-zoom", Number(tiltZoom.value) / 100);
+      tiltXValue.value = tiltX.value + "°";
+      tiltYValue.value = tiltY.value + "°";
+      tiltZoomValue.value = tiltZoom.value + "%";
+    };
+
+    [tiltX, tiltY, tiltZoom].forEach(function (input) {
+      input.addEventListener("input", syncTiltControls);
+    });
+    syncTiltControls();
+
+    if (tiltFinePointer.matches && !tiltReducedMotion.matches) {
+      contactSheet.querySelectorAll(".frame-btn").forEach(function (frame) {
+        var bounds = null;
+        frame.addEventListener("pointerenter", function () {
+          bounds = frame.getBoundingClientRect();
+        });
+        frame.addEventListener("pointermove", function (event) {
+          if (!bounds) return;
+          var x = (event.clientX - bounds.left) / bounds.width;
+          var y = (event.clientY - bounds.top) / bounds.height;
+          var maxX = Number(tiltX.value);
+          var maxY = Number(tiltY.value);
+          frame.style.setProperty("--photo-tilt-x", (0.5 - y) * maxX + "deg");
+          frame.style.setProperty("--photo-tilt-y", (x - 0.5) * maxY + "deg");
+        }, { passive: true });
+
+        frame.addEventListener("pointerleave", function () {
+          frame.style.setProperty("--photo-tilt-x", "0deg");
+          frame.style.setProperty("--photo-tilt-y", "0deg");
+          bounds = null;
+        });
+      });
+    }
+  }
+
   /* ── design page filter bar (updates URL hash) ─────────────────────── */
   var filterBar = document.querySelector(".filter-bar");
   if (filterBar) {

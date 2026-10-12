@@ -1133,6 +1133,7 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   margin: 0;
   background: var(--paper);
   padding: var(--s2);
+  perspective: 1000px;
 }
 
 .contact-sheet .frame-btn {
@@ -1142,6 +1143,14 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   border: 1px solid var(--grid-line);
   background: none;
   cursor: pointer;
+  transform: rotateX(var(--photo-tilt-x, 0deg)) rotateY(var(--photo-tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 180ms ease;
+}
+.contact-sheet .frame-btn:hover,
+.contact-sheet .frame-btn:focus-visible {
+  position: relative;
+  z-index: 2;
 }
 
 /* plain photo plate (dither removed); a subtle zoom on hover/focus */
@@ -1176,9 +1185,66 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
 }
 .contact-sheet .frame-btn:hover .plate-orig,
 .contact-sheet .frame-btn:focus-visible .plate-orig {
-  transform: scale(1.12);
+  transform: scale(var(--photo-hover-zoom, 1.08));
+}
+
+.tilt-controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s2) var(--s3);
+  margin-block-end: var(--s2);
+  padding: var(--s2);
+  border: 1.5px solid var(--blueprint);
+  background: var(--paper);
+}
+.tilt-controls__intro {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s2);
+}
+.tilt-controls__intro h2,
+.tilt-controls__intro p { margin: 0; }
+.tilt-controls__intro h2,
+.tilt-control__heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.tilt-controls__intro h2 { color: var(--blueprint); }
+.tilt-controls__intro p {
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+.tilt-control { min-inline-size: 0; }
+.tilt-control__heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s1);
+  margin-block-end: 6px;
+  color: var(--ink);
+}
+.tilt-control output {
+  color: var(--blueprint);
+  font-variant-numeric: tabular-nums;
+}
+.tilt-control input[type="range"] {
+  display: block;
+  inline-size: 100%;
+  min-block-size: 24px;
+  margin: 0;
+  accent-color: var(--blueprint);
+  cursor: pointer;
+}
+.tilt-control input[type="range"]:focus-visible {
+  outline: 2px solid var(--blueprint);
+  outline-offset: 3px;
 }
 @media (prefers-reduced-motion: reduce) {
+  .contact-sheet .frame-btn { transition: none; transform: none; }
   .contact-sheet .plate-orig { transition: none; }
   .contact-sheet .frame-btn:hover .plate-orig,
   .contact-sheet .frame-btn:focus-visible .plate-orig { transform: none; }
@@ -1561,6 +1627,9 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
   .explode { --layer-w: 180px; --explode-h: 420px; }
 
   .contact-sheet { grid-template-columns: repeat(2, 1fr); }
+  .tilt-controls { grid-template-columns: 1fr; gap: var(--s1); }
+  .tilt-controls__intro { display: block; }
+  .tilt-controls__intro p { margin-block-start: 4px; }
 
   .study-row { grid-template-columns: 70px 1fr 24px; }
   .study-row .study-problem, .study-row .study-role, .study-row .study-year { display: none; }
