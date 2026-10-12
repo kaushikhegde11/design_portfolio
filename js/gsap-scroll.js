@@ -53,10 +53,6 @@
     return teardownAll;
   });
 
-  /* the case-study stack is CSS-sticky at every width; GSAP only adds the
-     entry animation + parked state class, so it runs outside the mm gate. */
-  stackBars();
-
   window.addEventListener("load", function () { ScrollTrigger.refresh(); });
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
@@ -198,45 +194,4 @@
     });
   }
 
-  /* ── CASE-STUDY STACK ──────────────────────────────────────────────────
-     Bars park one under another below the header, all stay visible, then the
-     whole assembled stack scrolls off as one block. CSS position:sticky is the
-     no-JS / reduced-motion fallback (experience.css section J); when GSAP runs
-     we pin instead so every bar can share ONE release point — a staggered start
-     parks them one by one, the shared end:"bottom top" releases them together.
-     .gsap-pinned tells the CSS to stand its sticky positioning down. */
-  function stackBars() {
-    var stack = document.getElementById("cs-stack");
-    if (!stack) return;
-    /* on phones GSAP pinning mis-measures and overlaps — skip it and let the
-       pure-CSS position:sticky fallback (experience.css section J) park the
-       bars instead. Not adding .gsap-pinned keeps that CSS sticky live. */
-    if (window.matchMedia("(max-width: 720px)").matches) { markWired(); return; }
-    var bars = Array.prototype.slice.call(stack.querySelectorAll(".cs-bar"));
-    if (!bars.length) return;
-
-    var BAR_H = cssPx("--bar-h");
-    stack.classList.add("gsap-pinned");
-
-    bars.forEach(function (bar, i) {
-      /* reversed slot: the first bar to park lands in the BOTTOM slot, not the
-         top — so when the stack releases and scrolls on, it's the last one to
-         leave (first in, last out). Later bars park progressively closer to
-         the header and so exit first. */
-      var slot = bars.length - 1 - i;
-      ScrollTrigger.create({
-        trigger: bar,
-        start: function () { return "top " + (headPx() + slot * BAR_H) + "px"; },
-        endTrigger: stack,
-        end: "bottom top", /* same for every bar → all leave together */
-        pin: true,
-        pinSpacing: false, /* keep page height; panels scroll behind parked bars */
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        toggleClass: { targets: bar, className: "is-parked" }
-      });
-    });
-
-    markWired();
-  }
 })();

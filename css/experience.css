@@ -262,8 +262,8 @@
 /* Full-width bars park one under another using position: sticky with
    cumulative top offsets; because all bars share one containing block
    (.cs-stack) they release together when the stack scrolls out. Pure CSS —
-   works with no JS, no GSAP, and under reduced motion. gsap-scroll.js only
-   adds the entry rise + .is-parked class. Nothing in the ancestor chain sets
+   owns positioning at every width, with or without JS and under reduced
+   motion. Nothing in the ancestor chain sets
    overflow/transform/height:100%, which would silently break sticky. */
 :root { --bar-h: 52px; }
 
@@ -273,7 +273,7 @@
 .cs-stack { position: relative; }
 
 .cs-bar {
-  position: sticky; /* fallback when GSAP is absent; .gsap-pinned turns this off */
+  position: sticky;
   inset-block-start: calc(var(--head-now, var(--headh)) + var(--i) * var(--bar-h));
   z-index: calc(10 + var(--i));
   block-size: var(--bar-h);
@@ -292,11 +292,8 @@
 }
 .cs-stack > .cs-bar:first-child { border-block-start: 1.5px solid var(--blueprint); }
 
-/* GSAP owns positioning while active, so the CSS sticky fallback stands down */
-.cs-stack.gsap-pinned .cs-bar { position: static; }
 .cs-bar .cs-no { font-size: 11px; color: var(--ink-muted); }
 .cs-bar .cs-title { font-size: 12px; color: var(--blueprint); }
-.cs-bar.is-parked { background: var(--blueprint-tint); }
 .cs-bar .proj-ico { margin-inline-start: var(--s1); color: var(--blueprint); }
 
 /* clickable bars (studies with a real page) — hover highlight + arrow */
