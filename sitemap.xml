@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://kaushikhegde.example/</loc><lastmod>2026-07-25</lastmod></url>
-  <url><loc>https://kaushikhegde.example/photography</loc><lastmod>2026-07-25</lastmod></url>
-  <url><loc>https://kaushikhegde.example/projects</loc><lastmod>2026-09-03</lastmod></url>
-  <url><loc>https://kaushikhegde.example/projects/namma-transit</loc><lastmod>2026-07-25</lastmod></url>
-  <url><loc>https://kaushikhegde.example/design</loc><lastmod>2026-07-25</lastmod></url>
-  <url><loc>https://kaushikhegde.example/about</loc><lastmod>2026-07-25</lastmod></url>
+  <url><loc>https://kaushikhegde.com/</loc></url>
+  <url><loc>https://kaushikhegde.com/about.html</loc></url>
+  <url><loc>https://kaushikhegde.com/projects.html</loc></url>
+  <url><loc>https://kaushikhegde.com/design.html</loc></url>
+  <url><loc>https://kaushikhegde.com/photography.html</loc></url>
+  <url><loc>https://kaushikhegde.com/case-study-airbnb.html</loc></url>
+  <url><loc>https://kaushikhegde.com/design-find-the-tempo.html</loc></url>
+  <url><loc>https://kaushikhegde.com/about.md</loc></url>
+  <url><loc>https://kaushikhegde.com/case-study-airbnb.md</loc></url>
+  <url><loc>https://kaushikhegde.com/design-find-the-tempo.md</loc></url>
+  <url><loc>https://kaushikhegde.com/photography.md</loc></url>
+  <url><loc>https://kaushikhegde.com/portfolio.md</loc></url>
+  <url><loc>https://kaushikhegde.com/projects.md</loc></url>
+  <url><loc>https://kaushikhegde.com/machine.html</loc></url>
+  <url><loc>https://kaushikhegde.com/machine-about.html</loc></url>
+  <url><loc>https://kaushikhegde.com/machine-projects.html</loc></url>
+  <url><loc>https://kaushikhegde.com/machine-design.html</loc></url>
+  <url><loc>https://kaushikhegde.com/machine-photography.html</loc></url>
+  <url><loc>https://kaushikhegde.com/machine-case-study-airbnb.html</loc></url>
+  <url><loc>https://kaushikhegde.com/machine-design-find-the-tempo.html</loc></url>
 </urlset>

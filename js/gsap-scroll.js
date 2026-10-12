@@ -43,6 +43,7 @@
 
   /* run each sequence only at >=900px; gsap.matchMedia tears the sequence
      down automatically (reverting DOM + killing triggers) below that. */
+  var teardowns = [];
   var mm = gsap.matchMedia();
 
   mm.add("(min-width: 900px)", function () {
@@ -61,7 +62,6 @@
     document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
   }
 
-  var teardowns = [];
   function teardownAll() {
     teardowns.splice(0).forEach(function (fn) {
       try { fn(); } catch (e) {}
