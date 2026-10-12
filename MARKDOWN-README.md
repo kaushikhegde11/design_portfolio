@@ -8,4 +8,4 @@ The clipboard button copies the exact Markdown text. If clipboard access is unav
 
 Run `python3 scripts/build-markdown.py` after content updates to refresh the Markdown and Machine pages. Find the Tempo is manually transcribed from find-the-tempo.pdf in design-find-the-tempo.md; update it when the PDF changes. Edit shared navigation styles in css/manual.css, Machine layout in css/machine.css, and copy behavior in js/machine.js.
 
-Only photography includes the hobby/bots/taste note and directs readers to Instagram @artofkaey. The crawler index uses the CNAME domain kaushikhegde.com. The earlier Hairline figures remain on the Human homepage without a continuous whole-object rotation. Anatomy scene assets and generated documents are excluded.
+Only photography includes the hobby/bots/taste note and directs readers to Instagram @artofkaey. The crawler index uses the CNAME domain kaushikhegde.com. The Human homepage uses its original thin-line section diagram. The easel, camera, laptop, notebook, and their figure assets are excluded.
