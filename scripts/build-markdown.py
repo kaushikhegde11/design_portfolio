@@ -157,7 +157,7 @@ write('photography.md', photography)
 
 intro = '''# Kaushik Hegde
 
-UI/UX design · Graphic design · Design engineering. Based in Bengaluru.
+UI/UX designer and front-end design engineer based in Bengaluru. Open to UI/UX and design-engineering roles.
 
 I work across UI/UX design, graphic design, and front-end development. I bring a mechanical engineering background to interfaces, visual systems, and interactive prototypes.
 
@@ -181,7 +181,7 @@ write('portfolio.md', intro + '\n' + about_embedded + '\n' + project_embedded + 
 
 write('llms.txt', '''# Kaushik Hegde
 
-> UI/UX design, graphic design, and design engineering portfolio, based in Bengaluru.
+> UI/UX designer and front-end design engineer based in Bengaluru, a mechanical engineer turned designer and open to UI/UX and design-engineering roles. This is the text index of my portfolio.
 
 ## Portfolio in Markdown
 
@@ -217,7 +217,7 @@ for html_name, md_name in MAPPING.items():
         source = re.sub(r'<a class="markdown-link".*?</a>', switch, source, count=1, flags=re.S)
     else:
         raise RuntimeError('Reading mode control not found: ' + html_name)
-    source = source.replace('css/manual.css?v=53', 'css/manual.css?v=54')
+    source = source.replace('css/manual.css?v=54', 'css/manual.css?v=55')
     path.write_text(source)
     if html_name == '404.html':
         continue
@@ -240,7 +240,7 @@ for html_name, md_name in MAPPING.items():
   <link rel="canonical" href="https://kaushikhegde.com/{html_name}">
   <link rel="alternate" type="text/markdown" title="Markdown version" href="{md_name}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&amp;display=swap">
-  <link rel="stylesheet" href="css/manual.css?v=54">
+  <link rel="stylesheet" href="css/manual.css?v=55">
   <link rel="stylesheet" href="css/machine.css?v=2">
   <script src="js/main.js?v=21" defer></script>
   <script src="js/machine.js?v=1" defer></script>

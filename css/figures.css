@@ -1,0 +1,105 @@
+/* Home hero: the Work intro, then one strip of four illustrations (embedded pages, themed by js/figures.js). */
+
+/* ── layout: intro on the left, the 2x2 of drawings on the right (the site's .spread grid, widened for the drawings) ── */
+.hero-spread { grid-template-columns: minmax(0, 1fr) minmax(0, 1.43fr); }
+.hero-spread > .col-fig { padding-inline-start: var(--s3); }
+
+/* container layers: frame (strip) > cards > stage > embedded drawing.
+   Every gap is the same token, so the four cards are equidistant from each other and from the frame edge. */
+.hero-strip { margin: 0; padding: var(--s2); }
+.hero-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s2);
+  align-items: stretch;
+}
+.hero-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--s2);
+  min-inline-size: 0;
+  padding: var(--s2);
+  border: 1px solid var(--grid-line);
+  background: var(--paper);
+}
+.hero-card-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-block-end: var(--s1);
+  border-block-end: 1px solid var(--grid-line);
+  font-family: "Drafting Mono", ui-monospace, monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  text-decoration: none;
+}
+.hero-card-link:hover, .hero-card-link:focus-visible { background: var(--blueprint-tint); }
+/* one footprint for all four, so drawings of different proportions share a centre line */
+.hero-stage { display: grid; place-items: center; aspect-ratio: 5 / 4; min-inline-size: 0; }
+.hero-frame {
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: var(--ar, 5 / 4);
+  border: 0;
+  background: transparent;
+}
+
+@media (max-width: 899px) {
+  .hero-spread { grid-template-columns: 1fr; }
+  .hero-spread > .col-fig { padding-inline-start: 0; }
+}
+@media (max-width: 560px) {
+  .hero-cards { grid-template-columns: 1fr; gap: var(--s2); }
+  .hero-strip { padding: var(--s1); }
+}
+
+/* ── nav row: hidden at first; once the hero is more than half scrolled away it slides down from the header's lower edge.
+   It overlays the page (no layout shift), so the reveal can never feed back into the scroll position. ── */
+html.js-nav-reveal { --headh: 150px; }
+.site-header { position: sticky; } /* containing block for the overlay */
+html.js-nav-reveal .nav-reveal {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  /* hiding: wait for the slide-up to finish before the row leaves the accessibility tree */
+  transition: visibility 0s linear 450ms;
+}
+/* the paper band slides down from the header's lower edge... */
+html.js-nav-reveal .nav-reveal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  border-block-end: 1px solid var(--grid-line);
+  transform: translateY(-100%);
+  transition: transform 450ms cubic-bezier(0.22, 0.8, 0.2, 1);
+}
+/* ...and the menu text follows in the same motion 0.2s later (no delay when it hides) */
+html.js-nav-reveal .nav-reveal-inner {
+  position: relative;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 450ms cubic-bezier(0.22, 0.8, 0.2, 1), opacity 300ms ease;
+}
+html.js-nav-reveal .site-header.nav-revealed .nav-reveal {
+  visibility: visible;
+  pointer-events: auto;
+  transition: visibility 0s;
+}
+html.js-nav-reveal .site-header.nav-revealed .nav-reveal::before { transform: none; }
+html.js-nav-reveal .site-header.nav-revealed .nav-reveal-inner {
+  transform: none;
+  opacity: 1;
+  transition-delay: 200ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js-nav-reveal .nav-reveal,
+  html.js-nav-reveal .nav-reveal::before,
+  html.js-nav-reveal .nav-reveal-inner,
+  html.js-nav-reveal .site-header.nav-revealed .nav-reveal-inner { transition: none; }
+}

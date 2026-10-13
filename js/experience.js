@@ -19,9 +19,11 @@
     var headTick = false;
     var setHead = function () {
       headTick = false;
+      /* the home page's nav row overlays the page once revealed (css/figures.css); count it */
+      var navEl = headerEl.classList.contains("nav-revealed") ? headerEl.querySelector(".nav-reveal-inner") : null;
       root.style.setProperty(
         "--head-now",
-        Math.round(headerEl.getBoundingClientRect().height) + "px"
+        Math.round(headerEl.getBoundingClientRect().height + (navEl ? navEl.offsetHeight : 0)) + "px"
       );
     };
     var queueHead = function () {

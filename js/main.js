@@ -179,7 +179,13 @@
       btn.addEventListener("click", function () {
         show(i);
         lightbox.showModal();
+        /* an open modal dialog sits in the top layer, above the body's custom cursor, so the cursor moves
+           into it while it is open (see the close handler below) */
+        if (cdot && cring) lightbox.append(cdot, cring);
       });
+    });
+    lightbox.addEventListener("close", function () {
+      if (cdot && cring) document.body.append(cdot, cring);
     });
 
     lightbox.querySelector(".lb-prev").addEventListener("click", function () {
@@ -200,7 +206,8 @@
 
   /* ── photography frame tilt ───────────────────────────────────────── */
   var contactSheet = document.querySelector(".contact-sheet");
-  if (contactSheet) {
+  /* the homepage (it has #home) keeps only the scroll parallax; the standalone photography page keeps the tilt */
+  if (contactSheet && !document.getElementById("home")) {
     /* Cursor-to-rotation mapping adapted from NudaUI's MIT vanilla example. */
     var maxTiltX = 11;
     var maxTiltY = 15;

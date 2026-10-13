@@ -1899,6 +1899,7 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
    only: touch/coarse-pointer devices keep their native cursor untouched. */
 @media (hover: hover) and (pointer: fine) {
   html, a, button, .theme-toggle, .menu-btn { cursor: none; }
+  .lightbox, .lightbox button { cursor: none; } /* the custom circle cursor shows inside the photo viewer too */
 
   .cursor-dot, .cursor-ring {
     position: fixed;
@@ -1906,10 +1907,8 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
     left: 0;
     pointer-events: none;
     z-index: 200;
-    /* stepped octagon instead of border-radius: 50% - a blocky "pixel
-       circle" silhouette, matching the Silkscreen/pixelated wordmark rather
-       than a smooth anti-aliased circle */
-    clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);
+    /* a true circle (the dot and the hover ring) */
+    border-radius: 50%;
     opacity: 0;
     will-change: transform;
     mix-blend-mode: difference;

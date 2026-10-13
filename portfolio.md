@@ -1,6 +1,6 @@
 # Kaushik Hegde
 
-UI/UX design · Graphic design · Design engineering. Based in Bengaluru.
+UI/UX designer and front-end design engineer based in Bengaluru. Open to UI/UX and design-engineering roles.
 
 I work across UI/UX design, graphic design, and front-end development. I bring a mechanical engineering background to interfaces, visual systems, and interactive prototypes.
 
