@@ -74,4 +74,14 @@
   });
   window.addEventListener("scroll", queue, { passive: true });
   window.addEventListener("resize", queue, { passive: true });
+  /* ── fit the 2x2 in the first screen: publish the strip's top edge (css/figures.css sizes the strip from it) ── */
+  var fit = function () {
+    var strip = document.querySelector(".hero-strip");
+    if (!strip) return;
+    root.style.setProperty("--strip-top", Math.round(strip.getBoundingClientRect().top + window.scrollY) + "px");
+  };
+  document.addEventListener("DOMContentLoaded", fit);
+  window.addEventListener("load", fit);
+  window.addEventListener("resize", fit, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 })();

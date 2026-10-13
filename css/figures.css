@@ -46,6 +46,16 @@
   background: transparent;
 }
 
+/* two-column layout: size the 2x2 so the whole strip fits in the first screen (its measured top edge, then a 24px bottom gap; js/figures.js sets --strip-top).
+   Fixed chrome per strip = 209px (frame padding, card padding, labels, gaps); each drawing is 5:4, so strip width = 2.5 x stage height + 116px. */
+@media (min-width: 900px) {
+  .hero-spread {
+    --fit-h: calc(100svh - var(--strip-top, 152px) - 24px);
+    --stage-h: max(110px, calc((var(--fit-h) - 209px) / 2));
+  }
+  .hero-strip { max-inline-size: calc(var(--stage-h) * 2.5 + 116px); margin-inline: auto; }
+}
+
 @media (max-width: 899px) {
   .hero-spread { grid-template-columns: 1fr; }
   .hero-spread > .col-fig { padding-inline-start: 0; }
