@@ -6,7 +6,7 @@
 
 - [Full portfolio](https://kaushikhegde.com/portfolio.md): About Me, projects, case-study links, and photography as a hobby.
 - [About Me](https://kaushikhegde.com/about.md): Experience, skills, tools, interests, and background.
-- [Projects](https://kaushikhegde.com/projects.md): Find the Tempo, Airbnb, Strudel skill, Nidhi, Weekly statusline, and Obsidian project memory.
+- [Projects](https://kaushikhegde.com/projects.md): Find the Tempo, Nidhi, OpenBoard, Claude Code statusline, Strudel skill, Airbnb, and Obsidian project memory.
 - [Find the Tempo](https://kaushikhegde.com/design-find-the-tempo.md): Full case study transcribed from the portfolio PDF.
 - [Airbnb](https://kaushikhegde.com/case-study-airbnb.md): Full text of the existing case study.
 - [Photography](https://kaushikhegde.com/photography.md): Hobby; see Instagram @artofkaey for the photographs.

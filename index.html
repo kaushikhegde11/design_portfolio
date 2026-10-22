@@ -36,10 +36,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/manual.css?v=57">
+  <link rel="stylesheet" href="css/manual.css?v=64">
   <link rel="stylesheet" href="css/experience.css?v=13">
   <link rel="stylesheet" href="css/figures.css?v=10">
-  <script src="js/main.js?v=24" defer></script>
+  <script src="js/main.js?v=27" defer></script>
   <script src="js/experience.js?v=3" defer></script>
   <script src="js/figures.js?v=5" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -174,36 +174,43 @@
           <div class="page-title-block">
             <h1>Design</h1>
           </div>
-          <p class="dropcap">One project, worked end to end. Find the Tempo turns a screenshot of songs into openable
-            streaming links. Hover the plate to wake the interface; open it for the full decision-by-decision breakdown.
-          </p>
+          <p class="dropcap">Posters and film review cards. Most begin with a photograph pushed toward print: halftone dots, creased paper, two-tone tints, or a grid laid over a close-up. The type is split apart, spaced wide or turned on its side, so it sits inside the image instead of on top of it.</p>
         </div>
 
-        <div class="view-bar" role="group" aria-label="View" data-target=".plate-grid">
+        <div class="view-bar" role="group" aria-label="View" data-target=".design-sheet">
           <button type="button" data-view="grid" aria-pressed="true">[ Grid ]</button>
           <button type="button" data-view="list" aria-pressed="false">[ List ]</button>
         </div>
 
-        <div class="plate-grid">
-
-          <figure class="fig plate tempo-card" data-tag="UI / Find the Tempo" data-reveal>
-            <a class="plate-open" href="design-find-the-tempo.html" aria-label="Open the Find the Tempo case study"></a>
-            <span class="tempo-frame">
-              <img class="tempo-shot" src="img/find-the-tempo.png?v=1"
-                alt="Find the Tempo - convert screenshots into findable links" width="1264" height="791" loading="lazy">
-              <span class="tempo-overlay" aria-hidden="true">
-                <p class="tempo-desc">Find the Tempo turns a screenshot of songs into openable links. OCR reads each
-                  track and artist, then builds one search link per streaming service. Scattered tracks, gathered in one
-                  place.</p>
-                <span class="tempo-arrow">Open →</span>
+        <div class="contact-sheet design-sheet" data-reveal>
+          <figure>
+            <button class="frame-btn" type="button" aria-label="View the Adventure poster full size">
+              <span class="plate" data-src="img/design/poster-adventure-uncertainty.webp">
+                <img class="plate-orig" src="img/design/poster-adventure-uncertainty.webp" alt="Poster: a halftone hare mid-leap on creased blue paper, with the word adventure split into three parts and uncertainty set vertically" width="1140" height="945" loading="lazy" decoding="async">
               </span>
-            </span>
-            <ul class="callout-list">
-              <li>Screenshot → OCR → one query link per streaming service</li>
-            </ul>
-            <figcaption>Find the Tempo. Hover to read what it does.</figcaption>
+            </button>
           </figure>
-
+          <figure>
+            <button class="frame-btn" type="button" aria-label="View the Maximalism poster full size">
+              <span class="plate" data-src="img/design/poster-maximalism.webp">
+                <img class="plate-orig" src="img/design/poster-maximalism.webp" alt="Poster: a sepia halftone photo of a carved temple relief, with Maximalism in blocky letters along the bottom" width="1080" height="1350" loading="lazy" decoding="async">
+              </span>
+            </button>
+          </figure>
+          <figure>
+            <button class="frame-btn" type="button" aria-label="View the Sentimental Value review card full size">
+              <span class="plate" data-src="img/design/card-sentimental-value.webp">
+                <img class="plate-orig" src="img/design/card-sentimental-value.webp" alt="Film review card for Sentimental Value: a frosted panel with an overview, thoughts on the film and a rating of 8.5 out of 10" width="1080" height="1350" loading="lazy" decoding="async">
+              </span>
+            </button>
+          </figure>
+          <figure>
+            <button class="frame-btn" type="button" aria-label="View the Fauna poster full size">
+              <span class="plate" data-src="img/design/poster-fauna.webp">
+                <img class="plate-orig" src="img/design/poster-fauna.webp" alt="Poster: close-up photos of raw meat split on a diagonal, with a grid and star marks over them and the word fauna" width="1080" height="1350" loading="lazy" decoding="async">
+              </span>
+            </button>
+          </figure>
         </div>
 
         <a class="frames-more" href="design.html">[ View all projects → ]</a>
@@ -227,9 +234,6 @@
           <p class="dropcap">An index sheet of frames shot on morning walks, or on the way to somewhere else. The
             captions record where the camera was, when, and what it was set to. Select a frame to inspect it at full
             size.</p>
-          <p class="mono photo-hover-hint" style="color: var(--ink-muted);">Hover a frame for a closer look. Select one to inspect it at
-            full size.</p>
-          <p class="mono photo-tap-hint" style="color: var(--ink-muted);">Tap a frame to inspect it at full size.</p>
         </div>
 
         <div class="view-bar" role="group" aria-label="View" data-target=".contact-sheet">
@@ -395,93 +399,48 @@
           <div class="page-title-block">
             <h1>Projects</h1>
           </div>
-          <p class="dropcap">Case studies worked end to end, and open-source builds worth a look. Each is written as
-            a spec: what it's for or the problem it solves, in one line, then where to read or run it.</p>
+          <p class="dropcap">Apps, prototypes and assistant skills I have built, plus one UX case study. Each card opens the live site, the code, or the case study.</p>
         </div>
 
-        <!-- sticky stack: bars park one under another under the header, all stay
-           visible, then the whole stack leaves together. Bars + panels MUST be
-           direct children of .cs-stack - nesting a bar in a panel breaks it. -->
-        <div class="cs-stack" id="cs-stack">
-
-          <a class="cs-bar" data-brand="airbnb" style="--i:0" href="case-study-airbnb.html">
-            <span class="cs-no">01</span>
-            <span class="cs-title">Airbnb - the anxious gap</span>
-            <span class="proj-ico" data-brand="airbnb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12.001 18.275c-1.353-1.697-2.148-3.184-2.413-4.457-.263-1.027-.16-1.848.291-2.465.477-.71 1.188-1.056 2.121-1.056s1.643.345 2.12 1.063c.446.61.558 1.432.286 2.465-.291 1.298-1.085 2.785-2.412 4.458zm9.601 1.14c-.185 1.246-1.034 2.28-2.2 2.783-2.253.98-4.483-.583-6.392-2.704 3.157-3.951 3.74-7.028 2.385-9.018-.795-1.14-1.933-1.695-3.394-1.695-2.944 0-4.563 2.49-3.927 5.382.37 1.565 1.352 3.343 2.917 5.332-.98 1.085-1.91 1.856-2.732 2.333-.636.344-1.245.558-1.828.609-2.679.399-4.778-2.2-3.825-4.88.132-.345.395-.98.845-1.961l.025-.053c1.464-3.178 3.242-6.79 5.285-10.795l.053-.132.58-1.116c.45-.822.635-1.19 1.351-1.643.346-.21.77-.315 1.246-.315.954 0 1.698.558 2.016 1.007.158.239.345.557.582.953l.558 1.089.08.159c2.041 4.004 3.821 7.608 5.279 10.794l.026.025.533 1.22.318.764c.243.613.294 1.222.213 1.858zm1.22-2.39c-.186-.583-.505-1.271-.9-2.094v-.03c-1.889-4.006-3.642-7.608-5.307-10.844l-.111-.163C15.317 1.461 14.468 0 12.001 0c-2.44 0-3.476 1.695-4.535 3.898l-.081.16c-1.669 3.236-3.421 6.843-5.303 10.847v.053l-.559 1.22c-.21.504-.317.768-.345.847C-.172 20.74 2.611 24 5.98 24c.027 0 .132 0 .265-.027h.372c1.75-.213 3.554-1.325 5.384-3.317 1.829 1.989 3.635 3.104 5.382 3.317h.372c.133.027.239.027.265.027 3.37.003 6.152-3.261 4.802-6.975z"/></svg></span>
-            <span class="cs-go" aria-hidden="true">→</span>
+        <div class="proj-grid" id="proj-grid">
+          <article class="proj-card" data-case="design-find-the-tempo.html" data-live="https://findthetempo.netlify.app">
+            <div class="proj-head"><span class="proj-no">01</span><h2 class="proj-title">Find the Tempo</h2><span class="proj-tag">Web app · Next.js</span></div>
+            <p class="proj-desc">Turns a screenshot of a song list into links you can play. OCR reads each track and artist, then builds one search link per streaming service, with no paid APIs.</p>
+            <div class="proj-actions">
+              <a class="proj-btn" href="design-find-the-tempo.html">View project</a>
+              <a class="proj-btn proj-btn--ghost" href="https://findthetempo.netlify.app" target="_blank" rel="noopener">Visit website ↗</a>
+            </div>
+          </article>
+          <a class="proj-card" href="https://nidhi-epfo-portal.kaey-codes.chatgpt.site/#login" target="_blank" rel="noopener">
+            <div class="proj-head"><span class="proj-no">02</span><h2 class="proj-title">Nidhi</h2><span class="proj-tag">Prototype · JavaScript</span></div>
+            <p class="proj-desc">An unofficial redesign of EPFO member access. One sign-in for passbook, claims and profile, clearer sign-in errors, and password rules shown before a reset. All data is made up.</p>
+            <span class="proj-dest">Live site · nidhi-epfo-portal.kaey-codes.chatgpt.site ↗</span>
           </a>
-          <div class="cs-panel">
-            <p class="cs-line"><span class="cs-key">Problem</span>Airbnb's after-you-book, before-you-check-in window
-              made anxious users work too hard to find the one thing they needed next.</p>
-            <p class="cs-line"><span class="cs-key">Method</span>Rebuilt the reservation screen around a single
-              time-aware next step; sequenced everything else beneath it.</p>
-            <p class="cs-line"><span class="cs-key">Result</span>Support contacts in the pre-stay window fell in
-              testing; the screen now answers "what now?" without a tap.</p>
-            <p><a href="case-study-airbnb.html">Read the full case study →</a></p>
-          </div>
-
-          <a class="cs-bar" data-brand="github" style="--i:1" href="https://github.com/kaushikhegde11/strudel" rel="noopener">
-            <span class="cs-no">02</span>
-            <span class="cs-title">Strudel skill</span>
-            <span class="proj-ico" data-brand="github" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></span>
-            <span class="cs-go" aria-hidden="true">↗</span>
+          <a class="proj-card" href="https://github.com/kaushikhegde11/OpenBoard" target="_blank" rel="noopener">
+            <div class="proj-head"><span class="proj-no">03</span><h2 class="proj-title">OpenBoard</h2><span class="proj-tag">Local app · React</span></div>
+            <p class="proj-desc">A moodboard that runs on your own computer. Your images stay as plain files in a folder you choose, and OpenBoard adds tags, folders, notes, a free canvas and a mind map.</p>
+            <span class="proj-dest">GitHub · OpenBoard ↗</span>
           </a>
-          <div class="cs-panel">
-            <p class="cs-line"><span class="cs-key">What it is</span>Beginner-friendly assistant instructions for
-              Strudel live-coding music - teaches writing, explaining, and debugging patterns from zero music-theory
-              or JS knowledge.</p>
-            <p class="cs-line"><span class="cs-key">Built for</span>Claude Code, Codex CLI, and ChatGPT, from one
-              shared source.</p>
-            <p><a href="https://github.com/kaushikhegde11/strudel" rel="noopener">View repo on GitHub ↗</a></p>
-          </div>
-
-          <a class="cs-bar" data-brand="github" style="--i:2" href="https://github.com/kaushikhegde11/nidhi-epfo-portal" rel="noopener">
-            <span class="cs-no">03</span>
-            <span class="cs-title">Nidhi</span>
-            <span class="proj-ico" data-brand="github" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></span>
-            <span class="cs-go" aria-hidden="true">↗</span>
+          <a class="proj-card" href="https://github.com/kaushikhegde11/claude-code-weekly-statusline" target="_blank" rel="noopener">
+            <div class="proj-head"><span class="proj-no">04</span><h2 class="proj-title">Claude Code statusline</h2><span class="proj-tag">CLI tool</span></div>
+            <p class="proj-desc">Shows your Claude plan usage in the Claude Code status line: the 5-hour session and the 7-day week as colored bars, plus which day of the weekly window you are on.</p>
+            <span class="proj-dest">GitHub · claude-code-weekly-statusline ↗</span>
           </a>
-          <div class="cs-panel">
-            <p class="cs-line"><span class="cs-key">What it is</span>An unofficial design prototype rethinking EPFO
-              member account access - one sign-in across core services, clearer errors, better password guidance.</p>
-            <p class="cs-line"><span class="cs-key">Built for</span>Browser-based, no backend. All data is
-              synthetic; nothing is sent anywhere.</p>
-            <p><a href="https://github.com/kaushikhegde11/nidhi-epfo-portal" rel="noopener">View repo on GitHub ↗</a>
-            </p>
-          </div>
-
-          <a class="cs-bar" data-brand="github" style="--i:3" href="https://github.com/kaushikhegde11/claude-code-weekly-statusline"
-            rel="noopener">
-            <span class="cs-no">04</span>
-            <span class="cs-title">Weekly statusline</span>
-            <span class="proj-ico" data-brand="github" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></span>
-            <span class="cs-go" aria-hidden="true">↗</span>
+          <a class="proj-card" href="https://github.com/kaushikhegde11/strudel" target="_blank" rel="noopener">
+            <div class="proj-head"><span class="proj-no">05</span><h2 class="proj-title">Strudel skill</h2><span class="proj-tag">Assistant skill</span></div>
+            <p class="proj-desc">Teaches beginners to write, explain and fix Strudel live-coding music patterns, with no music theory or JavaScript needed. One source works in Claude Code, Codex CLI and ChatGPT.</p>
+            <span class="proj-dest">GitHub · strudel ↗</span>
           </a>
-          <div class="cs-panel">
-            <p class="cs-line"><span class="cs-key">What it is</span>A Claude Code statusline showing session and
-              weekly rate-limit usage as colored bars, plus a day counter for the 7-day window.</p>
-            <p class="cs-line"><span class="cs-key">Built for</span>Claude Code, as a drop-in statusline script.</p>
-            <p><a href="https://github.com/kaushikhegde11/claude-code-weekly-statusline" rel="noopener">View repo on
-                GitHub ↗</a></p>
-          </div>
-
-          <a class="cs-bar" data-brand="github" style="--i:4" href="https://github.com/kaushikhegde11/obsidian-project-memory"
-            rel="noopener">
-            <span class="cs-no">05</span>
-            <span class="cs-title">Obsidian project memory</span>
-            <span class="proj-ico" data-brand="github" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></span>
-            <span class="cs-go" aria-hidden="true">↗</span>
+          <a class="proj-card" href="case-study-airbnb.html">
+            <div class="proj-head"><span class="proj-no">06</span><h2 class="proj-title">Airbnb: the anxious gap</h2><span class="proj-tag">UX case study</span></div>
+            <p class="proj-desc">A solo study of the time between booking and check-in. A heuristic review and small guerrilla tests found five problems across Search and Trips, with a fix for each.</p>
+            <span class="proj-dest">Case study →</span>
           </a>
-          <div class="cs-panel">
-            <p class="cs-line"><span class="cs-key">What it is</span>Gives each project a small, durable memory
-              inside an Obsidian vault - a README/STATUS/progress/Decision system an assistant reads later to
-              recover context fast.</p>
-            <p class="cs-line"><span class="cs-key">Built for</span>Claude Code and Codex CLI, as skills; any
-              file-reading agent can use the same source.</p>
-            <p><a href="https://github.com/kaushikhegde11/obsidian-project-memory" rel="noopener">View repo on
-                GitHub ↗</a></p>
-          </div>
-
+          <a class="proj-card" href="https://github.com/kaushikhegde11/obsidian-project-memory" target="_blank" rel="noopener">
+            <div class="proj-head"><span class="proj-no">07</span><h2 class="proj-title">Obsidian project memory</h2><span class="proj-tag">Assistant skill</span></div>
+            <p class="proj-desc">Gives each project a small memory in an Obsidian vault: an overview, current status, a dated log and a decision record. An assistant reads it to pick up where you left off.</p>
+            <span class="proj-dest">GitHub · obsidian-project-memory ↗</span>
+          </a>
         </div>
       </article>
     </section>
@@ -725,7 +684,6 @@
                   </div>
                 </li>
               </ul>
-              <figcaption>My skills, tools, interests, and background, in four parts.</figcaption>
             </figure>
           </div>
 

@@ -115,34 +115,25 @@ write('about.md', about_text + '\n\n[Visual About Me page](about.html) · [Portf
 case = load('case-study-airbnb.html').find(lambda n:n.has('cs-content'))
 write('case-study-airbnb.md', '# Airbnb: the anxious gap\n\n' + markdown(case) + '\n\n[Visual case study](case-study-airbnb.html) · [Projects](projects.md)')
 
-projects = '''# Projects and case studies
-
-## Find the Tempo
-
-A web app that turns a screenshot of songs into openable streaming links. OCR reads each track and artist, then builds one search link per streaming service.
-
-[Full case study](design-find-the-tempo.md) · [Live app](https://findthetempo.netlify.app) · [Repository](https://github.com/kaushikhegde11/find_the_tempo)
-
-## Airbnb: the anxious gap
-
-A solo case study of the period after booking and before check-in. It examines Search tab persistence and the hierarchy of booked-trip information through a heuristic review and small-sample guerrilla usability sessions.
-
-[Full case study](case-study-airbnb.md)
-'''
-stack = home.find(lambda n:n.attrs.get('id')=='cs-stack')
-for i, child in enumerate(stack.children):
-    if isinstance(child, Node) and child.has('cs-bar') and child.attrs.get('data-brand')=='github':
-        title = child.find(lambda n:n.has('cs-title'))
-        panel = next(n for n in stack.children[i+1:] if isinstance(n,Node) and n.has('cs-panel'))
-        projects += '\n\n## ' + clean(text(title)) + '\n\n'
-        for paragraph in panel.all(lambda n:n.tag=='p'):
-            label = paragraph.find(lambda n:n.has('cs-key'))
-            if label:
-                label_text = clean(text(label))
-                remainder = clean(text(paragraph).replace(text(label),'',1))
-                projects += '**' + label_text + ':** ' + remainder + '\n\n'
-            else:
-                projects += markdown(paragraph)
+# Projects come from the home page's project cards, in the same order.
+projects = '# Projects and case studies\n'
+grid = home.find(lambda n: n.attrs.get('id') == 'proj-grid')
+for card in grid.all(lambda n: n.has('proj-card')):
+    title = clean(text(card.find(lambda n: n.has('proj-title'))))
+    tag = clean(text(card.find(lambda n: n.has('proj-tag'))))
+    desc = clean(text(card.find(lambda n: n.has('proj-desc'))))
+    href = card.attrs.get('href', '')
+    live = card.attrs.get('data-live', '')
+    links = []
+    if card.attrs.get('data-case'):
+        links.append('[Full case study](' + MAPPING.get(card.attrs['data-case'], card.attrs['data-case']) + ')')
+    if live:
+        links.append('[Live site](' + live + ')')
+    elif href.startswith('http'):
+        links.append('[' + ('Repository' if 'github.com' in href else 'Live site') + '](' + href + ')')
+    elif href:
+        links.append('[Full case study](' + MAPPING.get(href, href) + ')')
+    projects += '\n## ' + title + '\n\n**Type:** ' + tag + '\n\n' + desc + '\n\n' + ' · '.join(links) + '\n'
 write('projects.md', projects + '\n\n[Visual projects](projects.html) · [Portfolio](portfolio.md)')
 
 photography = '''# Photography — a hobby
@@ -187,7 +178,7 @@ write('llms.txt', '''# Kaushik Hegde
 
 - [Full portfolio](https://kaushikhegde.com/portfolio.md): About Me, projects, case-study links, and photography as a hobby.
 - [About Me](https://kaushikhegde.com/about.md): Experience, skills, tools, interests, and background.
-- [Projects](https://kaushikhegde.com/projects.md): Find the Tempo, Airbnb, Strudel skill, Nidhi, Weekly statusline, and Obsidian project memory.
+- [Projects](https://kaushikhegde.com/projects.md): Find the Tempo, Nidhi, OpenBoard, Claude Code statusline, Strudel skill, Airbnb, and Obsidian project memory.
 - [Find the Tempo](https://kaushikhegde.com/design-find-the-tempo.md): Full case study transcribed from the portfolio PDF.
 - [Airbnb](https://kaushikhegde.com/case-study-airbnb.md): Full text of the existing case study.
 - [Photography](https://kaushikhegde.com/photography.md): Hobby; see Instagram @artofkaey for the photographs.
@@ -217,7 +208,8 @@ for html_name, md_name in MAPPING.items():
         source = re.sub(r'<a class="markdown-link".*?</a>', switch, source, count=1, flags=re.S)
     else:
         raise RuntimeError('Reading mode control not found: ' + html_name)
-    source = source.replace('css/manual.css?v=54', 'css/manual.css?v=55')
+    source = re.sub(r'css/manual\.css\?v=\d+', 'css/manual.css?v=64', source)
+    source = re.sub(r'js/main\.js\?v=\d+', 'js/main.js?v=27', source)
     path.write_text(source)
     if html_name == '404.html':
         continue
@@ -240,9 +232,9 @@ for html_name, md_name in MAPPING.items():
   <link rel="canonical" href="https://kaushikhegde.com/{html_name}">
   <link rel="alternate" type="text/markdown" title="Markdown version" href="{md_name}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&amp;display=swap">
-  <link rel="stylesheet" href="css/manual.css?v=55">
+  <link rel="stylesheet" href="css/manual.css?v=64">
   <link rel="stylesheet" href="css/machine.css?v=2">
-  <script src="js/main.js?v=21" defer></script>
+  <script src="js/main.js?v=27" defer></script>
   <script src="js/machine.js?v=1" defer></script>
 </head>
 <body class="machine-view">

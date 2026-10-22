@@ -106,6 +106,4 @@ Volvo Auto India Pvt Ltd
 
 - Design
 
-My skills, tools, interests, and background, in four parts.
-
 [Visual About Me page](about.html) · [Portfolio](portfolio.md)

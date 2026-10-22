@@ -9,9 +9,9 @@
   <link rel="canonical" href="https://kaushikhegde.com/projects.html">
   <link rel="alternate" type="text/markdown" title="Markdown version" href="projects.md">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&amp;display=swap">
-  <link rel="stylesheet" href="css/manual.css?v=55">
+  <link rel="stylesheet" href="css/manual.css?v=64">
   <link rel="stylesheet" href="css/machine.css?v=2">
-  <script src="js/main.js?v=21" defer></script>
+  <script src="js/main.js?v=27" defer></script>
   <script src="js/machine.js?v=1" defer></script>
 </head>
 <body class="machine-view">
@@ -49,47 +49,59 @@
 
 ## Find the Tempo
 
-A web app that turns a screenshot of songs into openable streaming links. OCR reads each track and artist, then builds one search link per streaming service.
+**Type:** Web app · Next.js
 
-[Full case study](design-find-the-tempo.md) · [Live app](https://findthetempo.netlify.app) · [Repository](https://github.com/kaushikhegde11/find_the_tempo)
+Turns a screenshot of a song list into links you can play. OCR reads each track and artist, then builds one search link per streaming service, with no paid APIs.
 
-## Airbnb: the anxious gap
-
-A solo case study of the period after booking and before check-in. It examines Search tab persistence and the hierarchy of booked-trip information through a heuristic review and small-sample guerrilla usability sessions.
-
-[Full case study](case-study-airbnb.md)
-
-## Strudel skill
-
-**What it is:** Beginner-friendly assistant instructions for Strudel live-coding music - teaches writing, explaining, and debugging patterns from zero music-theory or JS knowledge.
-
-**Built for:** Claude Code, Codex CLI, and ChatGPT, from one shared source.
-
-[View repo on GitHub ↗](https://github.com/kaushikhegde11/strudel)
+[Full case study](design-find-the-tempo.md) · [Live site](https://findthetempo.netlify.app)
 
 ## Nidhi
 
-**What it is:** An unofficial design prototype rethinking EPFO member account access - one sign-in across core services, clearer errors, better password guidance.
+**Type:** Prototype · JavaScript
 
-**Built for:** Browser-based, no backend. All data is synthetic; nothing is sent anywhere.
+An unofficial redesign of EPFO member access. One sign-in for passbook, claims and profile, clearer sign-in errors, and password rules shown before a reset. All data is made up.
 
-[View repo on GitHub ↗](https://github.com/kaushikhegde11/nidhi-epfo-portal)
+[Live site](https://nidhi-epfo-portal.kaey-codes.chatgpt.site/#login)
 
-## Weekly statusline
+## OpenBoard
 
-**What it is:** A Claude Code statusline showing session and weekly rate-limit usage as colored bars, plus a day counter for the 7-day window.
+**Type:** Local app · React
 
-**Built for:** Claude Code, as a drop-in statusline script.
+A moodboard that runs on your own computer. Your images stay as plain files in a folder you choose, and OpenBoard adds tags, folders, notes, a free canvas and a mind map.
 
-[View repo on GitHub ↗](https://github.com/kaushikhegde11/claude-code-weekly-statusline)
+[Repository](https://github.com/kaushikhegde11/OpenBoard)
+
+## Claude Code statusline
+
+**Type:** CLI tool
+
+Shows your Claude plan usage in the Claude Code status line: the 5-hour session and the 7-day week as colored bars, plus which day of the weekly window you are on.
+
+[Repository](https://github.com/kaushikhegde11/claude-code-weekly-statusline)
+
+## Strudel skill
+
+**Type:** Assistant skill
+
+Teaches beginners to write, explain and fix Strudel live-coding music patterns, with no music theory or JavaScript needed. One source works in Claude Code, Codex CLI and ChatGPT.
+
+[Repository](https://github.com/kaushikhegde11/strudel)
+
+## Airbnb: the anxious gap
+
+**Type:** UX case study
+
+A solo study of the time between booking and check-in. A heuristic review and small guerrilla tests found five problems across Search and Trips, with a fix for each.
+
+[Full case study](case-study-airbnb.md)
 
 ## Obsidian project memory
 
-**What it is:** Gives each project a small, durable memory inside an Obsidian vault - a README/STATUS/progress/Decision system an assistant reads later to recover context fast.
+**Type:** Assistant skill
 
-**Built for:** Claude Code and Codex CLI, as skills; any file-reading agent can use the same source.
+Gives each project a small memory in an Obsidian vault: an overview, current status, a dated log and a decision record. An assistant reads it to pick up where you left off.
 
-[View repo on GitHub ↗](https://github.com/kaushikhegde11/obsidian-project-memory)
+[Repository](https://github.com/kaushikhegde11/obsidian-project-memory)
 
 [Visual projects](projects.html) · [Portfolio](portfolio.md)
 </pre>

@@ -17,8 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/manual.css?v=55">
-<script src="js/main.js?v=21" defer></script>
+<link rel="stylesheet" href="css/manual.css?v=64">
+<script src="js/main.js?v=27" defer></script>
   <link rel="alternate" type="text/markdown" title="Markdown version" href="projects.md">
   <link rel="describedby" type="text/plain" href="llms.txt" title="Portfolio text index">
 </head>
@@ -72,31 +72,54 @@
       <div class="page-title-block">
         <h1>Design</h1>
       </div>
-      <p class="dropcap">One project, worked end to end. Find the Tempo turns a screenshot of songs into openable streaming links. Hover the plate to wake the interface; open it for the full decision-by-decision breakdown.</p>
+      <p class="dropcap">Posters and film review cards. Most begin with a photograph pushed toward print: halftone dots, creased paper, two-tone tints, or a grid laid over a close-up. The type is split apart, spaced wide or turned on its side, so it sits inside the image instead of on top of it.</p>
     </div>
 
-    <div class="view-bar" role="group" aria-label="View" data-target=".plate-grid">
+    <div class="view-bar" role="group" aria-label="View" data-target=".design-sheet">
       <button type="button" data-view="grid" aria-pressed="true">[ Grid ]</button>
       <button type="button" data-view="list" aria-pressed="false">[ List ]</button>
     </div>
 
-    <div class="plate-grid">
-
-      <figure id="plate-tempo" class="fig plate tempo-card" data-tag="UI / Find the Tempo" data-reveal>
-        <a class="plate-open" href="design-find-the-tempo.html" aria-label="Open the Find the Tempo case study"></a>
-        <span class="tempo-frame">
-          <img class="tempo-shot" src="img/find-the-tempo.png?v=1" alt="Find the Tempo - convert screenshots into findable links" width="1264" height="791" loading="lazy">
-          <span class="tempo-overlay" aria-hidden="true">
-            <p class="tempo-desc">Find the Tempo turns a screenshot of songs into openable links. OCR reads each track and artist, then builds one search link per streaming service. Scattered tracks, gathered in one place.</p>
-            <span class="tempo-arrow">Open →</span>
+    <div class="contact-sheet design-sheet" data-reveal>
+      <figure>
+        <button class="frame-btn" type="button" aria-label="View the Adventure poster full size">
+          <span class="plate" data-src="img/design/poster-adventure-uncertainty.webp">
+            <img class="plate-orig" src="img/design/poster-adventure-uncertainty.webp" alt="Poster: a halftone hare mid-leap on creased blue paper, with the word adventure split into three parts and uncertainty set vertically" width="1140" height="945" loading="lazy" decoding="async">
           </span>
-        </span>
-        <ul class="callout-list"><li>Screenshot → OCR → one query link per streaming service</li></ul>
-        <figcaption>Find the Tempo. Hover to read what it does.</figcaption>
+        </button>
       </figure>
-
+      <figure>
+        <button class="frame-btn" type="button" aria-label="View the Maximalism poster full size">
+          <span class="plate" data-src="img/design/poster-maximalism.webp">
+            <img class="plate-orig" src="img/design/poster-maximalism.webp" alt="Poster: a sepia halftone photo of a carved temple relief, with Maximalism in blocky letters along the bottom" width="1080" height="1350" loading="lazy" decoding="async">
+          </span>
+        </button>
+      </figure>
+      <figure>
+        <button class="frame-btn" type="button" aria-label="View the Sentimental Value review card full size">
+          <span class="plate" data-src="img/design/card-sentimental-value.webp">
+            <img class="plate-orig" src="img/design/card-sentimental-value.webp" alt="Film review card for Sentimental Value: a frosted panel with an overview, thoughts on the film and a rating of 8.5 out of 10" width="1080" height="1350" loading="lazy" decoding="async">
+          </span>
+        </button>
+      </figure>
+      <figure>
+        <button class="frame-btn" type="button" aria-label="View the Fauna poster full size">
+          <span class="plate" data-src="img/design/poster-fauna.webp">
+            <img class="plate-orig" src="img/design/poster-fauna.webp" alt="Poster: close-up photos of raw meat split on a diagonal, with a grid and star marks over them and the word fauna" width="1080" height="1350" loading="lazy" decoding="async">
+          </span>
+        </button>
+      </figure>
     </div>
   </article>
+  <dialog class="lightbox" id="lightbox" aria-label="Image viewer">
+    <div class="lb-stage"></div>
+    <p class="lb-caption mono"></p>
+    <div class="lb-controls">
+      <button type="button" class="lb-prev">[ ← Prev ]</button>
+      <button type="button" class="lb-close">[ ✕ Close ]</button>
+      <button type="button" class="lb-next">[ Next → ]</button>
+    </div>
+  </dialog>
 </main>
 
 <a class="back-top" href="#">[ ↑ Back to top ]</a>

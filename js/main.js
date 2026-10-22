@@ -48,7 +48,11 @@
     var cring = document.createElement("div");
     cring.className = "cursor-ring";
     cring.setAttribute("aria-hidden", "true");
-    document.body.append(cdot, cring);
+    var carrow = document.createElement("div");
+    carrow.className = "cursor-arrow";
+    carrow.setAttribute("aria-hidden", "true");
+    carrow.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>';
+    document.body.append(cdot, cring, carrow);
 
     var cx = 0, cy = 0, cTick = false;
     var moveCursor = function () {
@@ -57,6 +61,8 @@
       cdot.style.setProperty("--cy", cy + "px");
       cring.style.setProperty("--cx", cx + "px");
       cring.style.setProperty("--cy", cy + "px");
+      carrow.style.setProperty("--cx", cx + "px");
+      carrow.style.setProperty("--cy", cy + "px");
     };
     window.addEventListener("pointermove", function (e) {
       cx = e.clientX; cy = e.clientY;
@@ -73,6 +79,14 @@
       if (e.target.closest("a, button, [role='button']")) {
         document.body.classList.remove("cursor-hover");
       }
+    });
+    /* project cards: the dot turns into a 45 degree arrow */
+    document.addEventListener("pointerover", function (e) {
+      if (e.target.closest("a.proj-card")) document.body.classList.add("cursor-on-card");
+    });
+    document.addEventListener("pointerout", function (e) {
+      var to = e.relatedTarget;
+      if (!to || !to.closest || !to.closest("a.proj-card")) document.body.classList.remove("cursor-on-card");
     });
     document.addEventListener("mouseleave", function () {
       document.body.classList.remove("cursor-ready");
@@ -144,9 +158,7 @@
   /* ── photography lightbox ──────────────────────────────────────────── */
   var lightbox = document.getElementById("lightbox");
   if (lightbox && typeof lightbox.showModal === "function") {
-    var frames = Array.prototype.slice.call(
-      document.querySelectorAll(".contact-sheet figure")
-    );
+    var frames = []; /* set to the clicked gallery's own frames */
     var stage = lightbox.querySelector(".lb-stage");
     var caption = lightbox.querySelector(".lb-caption");
     var current = 0;
@@ -170,18 +182,23 @@
         media = svg ? svg.cloneNode(true) : document.createTextNode("");
       }
       stage.appendChild(media);
-      caption.innerHTML = fig.querySelector("figcaption").innerHTML;
+      var fc = fig.querySelector("figcaption");
+      caption.innerHTML = fc ? fc.innerHTML : "";
     };
 
-    frames.forEach(function (fig, i) {
+    document.querySelectorAll(".contact-sheet").forEach(function (sheet) {
+      var sheetFrames = Array.prototype.slice.call(sheet.querySelectorAll("figure"));
+      sheetFrames.forEach(function (fig, i) {
       var btn = fig.querySelector(".frame-btn");
       if (!btn) return;
       btn.addEventListener("click", function () {
+        frames = sheetFrames;
         show(i);
         lightbox.showModal();
         /* an open modal dialog sits in the top layer, above the body's custom cursor, so the cursor moves
            into it while it is open (see the close handler below) */
         if (cdot && cring) lightbox.append(cdot, cring);
+      });
       });
     });
     lightbox.addEventListener("close", function () {
@@ -292,16 +309,21 @@
 
   /* ── grid / list view toggles ──────────────────────────────────────── */
   document.querySelectorAll(".view-bar").forEach(function (bar) {
-    var target = document.querySelector(bar.dataset.target);
-    if (!target) return;
+    /* data-target can list several selectors; look them up inside the bar's
+       own article so one section's bar never switches another section */
+    var scope = bar.closest("article") || document;
+    var targets = Array.prototype.slice.call(scope.querySelectorAll(bar.dataset.target));
+    if (!targets.length) return;
     var btns = bar.querySelectorAll("button[data-view]");
     btns.forEach(function (b) {
       b.addEventListener("click", function () {
         btns.forEach(function (x) {
           x.setAttribute("aria-pressed", String(x === b));
         });
-        target.classList.toggle("view-list", b.dataset.view === "list");
-        target.classList.toggle("view-grid", b.dataset.view === "grid" && target.classList.contains("study-index"));
+        targets.forEach(function (target) {
+          target.classList.toggle("view-list", b.dataset.view === "list");
+          target.classList.toggle("view-grid", b.dataset.view === "grid" && target.classList.contains("study-index"));
+        });
       });
     });
   });
@@ -406,6 +428,36 @@
       var open = row.classList.toggle("is-open");
       head.setAttribute("aria-expanded", String(open));
     });
+  });
+
+  /* ── about spec stack: each grid track reserves the height of its tallest
+        expanded card. List items wrap at narrower widths, so a fixed track
+        would let the open Skills card spill past the frame. ─────────────── */
+  document.querySelectorAll(".spec-stack").forEach(function (stack) {
+    var rows = Array.prototype.slice.call(stack.children);
+    var lastWidth = -1;
+    function openHeight(row) {
+      var head = row.querySelector(".spec-head");
+      var inner = row.querySelector(".spec-body-inner");
+      return head.offsetHeight + inner.scrollHeight + 3; /* 1.5px borders */
+    }
+    function sizeTracks() {
+      var width = stack.clientWidth;
+      if (width === lastWidth) return;
+      lastWidth = width;
+      if (window.matchMedia("(max-width: 560px)").matches || rows.length < 4) {
+        stack.style.removeProperty("--spec-track-top");
+        stack.style.removeProperty("--spec-track-bottom");
+        return;
+      }
+      stack.style.setProperty("--spec-track-top", Math.ceil(Math.max(openHeight(rows[0]), openHeight(rows[1]))) + "px");
+      stack.style.setProperty("--spec-track-bottom", Math.ceil(Math.max(openHeight(rows[2]), openHeight(rows[3]))) + "px");
+    }
+    sizeTracks();
+    if (window.ResizeObserver) new ResizeObserver(sizeTracks).observe(stack);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { lastWidth = -1; sizeTracks(); });
+    }
   });
 
   /* ── Experience timeline: same principle as the photography filmstrip — the

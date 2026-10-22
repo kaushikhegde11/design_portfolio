@@ -85,7 +85,7 @@
 .cs-toc-list a[aria-current="true"]::before { content: "► "; }
 
 /* inline section number that leads each h2 */
-.cs-num { display: inline; margin: 0; color: var(--blueprint-fill); }
+.cs-num { display: inline; margin: 0; color: var(--blueprint); }
 
 .cs-bullets { list-style: none; margin: 0; padding: 0; }
 .cs-bullets > li { position: relative; padding-inline-start: 22px; margin-block-end: var(--s2); text-align: start; }
@@ -102,8 +102,8 @@
   content: "▪";
   position: absolute;
   inset-inline-start: 2px;
-  color: var(--blueprint-fill);
-  font-size: 10px;
+  color: var(--blueprint);
+  font-size: 11px;
 }
 .cs-note { margin-block-start: var(--s3); padding-inline-start: 14px; border-inline-start: 2px solid var(--blueprint-fill); color: var(--blueprint); font-size: 0.95em; }
 
@@ -195,7 +195,7 @@ h2[id] { scroll-margin-block-start: 140px; }
   text-transform: uppercase;
   color: var(--ink-muted);
 }
-.deck-page figcaption .deck-no { color: var(--blueprint-fill); }
+.deck-page figcaption .deck-no { color: var(--blueprint); }
 
 @media (max-width: 899px) {
   .cs-layout--deck .cs-toc { flex-basis: auto; }

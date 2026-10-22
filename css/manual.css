@@ -535,7 +535,7 @@ hr, .rule-hatch {
 .svc-span {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--stamp-ink); background: var(--stamp-bg); padding: 2px 7px;
 }
 .svc-dur {
@@ -701,7 +701,9 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
      reserves exactly the room a panel needs when open, so the outer square is
      the tallest-expanded size — no empty waste, no jump when a panel opens. */
   --spec-track: 174px;
-  grid-template-rows: var(--spec-track) var(--spec-track);
+  /* main.js overwrites the two tracks with measured heights (items wrap at
+     narrower widths); --spec-track is the no-JS fallback. */
+  grid-template-rows: var(--spec-track-top, var(--spec-track)) var(--spec-track-bottom, var(--spec-track));
   gap: 12px;
 }
 .spec-fig { padding: 10px; }         /* tighter than the global .fig 40px */
@@ -1006,7 +1008,7 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.12em;
-  fill: var(--blueprint-fill);
+  fill: var(--blueprint);
   text-transform: uppercase;
 }
 
@@ -1079,6 +1081,7 @@ a.callout:hover .txt { background: var(--blueprint-tint); text-decoration: under
   .tempo-card,
   .tempo-overlay { transition: none; }
 }
+
 
 /* 404 missing figure */
 .fig-404 {
@@ -1724,6 +1727,10 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
 /* the blue panel + light-blue grid (minor 24px, major 96px). The grid is kept
    faint so text stays readable over it. */
 .fb .fb-panel {
+  /* the panel is blue in both themes, so its text colours are fixed too */
+  --fb-ink: var(--stamp-ink);
+  --fb-tint: #EAEEFF;
+  --fb-accent: #DCE2FF;
   position: relative;
   overflow: hidden;
   background-color: var(--stamp-bg);
@@ -1755,7 +1762,7 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--blueprint-tint);
+  color: var(--fb-tint);
 }
 
 /* columns */
@@ -1776,22 +1783,22 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--blueprint-tint);
+  color: var(--fb-tint);
   margin: 0 0 var(--s3);
 }
 .fb .fb-col ul { list-style: none; margin: 0; padding: 0; }
 .fb .fb-col li { padding-block: 7px; display: flex; align-items: center; gap: 10px; }
-.fb .fb-col a { color: var(--paper); text-decoration: underline; text-underline-offset: 3px; }
+.fb .fb-col a { color: var(--fb-ink); text-decoration: underline; text-underline-offset: 3px; }
 .fb .fb-col a:hover { text-decoration-style: dashed; text-underline-offset: 4px; }
 .fb .fb-cv {
-  color: var(--blueprint);
-  background: var(--paper);
-  border: 1px solid var(--paper);
+  color: var(--stamp-bg);
+  background: var(--fb-ink);
+  border: 1px solid var(--fb-ink);
   padding: 6px 12px;
   text-decoration: none;
 }
-.fb .fb-cv:hover { background: var(--blueprint-tint); border-color: var(--blueprint-tint); }
-.fb .fb-ico { inline-size: 16px; block-size: 16px; flex: none; color: var(--paper); }
+.fb .fb-cv:hover { background: var(--fb-tint); border-color: var(--fb-tint); }
+.fb .fb-ico { inline-size: 16px; block-size: 16px; flex: none; color: var(--fb-ink); }
 .fb .fb-ico svg {
   inline-size: 100%; block-size: 100%;
   fill: none; stroke: currentColor; stroke-width: 1.6;
@@ -1808,12 +1815,12 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
 }
 .fb .fb-spec dt {
   margin: 0;
-  color: var(--blueprint-tint);
+  color: var(--fb-tint);
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 11px;
 }
-.fb .fb-spec dd { margin: 0; color: var(--paper); }
+.fb .fb-spec dd { margin: 0; color: var(--fb-ink); }
 
 /* baseline row */
 .fb .fb-base {
@@ -1828,18 +1835,18 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--blueprint-tint);
+  color: var(--fb-tint);
 }
-.fb .fb-plus { color: var(--blueprint-fill); }
+.fb .fb-plus { color: var(--fb-accent); }
 .fb .fb-top-link {
   margin-inline-start: auto;
-  color: var(--blueprint);
-  background: var(--paper);
-  border: 1px solid var(--paper);
+  color: var(--stamp-bg);
+  background: var(--fb-ink);
+  border: 1px solid var(--fb-ink);
   padding: 6px 12px;
   text-decoration: none;
 }
-.fb .fb-top-link:hover { background: var(--blueprint-tint); border-color: var(--blueprint-tint); }
+.fb .fb-top-link:hover { background: var(--fb-tint); border-color: var(--fb-tint); }
 
 @media (max-width: 899px) {
   .fb .fb-cols { grid-template-columns: 1fr; gap: var(--s3); }
@@ -1857,7 +1864,7 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
   align-items: center;
   gap: 4px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--blueprint);
@@ -1959,4 +1966,152 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
   .masthead-left { gap: var(--s1); }
   .masthead-tools, .audience-switch { gap: 8px; }
   .audience-switch a { gap: 4px; font-size: 11px; }
+}
+
+/* DESIGN GALLERY: image-only frames in the Photography contact-sheet style.
+   Four columns so four images fill one row; posters are letterboxed (contain)
+   so a landscape poster is never cropped. No captions. */
+.contact-sheet.design-sheet {
+  grid-template-columns: repeat(4, 1fr);
+}
+.design-sheet .plate-orig { object-fit: contain; }
+.contact-sheet.design-sheet.view-list { grid-template-columns: 1fr; }
+.contact-sheet.design-sheet.view-list > figure { display: block; }
+.design-sheet.view-list .frame-btn { max-inline-size: 520px; margin-inline: auto; }
+@media (max-width: 899px) {
+  .contact-sheet.design-sheet { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 639px) {
+  .contact-sheet.design-sheet { grid-template-columns: 1fr; }
+}
+
+/* PROJECTS: two-column card grid. Each card is a single link to the live
+   site, the repository, or the case study. */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s3);
+}
+.proj-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s4);
+  border: 1.5px solid var(--blueprint);
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 150ms ease;
+}
+a.proj-card:hover { background: var(--blueprint-tint); }
+a.proj-card:focus-visible { outline: 2px solid var(--blueprint); outline-offset: 3px; }
+/* Number, title and type share one baseline: the number reads as the
+   title's prefix, and the type tag sits at the far end of the same row. */
+.proj-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: var(--s2);
+  row-gap: var(--s1);
+}
+.proj-no,
+.proj-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.proj-no { color: var(--ink-muted); }
+.proj-tag { color: var(--blueprint); text-align: end; }
+.proj-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+.proj-desc {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.proj-dest {
+  margin-block-start: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+  overflow-wrap: anywhere;
+}
+/* A card with its own buttons is not itself a link. */
+.proj-actions {
+  margin-block-start: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+.proj-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 16px;
+  color: var(--stamp-ink);
+  background: var(--stamp-bg);
+  border: 1px solid var(--stamp-bg);
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+.proj-btn:hover { background: var(--stamp-bg-hover); border-color: var(--stamp-bg-hover); }
+.proj-btn--ghost { color: var(--blueprint); background: transparent; border-color: var(--blueprint); }
+.proj-btn--ghost:hover { background: var(--blueprint-tint); border-color: var(--blueprint); }
+.proj-btn:focus-visible { outline: 2px solid var(--blueprint); outline-offset: 3px; }
+@media (max-width: 639px) {
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-card { padding: var(--s3); }
+  .proj-head { grid-template-columns: auto minmax(0, 1fr); }
+  .proj-tag { grid-column: 2; text-align: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .proj-card, .proj-btn { transition: none; }
+}
+
+/* Cursor over a project card: the dot gives way to a 45 degree arrow with a
+   rounded head. The outer box follows the pointer with no transition (same
+   rule as the dot); only the inner SVG scales and turns in. */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-arrow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    inline-size: 30px;
+    block-size: 30px;
+    pointer-events: none;
+    z-index: 200;
+    color: #fff;
+    mix-blend-mode: difference;
+    opacity: 0;
+    transform: translate3d(var(--cx, 0px), var(--cy, 0px), 0) translate(-50%, -50%);
+    transition: opacity 150ms ease;
+  }
+  .cursor-arrow svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    transform: scale(0.3) rotate(-45deg);
+    transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  body.cursor-on-card .cursor-arrow { opacity: 1; }
+  body.cursor-on-card .cursor-arrow svg { transform: none; }
+  body.cursor-on-card .cursor-dot,
+  body.cursor-on-card .cursor-ring { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-arrow svg { transition: none; }
 }
