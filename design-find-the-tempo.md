@@ -2,7 +2,7 @@
 
 Turn a screenshot of songs into openable streaming links.
 
-- **Role:** Solo — product, design, build.
+- **Role:** Solo: product, design, build.
 - **Timeline:** July 2026.
 - **Tools:** Next.js, TypeScript, Tailwind, shadcn/ui, Vertex AI OCR, Netlify, GA4.
 - [Live app](https://findthetempo.netlify.app)
@@ -40,20 +40,20 @@ I built this because it was my problem. Friends kept sending me song names as Ap
 1. **Full playlist conversion via streaming APIs:** The experience users want, but the API cost was unjustifiable for unproven demand.
 2. **Query-based search links, no API:** The user lands on the service's search page instead of the exact track. Less impressive, near-zero cost, no API terms, ships in days.
 
-## Decision 1 — Test before building
+## Decision 1: Test before building
 
 - **Problem:** Full conversion was the vision and the expensive part.
 - **Choice:** Ship the query-search core only, then research whether people would pay.
 - **Why:** Building the expensive version first bets real money on demand nobody has confirmed.
 - **Revisit when:** Survey results show willingness to pay, or a partner API opens up.
 
-## Decision 2 — Core function first, design later
+## Decision 2: Core function first, design later
 
 - **Problem:** Version 1 had no design. Black and white, no header, no footer, nothing aligned.
 - **Choice:** Held off on visual design until the core function worked.
 - **Why:** A styled app that doesn't work proves nothing. An ugly app that works proves the concept.
 
-## Decision 3 — Analog hardware, not another SaaS gradient
+## Decision 3: Analog hardware, not another SaaS gradient
 
 - **Problem:** Once the function worked, the app needed an identity.
 - **Choice:** Bright orange palette, borrowed from Teenage Engineering mixers.

@@ -25,7 +25,8 @@
 .hero-card-link {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
+  min-block-size: 44px;
   padding-block-end: var(--s1);
   border-block-end: 1px solid var(--grid-line);
   font-family: "Drafting Mono", ui-monospace, monospace;

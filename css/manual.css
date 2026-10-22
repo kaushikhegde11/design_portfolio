@@ -1787,8 +1787,8 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
   margin: 0 0 var(--s3);
 }
 .fb .fb-col ul { list-style: none; margin: 0; padding: 0; }
-.fb .fb-col li { padding-block: 7px; display: flex; align-items: center; gap: 10px; }
-.fb .fb-col a { color: var(--fb-ink); text-decoration: underline; text-underline-offset: 3px; }
+.fb .fb-col li { padding-block: 0; display: flex; align-items: center; gap: 10px; }
+.fb .fb-col a { display: inline-flex; align-items: center; min-block-size: 44px; color: var(--fb-ink); text-decoration: underline; text-underline-offset: 3px; }
 .fb .fb-col a:hover { text-decoration-style: dashed; text-underline-offset: 4px; }
 .fb .fb-cv {
   color: var(--stamp-bg);
@@ -2114,4 +2114,35 @@ a.proj-card:focus-visible { outline: 2px solid var(--blueprint); outline-offset:
 }
 @media (prefers-reduced-motion: reduce) {
   .cursor-arrow svg { transition: none; }
+}
+
+/* TAP TARGETS ---------------------------------------------------------------
+   Buttons and link buttons are at least 44px tall. The wordmark keeps its
+   layout height and gets a larger hit area from a pseudo-element instead, so
+   the sticky header does not grow on phones. Screen only: print rules hide
+   several of these with display: none. */
+@media screen {
+  .menu-btn, .nav-overlay .close-btn,
+  .filter-bar button, .view-bar button,
+  .frames-more, .proj-btn, .back-top, .skip-link,
+  .fb .fb-cv, .fb .fb-top-link { min-block-size: 44px; }
+  .frames-more, .proj-btn, .back-top, .skip-link,
+  .fb .fb-cv, .fb .fb-top-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wordmark { position: relative; }
+  .site-nav a::after {
+    content: "";
+    position: absolute;
+    inset-block: -5px;
+    inset-inline: 0;
+  }
+  .wordmark::after {
+    content: "";
+    position: absolute;
+    inset-block: -12px;
+    inset-inline: 0;
+  }
 }

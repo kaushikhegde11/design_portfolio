@@ -67,8 +67,10 @@
 .cs-toc-list { list-style: none; margin: 0; padding: 0; }
 .cs-toc-list li { border-block-end: 1px solid var(--grid-line); }
 .cs-toc-list a {
-  display: block;
-  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  min-block-size: 44px;
+  padding: 4px 0;
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.12em;
@@ -161,6 +163,9 @@ h2[id] { scroll-margin-block-start: 140px; }
   border-block-end: 1px solid var(--grid-line);
 }
 .deck-actions a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.12em;

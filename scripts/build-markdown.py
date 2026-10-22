@@ -208,7 +208,7 @@ for html_name, md_name in MAPPING.items():
         source = re.sub(r'<a class="markdown-link".*?</a>', switch, source, count=1, flags=re.S)
     else:
         raise RuntimeError('Reading mode control not found: ' + html_name)
-    source = re.sub(r'css/manual\.css\?v=\d+', 'css/manual.css?v=64', source)
+    source = re.sub(r'css/manual\.css\?v=\d+', 'css/manual.css?v=66', source)
     source = re.sub(r'js/main\.js\?v=\d+', 'js/main.js?v=27', source)
     path.write_text(source)
     if html_name == '404.html':
@@ -232,8 +232,8 @@ for html_name, md_name in MAPPING.items():
   <link rel="canonical" href="https://kaushikhegde.com/{html_name}">
   <link rel="alternate" type="text/markdown" title="Markdown version" href="{md_name}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&amp;display=swap">
-  <link rel="stylesheet" href="css/manual.css?v=64">
-  <link rel="stylesheet" href="css/machine.css?v=2">
+  <link rel="stylesheet" href="css/manual.css?v=66">
+  <link rel="stylesheet" href="css/machine.css?v=3">
   <script src="js/main.js?v=27" defer></script>
   <script src="js/machine.js?v=1" defer></script>
 </head>
