@@ -5,7 +5,7 @@
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Find the Tempo - Design - Kaushik Hegde</title>
-<meta name="description" content="Find the Tempo: a web app that turns a screenshot of songs into openable streaming links. The full case-study deck - problem, constraints, decisions, colour system, flow, and reflection.">
+<meta name="description" content="Find the Tempo: a web app that turns a screenshot of songs into openable streaming links. The full case-study deck - problem, constraints, decisions, light and dark themes, wireframe, flow, and reflection.">
 <link rel="canonical" href="https://kaushikhegde.com/design-find-the-tempo">
 <meta property="og:title" content="Find the Tempo - Design - Kaushik Hegde">
 <meta property="og:description" content="Turning a screenshot of songs into openable streaming links - a design case study.">
@@ -18,9 +18,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/manual.css?v=66">
-<link rel="stylesheet" href="css/case-study.css?v=7">
-<script src="js/main.js?v=27" defer></script>
-<script src="js/case-study.js?v=2" defer></script>
+<link rel="stylesheet" href="css/case-study.css?v=10">
+<script src="js/main.js?v=28" defer></script>
+<script src="js/case-study.js?v=4" defer></script>
   <link rel="alternate" type="text/markdown" title="Markdown version" href="design-find-the-tempo.md">
   <link rel="describedby" type="text/plain" href="llms.txt" title="Portfolio text index">
 </head>
@@ -84,15 +84,16 @@
         <li><a href="#pg-4">04 · Constraints</a></li>
         <li><a href="#pg-5">05 · Decisions 1-2</a></li>
         <li><a href="#pg-6">06 · Decision 3</a></li>
-        <li><a href="#pg-7">07 · Colour system</a></li>
-        <li><a href="#pg-8">08 · Brand accents</a></li>
-        <li><a href="#pg-9">09 · The flow</a></li>
-        <li><a href="#pg-10">10 · What's next</a></li>
+        <li><a href="#pg-7">07 · Light theme</a></li>
+        <li><a href="#pg-8">08 · Dark theme</a></li>
+        <li><a href="#pg-9">09 · Wireframe</a></li>
+        <li><a href="#pg-10">10 · The flow</a></li>
+        <li><a href="#pg-11">11 · What's next</a></li>
       </ol>
     </aside>
 
     <div class="cs-deck">
-      <p class="deck-lede dropcap">A web app that turns a screenshot of songs into openable streaming links. OCR reads each track and artist, then builds one search link per streaming service. Ten pages: the problem, the constraints that shaped it, the decisions, and what I would change.</p>
+      <p class="deck-lede dropcap">A web app that turns a screenshot of songs into openable streaming links. OCR reads each track and artist, then builds one search link per streaming service. Eleven pages: the problem, the constraints that shaped it, the decisions, and what I would change.</p>
 
       <p class="deck-actions">
         <a href="find-the-tempo.pdf" download>[ Download PDF ]</a>
@@ -102,43 +103,38 @@
 
       <figure class="deck-page" id="pg-1">
         <img src="img/tempo-deck/page-1.jpg?v=1" alt="Find the Tempo case study, page 1: Snapshot" width="1500" height="1125" loading="eager" decoding="async">
-        <figcaption><span>Project, role, timeline, tools, live link</span><span class="deck-no">01 / 10</span></figcaption>
       </figure>
       <figure class="deck-page" id="pg-2">
         <img src="img/tempo-deck/page-2.jpg?v=1" alt="Find the Tempo case study, page 2: The problem" width="1500" height="1125" loading="lazy" decoding="async">
-        <figcaption><span>Songs arrive scattered; collecting them is manual</span><span class="deck-no">02 / 10</span></figcaption>
       </figure>
       <figure class="deck-page" id="pg-3">
         <img src="img/tempo-deck/page-3.jpg?v=1" alt="Find the Tempo case study, page 3: Who it's for" width="1500" height="1125" loading="lazy" decoding="async">
-        <figcaption><span>Primary user, what I know, what I don't</span><span class="deck-no">03 / 10</span></figcaption>
       </figure>
       <figure class="deck-page" id="pg-4">
         <img src="img/tempo-deck/page-4.jpg?v=1" alt="Find the Tempo case study, page 4: Constraints" width="1500" height="1125" loading="lazy" decoding="async">
-        <figcaption><span>Cost, API access, solo builder - and the two options</span><span class="deck-no">04 / 10</span></figcaption>
       </figure>
       <figure class="deck-page" id="pg-5">
         <img src="img/tempo-deck/page-5.jpg?v=1" alt="Find the Tempo case study, page 5: Decisions 1-2" width="1500" height="1125" loading="lazy" decoding="async">
-        <figcaption><span>Test before building; core function first</span><span class="deck-no">05 / 10</span></figcaption>
       </figure>
       <figure class="deck-page" id="pg-6">
         <img src="img/tempo-deck/page-6.jpg?v=1" alt="Find the Tempo case study, page 6: Decision 3" width="1500" height="1125" loading="lazy" decoding="async">
-        <figcaption><span>Analog hardware, not another SaaS gradient</span><span class="deck-no">06 / 10</span></figcaption>
       </figure>
       <figure class="deck-page" id="pg-7">
-        <img src="img/tempo-deck/page-7.jpg?v=1" alt="Find the Tempo case study, page 7: Colour system" width="1500" height="1125" loading="lazy" decoding="async">
-        <figcaption><span>OKLCH tokens, light and dark palettes</span><span class="deck-no">07 / 10</span></figcaption>
+        <img src="img/tempo-deck/page-7.jpg?v=2" alt="Find the Tempo case study, page 7: Light theme" width="1500" height="1125" loading="lazy" decoding="async">
       </figure>
       <figure class="deck-page" id="pg-8">
-        <img src="img/tempo-deck/page-8.jpg?v=1" alt="Find the Tempo case study, page 8: Brand accents" width="1500" height="1125" loading="lazy" decoding="async">
-        <figcaption><span>Fixed service colours, loader ramp, type</span><span class="deck-no">08 / 10</span></figcaption>
+        <img src="img/tempo-deck/page-8.jpg?v=2" alt="Find the Tempo case study, page 8: Dark theme" width="1500" height="1125" loading="lazy" decoding="async">
       </figure>
-      <figure class="deck-page" id="pg-9">
-        <img src="img/tempo-deck/page-9.jpg?v=1" alt="Find the Tempo case study, page 9: The flow" width="1500" height="1125" loading="lazy" decoding="async">
-        <figcaption><span>Landing, upload, loading, results</span><span class="deck-no">09 / 10</span></figcaption>
+      <figure class="deck-page deck-page--wire" id="pg-9">
+        <div class="wire-view" tabindex="0" role="region" aria-label="Find the Tempo wireframe, six screens. Drag or scroll to pan, Cmd or Ctrl plus scroll to zoom.">
+          <img src="img/tempo-deck/wireframe.jpg?v=1" alt="Find the Tempo wireframe, page 9: six mobile screens in order - Landing, Upload, File selection, Processing, Services, Results" width="4400" height="1365" loading="lazy" decoding="async" draggable="false">
+        </div>
       </figure>
       <figure class="deck-page" id="pg-10">
-        <img src="img/tempo-deck/page-10.jpg?v=1" alt="Find the Tempo case study, page 10: What's next" width="1500" height="1125" loading="lazy" decoding="async">
-        <figcaption><span>Status, open question, reflection</span><span class="deck-no">10 / 10</span></figcaption>
+        <img src="img/tempo-deck/page-10.jpg?v=1" alt="Find the Tempo case study, page 10: The flow" width="1500" height="1125" loading="lazy" decoding="async">
+      </figure>
+      <figure class="deck-page" id="pg-11">
+        <img src="img/tempo-deck/page-11.jpg?v=1" alt="Find the Tempo case study, page 11: What's next" width="1500" height="1125" loading="lazy" decoding="async">
       </figure>
     </div>
   </div>
