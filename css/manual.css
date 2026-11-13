@@ -1707,14 +1707,6 @@ a.study-row:hover .proj-ico[data-brand="airbnb"] { color: var(--brand-airbnb); }
 .crop-bl { inset-block-end: 0; inset-inline-start: 0; border-block-end-width: 2px; border-inline-start-width: 2px; }
 .crop-br { inset-block-end: 0; inset-inline-end: 0; border-block-end-width: 2px; border-inline-end-width: 2px; }
 
-/* footer particle canvas — sits behind the content, clipped to the panel */
-.fb .fb-particles {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
 /* drafting tick ruler seam above the panel */
 .fb .fb-ruler {
   block-size: 18px;
